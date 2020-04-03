@@ -1,6 +1,7 @@
 /*********************************************
 *
 *           Andre Leite - 2015250489
+*           Lucas Ferreira - 2016243439
 *
 **********************************************/
 
@@ -45,7 +46,7 @@
 %token SEMICOLON BLANKID AND ASSIGN STAR ARROW COMMA DIV EQ GE GT LBRACE LE LPAR LSQ LT MINUS MOD NE NOT OR PLUS RBRACE RPAR RSQ XOR LSHIFT RSHIFT
 %token <id> RESERVED INTLIT REALLIT STRLIT BOOLLIT ID UNARY 
 
-%type  <newNode> Program Declarations FieldDecl Type MethodInvocation MethodDecl MethodHeader StatementAux
+%type  <newNode> Program Declarations FieldDecl Type MethodInvocation MethodDecl MethodHeader
 %type  <newNode> MethodAux MethodInvocAux2 MethodInvocAux MethodBody ParseArgs ParametersAux StatementAux1 StatementAux2 StatementAux3
 %type  <newNode> FormalParams Expr Statement VarDecl Assignment CommaIDaux Expr1 CommaIDaux2
 
@@ -129,12 +130,9 @@ Statement:        LBRACE StatementAux1 RBRACE            {if(fatalities==0){if($
                 | WHILE LPAR Expr RPAR Statement         {if(fatalities==0){$$=initNode("NULL","While");addChild($$,$3);if($5==NULL){temp=initNode("NULL","Block");addChild($$,temp);}else{addChild($$,$5);};};}
                 | RETURN StatementAux2 SEMICOLON         {if(fatalities==0){$$=initNode("NULL","Return");addChild($$,$2);};}
                 | StatementAux3 SEMICOLON                {if(fatalities==0){$$=$1;};}
-                | PRINT LPAR StatementAux                {if(fatalities==0){$$=initNode("NULL","Print");addChild($$,$3);};}
+                | PRINT LPAR STRLIT RPAR SEMICOLON       {if(fatalities==0){$$=initNode("NULL","Print");temp=initNode($3,"StrLit");addChild($$,temp);};}
+                | PRINT LPAR Expr RPAR SEMICOLON         {if(fatalities==0){$$=initNode("NULL","Print");addChild($$,$3);};}
                 | error SEMICOLON                        {$$ = NULL;}
-                ;
-                
-StatementAux:     STRLIT RPAR SEMICOLON                  {if(fatalities==0){$$ = initNode($1,"StrLit");};}
-                | Expr RPAR SEMICOLON                    {if(fatalities==0){$$=$1;};}
                 ;
                 
 StatementAux1:     Statement StatementAux1               {if(fatalities==0){if($1 != NULL && $2 != NULL){$$ = $1;addSibling($$, $2);}else if($1 == NULL){$$ = $2;}else if($2 == NULL){$$ = $1;};};}
@@ -196,11 +194,11 @@ Expr1:            Expr1 AND Expr1                        {if(fatalities==0){$$=i
                 | LPAR Expr RPAR                         {if(fatalities==0){$$=$2;};}
                 | MethodInvocation                       {if(fatalities==0){$$=initNode("NULL","Call");addChild($$,$1);};}
                 | ParseArgs                              {if(fatalities==0){$$=initNode("NULL","ParseArgs");addChild($$,$1);};}
-                | ID DOTLENGTH                           {if(fatalities==0){$$=initNode("NULL","Length");temp = initNode($1,"Id");addChild($$,temp);};}
-                | ID                                     {if(fatalities==0){$$ = initNode($1,"Id");};}
-                | INTLIT                                 {if(fatalities==0){$$ = initNode($1,"DecLit");};}
-                | REALLIT                                {if(fatalities==0){$$ = initNode($1,"RealLit");};}
-                | BOOLLIT                                {if(fatalities==0){$$ = initNode($1,"BoolLit");};}
+                | ID DOTLENGTH                           {if(fatalities==0){$$=initNode("NULL","Length");temp=initNode($1,"Id");addChild($$,temp);};}
+                | ID                                     {if(fatalities==0){$$=initNode($1,"Id");};}
+                | INTLIT                                 {if(fatalities==0){$$=initNode($1,"DecLit");};}
+                | REALLIT                                {if(fatalities==0){$$=initNode($1,"RealLit");};}
+                | BOOLLIT                                {if(fatalities==0){$$=initNode($1,"BoolLit");};}
                 | LPAR error RPAR                        {$$ = NULL;}
                 ;
 

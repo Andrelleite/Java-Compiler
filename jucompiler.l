@@ -1,6 +1,7 @@
 /*********************************************
 *
 *           Andre Leite - 2015250489
+*           Lucas Ferreira - 2016243439
 *
 **********************************************/
 
@@ -18,6 +19,7 @@
 
   int l = 0;
   int e1 = 0;
+  int e2 = 0;
   int lineCounter = 1;
   int lineOpCounter = 0;
   int columnCounter = 1;
@@ -163,7 +165,7 @@ reserved                       "++"|"--"|default|do|double|else|enum|extends|fal
 <ESCAPE_STR>"\\"               {columnCounter+=yyleng+1;strcat(strlit,yytext);BEGIN STR;}
 <ESCAPE_STR>\"                 {columnCounter+=yyleng+1;strcat(strlit,yytext);BEGIN STR;}
 <ESCAPE_STR>\n|\r|\r\n         {if(e1 == 1){printf("Line %d, col %d: invalid escape sequence (\\%s)\n",lineCounter,columnCounter,"");};terminated=checkTerminated();if(terminated == 0 && e1 == 1 && l != -1){printf("Line %d, col %d: unterminated string literal\n",lineCounter,initString);};error=1;memset(strlit,0,sizeof(strlit));lineCounter++;columnCounter=1;lineOpCounter=0;BEGIN 0;}
-<ESCAPE_STR>.                  {if(e1 == 1){printf("Line %d, col %d: invalid escape sequence (\\%s)\n",lineCounter,columnCounter,yytext);};columnCounter+=yyleng+1;error=1;memset(strlit,0,sizeof(strlit));BEGIN STR;}
+<ESCAPE_STR>.                  {strcat(strlit,yytext);if(e1 == 1){printf("Line %d, col %d: invalid escape sequence (\\%s)\n",lineCounter,columnCounter,yytext);};columnCounter+=yyleng+1;error=1;BEGIN STR;}
 
 {reallit}		   	               {if(l==1){printf("REALLIT(%s)\n", yytext);};columnCounter+=yyleng;updateArray("reallit");if(l == -1){yylval.id = strdup(yytext); return REALLIT;};}
 {intlit}		      		         {if(l==1){printf("INTLIT(%s)\n", yytext);};columnCounter+=yyleng;updateArray("intlit");if(l == -1){yylval.id = strdup(yytext); return INTLIT;};}
@@ -234,6 +236,8 @@ int main(int argc, char* argv[]){
           e1 = 1;
       }else if(strcmp(argv[1], "-t") == 0){
 			    l = -1;
+          e1 = 1;
+          e2 = 2;
 		  }
 
   }
@@ -242,7 +246,7 @@ int main(int argc, char* argv[]){
   }
   if(l==-1){
     yyparse();
-    if(fatalities == 0)
+    if(fatalities == 0 && e1 == 1 && e2 == 2)
     {
       /*imprime arvore*/
       printThemTrees(root,0);
