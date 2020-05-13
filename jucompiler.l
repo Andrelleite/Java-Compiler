@@ -15,11 +15,13 @@
   #include <locale.h>
   #include "y.tab.h"
   #include "SyntaxTree.h"
+  #include "SymTable.h"
 
 
   int l = 0;
   int e1 = 0;
   int e2 = 0;
+  int s1 = 0;
   int lineCounter = 1;
   int lineOpCounter = 0;
   int columnCounter = 1;
@@ -234,11 +236,17 @@ int main(int argc, char* argv[]){
       }else if(strcmp(argv[i],"-e2")==0){
           l = -1;
           e1 = 1;
-      }else if(strcmp(argv[1], "-t") == 0){
+      }else if(strcmp(argv[1], "-t")==0){
 			    l = -1;
           e1 = 1;
           e2 = 2;
-		  }
+		  }else if(strcmp(argv[1], "-s")==0){
+          l = -1;
+          e1 = 1;
+          e2 = 2;
+          s1 = 1;
+        /*Sementhics operation*/
+      }
 
   }
   if(l==0 && e1==0){
@@ -248,8 +256,14 @@ int main(int argc, char* argv[]){
     yyparse();
     if(fatalities == 0 && e1 == 1 && e2 == 2)
     {
-      /*imprime arvore*/
-      printThemTrees(root,0);
+      /*imprime tabela*/
+      if(s1 == 1){
+        printThemTables(root);
+        printThemTrees(root,0);
+      }else{
+        /*imprime arvore*/
+        printThemTrees(root,0);
+      }
       /*destroi arvore*/
       destroyThemTrees(root);
     }

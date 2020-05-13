@@ -11,6 +11,7 @@
     #include <string.h>
     #include "y.tab.h"
     #include "SyntaxTree.h"
+    #include "SymTable.h"
 
     int yylex(void);
     void yyerror(char *s);
@@ -55,12 +56,13 @@
 %left  OR
 %left  AND
 %left  XOR
-%left  EQ NE LT LE GT GE
+%left  EQ NE 
+%left  LT LE GT GE
 %left  LSHIFT RSHIFT
 %left  PLUS MINUS
 %left  STAR DIV MOD
 %left  UNARY
-%left  LPAR LSQ RPAR RSQ
+%left  LPAR LSQ RPAR RSQ ARROW
 %nonassoc ELSE
 %nonassoc IF 
  
@@ -135,7 +137,7 @@ Statement:        LBRACE StatementAux1 RBRACE            {if(fatalities==0){if($
                 | error SEMICOLON                        {$$ = NULL;}
                 ;
                 
-StatementAux1:     Statement StatementAux1               {if(fatalities==0){if($1 != NULL && $2 != NULL){$$ = $1;addSibling($$, $2);}else if($1 == NULL){$$ = $2;}else if($2 == NULL){$$ = $1;};};}
+StatementAux1:    Statement StatementAux1               {if(fatalities==0){if($1 != NULL && $2 != NULL){$$ = $1;addSibling($$, $2);}else if($1 == NULL){$$ = $2;}else if($2 == NULL){$$ = $1;};};}
                 | /*empty*/                              {$$=NULL;}
                 ;
 
@@ -175,22 +177,22 @@ Expr:             Expr1                                  {if(fatalities==0){$$=$
 Expr1:            Expr1 AND Expr1                        {if(fatalities==0){$$=initNode("NULL","And");addChild($$,$1);addChild($$,$3);};}
                 | Expr1 OR Expr1                         {if(fatalities==0){$$=initNode("NULL","Or");addChild($$,$1);addChild($$,$3);};}
                 | Expr1 XOR Expr1                        {if(fatalities==0){$$=initNode("NULL","Xor");addChild($$,$1);addChild($$,$3);};}
+                | Expr1 STAR  Expr1                      {if(fatalities==0){$$=initNode("NULL","Mul");addChild($$,$1);addChild($$,$3);};}
+                | Expr1 DIV  Expr1                       {if(fatalities==0){$$=initNode("NULL","Div");addChild($$,$1);addChild($$,$3);};}
+                | Expr1 MOD  Expr1                       {if(fatalities==0){$$=initNode("NULL","Mod");addChild($$,$1);addChild($$,$3);};}
                 | Expr1 LSHIFT Expr1                     {if(fatalities==0){$$=initNode("NULL","Lshift");addChild($$,$1);addChild($$,$3);};}
                 | Expr1 RSHIFT Expr1                     {if(fatalities==0){$$=initNode("NULL","Rshift");addChild($$,$1);addChild($$,$3);};}
                 | Expr1 PLUS  Expr1                      {if(fatalities==0){$$=initNode("NULL","Add");addChild($$,$1);addChild($$,$3);};}
                 | Expr1 MINUS  Expr1                     {if(fatalities==0){$$=initNode("NULL","Sub");addChild($$,$1);addChild($$,$3);};}
-                | Expr1 STAR  Expr1                      {if(fatalities==0){$$=initNode("NULL","Mul");addChild($$,$1);addChild($$,$3);};}
-                | Expr1 DIV  Expr1                       {if(fatalities==0){$$=initNode("NULL","Div");addChild($$,$1);addChild($$,$3);};}
-                | Expr1 MOD  Expr1                       {if(fatalities==0){$$=initNode("NULL","Mod");addChild($$,$1);addChild($$,$3);};}
                 | Expr1 EQ Expr1                         {if(fatalities==0){$$=initNode("NULL","Eq");addChild($$,$1);addChild($$,$3);};}
                 | Expr1 NE Expr1                         {if(fatalities==0){$$=initNode("NULL","Ne");addChild($$,$1);addChild($$,$3);};}
                 | Expr1 GE Expr1                         {if(fatalities==0){$$=initNode("NULL","Ge");addChild($$,$1);addChild($$,$3);};}
                 | Expr1 GT Expr1                         {if(fatalities==0){$$=initNode("NULL","Gt");addChild($$,$1);addChild($$,$3);};}
                 | Expr1 LE Expr1                         {if(fatalities==0){$$=initNode("NULL","Le");addChild($$,$1);addChild($$,$3);};}
                 | Expr1 LT Expr1                         {if(fatalities==0){$$=initNode("NULL","Lt");addChild($$,$1);addChild($$,$3);};}
-                | MINUS Expr1 %prec UNARY                {if(fatalities==0){$$=initNode("NULL", "Plus");addChild($$,$2);};}
+                | MINUS Expr1 %prec UNARY                {if(fatalities==0){$$=initNode("NULL", "Minus");addChild($$,$2);};}
                 | NOT Expr1 %prec UNARY                  {if(fatalities==0){$$=initNode("NULL", "Not");addChild($$,$2);};}
-                | PLUS Expr1 %prec UNARY                 {if(fatalities==0){$$=initNode("NULL", "Minus");addChild($$,$2);};}
+                | PLUS Expr1 %prec UNARY                 {if(fatalities==0){$$=initNode("NULL", "Plus");addChild($$,$2);};}
                 | LPAR Expr RPAR                         {if(fatalities==0){$$=$2;};}
                 | MethodInvocation                       {if(fatalities==0){$$=initNode("NULL","Call");addChild($$,$1);};}
                 | ParseArgs                              {if(fatalities==0){$$=initNode("NULL","ParseArgs");addChild($$,$1);};}

@@ -11,6 +11,9 @@
 #include <string.h>
 #include <ctype.h>
 #include "SyntaxTree.h"
+#include "SymTable.h"
+
+
 
 Node* initNode(char *type, char* id){
 
@@ -61,13 +64,10 @@ void addSibling(Node *no, Node *sibling){
 	sibling->ptr = no;
 }
 
-
-
-
 void printThemTrees(Node *root,int dottydots){
 	
 	int i = 0;
-
+	int j = 0;
 	
 	while(i < dottydots && strcmp(root->id,"VarDeclTop")!=0 && strcmp(root->id,"SEMICOLON")!=0 && strcmp(root->id,"FieldDeclTop")!=0 && strcmp(root->id,"MethodAuxTop")!=0 && strcmp(root->id,"NULL") != 0 ){
 		printf("..");
@@ -75,10 +75,29 @@ void printThemTrees(Node *root,int dottydots){
 	}
 	
 	if(strcmp(root->id,"Id")==0 || strcmp(root->id,"DecLit")==0 || strcmp(root->id,"StrLit")==0 || strcmp(root->id,"RealLit")==0 || strcmp(root->id,"BoolLit")==0){
-		printf("%s(%s)\n",root->id,root->type);
+		printf("%s(%s)",root->id,root->type);
+		
+		if(root->id_type != NULL && root->card_p_t == 0){
+			printf(" - %s",root->id_type);
+		}else if(root->card_p_t != 0){
+			printf(" - ");
+			printf("%s",root->param_t[0]);
+			if(root->card_p_t >= 3){
+				printf("%s",root->param_t[1]);
+			}
+			for(j=2; j < root->card_p_t-1; j++){
+				printf(",%s",root->param_t[j]);
+			}
+			printf("%s",root->param_t[root->card_p_t-1]);
+		}
+		printf("\n");
 	}else{
 		if(strcmp(root->id,"VarDeclTop")!=0 && strcmp(root->id,"SEMICOLON")!=0 && strcmp(root->id,"FieldDeclTop")!=0 && strcmp(root->id,"MethodAuxTop")!=0 && strcmp(root->id,"NULL") != 0){
-			printf("%s\n",root->id);
+			printf("%s",root->id);
+			if(root->id_type != NULL && strcmp(root->id_type,"")!=0){
+				printf(" - %s",root->id_type);
+			}
+			printf("\n");
 		}
 	}
 	
@@ -111,7 +130,6 @@ void destroyThemTrees(Node *root){
 		free(root);
 	}
 }
-
 
 int checkBlock(Node *head){
 	
