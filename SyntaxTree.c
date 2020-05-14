@@ -161,6 +161,6 @@ int checkBlock(Node *head){
 
 void arrangeCol(Node *node, Node *n){
 
-	node->column-=strlen(n->type)+strlen(node->type)+1;
+	//node->column-=strlen(n->type)+strlen(node->type)+1;
 
 }

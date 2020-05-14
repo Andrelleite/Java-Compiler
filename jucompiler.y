@@ -69,71 +69,71 @@
 %%
 
 
-Program:          CLASS ID LBRACE Declarations RBRACE    {if(fatalities==0){$$ = initNode("NULL","Program",lineCounter,(int)(columnCounter-strlen(yytext)));temp = initNode($2,"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,temp);addChild($$,$4);root = $$;};}
+Program:          CLASS ID LBRACE Declarations RBRACE    {if(fatalities==0){$$ = initNode("NULL","Program",lineCounter,(int)(columnCounter-yyleng));temp = initNode($2,"Id",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp);addChild($$,$4);root = $$;};}
                 ;
 
-Declarations:     MethodDecl Declarations                {if(fatalities==0){$$ = initNode("NULL","MethodDecl",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);addSibling($$,$2);};}
-                | FieldDecl Declarations                 {if(fatalities==0){$$ = initNode("NULL","FieldDeclTop",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling($$,$1);addSibling($$,$2);};}
-                | SEMICOLON Declarations                 {if(fatalities==0){$$ = initNode("NULL","SEMICOLON",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling($$,$2);};}
+Declarations:     MethodDecl Declarations                {if(fatalities==0){$$ = initNode("NULL","MethodDecl",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);addSibling($$,$2);};}
+                | FieldDecl Declarations                 {if(fatalities==0){$$ = initNode("NULL","FieldDeclTop",lineCounter,(int)(columnCounter-yyleng));addSibling($$,$1);addSibling($$,$2);};}
+                | SEMICOLON Declarations                 {if(fatalities==0){$$ = initNode("NULL","SEMICOLON",lineCounter,(int)(columnCounter-yyleng));addSibling($$,$2);};}
                 | /*empty*/                              {$$ = NULL;}
                 ;
 
 
-MethodDecl:       PUBLIC STATIC MethodHeader MethodBody  {if(fatalities==0){$$ = initNode("NULL","MethodHeader",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$3);addSibling($$,$4);};}
+MethodDecl:       PUBLIC STATIC MethodHeader MethodBody  {if(fatalities==0){$$ = initNode("NULL","MethodHeader",lineCounter,(int)(columnCounter-yyleng));addChild($$,$3);addSibling($$,$4);};}
                 ;
 
-FieldDecl:        PUBLIC STATIC Type ID CommaIDaux2 SEMICOLON {if(fatalities==0){$$ = initNode("NULL","FieldDecl",lineCounter,(int)(columnCounter-strlen(yytext)));temp = $3;addChild($$,temp);temp2 = initNode($4,"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling(temp,temp2);addSibling($$,$5);};}
+FieldDecl:        PUBLIC STATIC Type ID CommaIDaux2 SEMICOLON {if(fatalities==0){$$ = initNode("NULL","FieldDecl",lineCounter,(int)(columnCounter-yyleng));temp = $3;addChild($$,temp);temp2 = initNode($4,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling(temp,temp2);addSibling($$,$5);};}
                 | error SEMICOLON                        {$$ = NULL;}
                 ;
 
-CommaIDaux2:       COMMA ID CommaIDaux2                  {if(fatalities==0){$$ = initNode("NULL","FieldDecl",lineCounter,(int)(columnCounter-strlen(yytext)));temp3=initNode("NULL",typeAssign,lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,temp3);temp4 = initNode($2,"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling(temp3,temp4);addSibling($$,$3);};}
+CommaIDaux2:       COMMA ID CommaIDaux2                  {if(fatalities==0){$$ = initNode("NULL","FieldDecl",lineCounter,(int)(columnCounter-yyleng));temp3=initNode("NULL",typeAssign,lineCounter,(int)(columnCounter-yyleng));addChild($$,temp3);temp4 = initNode($2,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling(temp3,temp4);addSibling($$,$3);};}
                 | /*empty*/                              {$$ = NULL;}
                 ;
 
-Type:             BOOL                                   {$$ = initNode("NULL","Bool",lineCounter,(int)(columnCounter-strlen(yytext)));typeAssign=strdup("Bool");}
-                | INT                                    {$$ = initNode("NULL","Int",lineCounter,(int)(columnCounter-strlen(yytext)));typeAssign=strdup("Int");}
-                | DOUBLE                                 {$$ = initNode("NULL","Double",lineCounter,(int)(columnCounter-strlen(yytext)));typeAssign=strdup("Double");}
+Type:             BOOL                                   {$$ = initNode("NULL","Bool",lineCounter,(int)(columnCounter-yyleng));typeAssign=strdup("Bool");}
+                | INT                                    {$$ = initNode("NULL","Int",lineCounter,(int)(columnCounter-yyleng));typeAssign=strdup("Int");}
+                | DOUBLE                                 {$$ = initNode("NULL","Double",lineCounter,(int)(columnCounter-yyleng));typeAssign=strdup("Double");}
                 ;
 
-MethodHeader:     Type ID LPAR FormalParams RPAR         {if(fatalities==0){$$ = $1;temp = initNode($2,"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling($$,temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling($$,temp2);addChild(temp2,$4);};}
-                | VOID ID LPAR FormalParams RPAR         {if(fatalities==0){$$ = initNode("NULL","Void",lineCounter,(int)(columnCounter-strlen(yytext)));temp = initNode($2,"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling($$,temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling($$,temp2);addChild(temp2,$4);};}
-                | VOID ID LPAR RPAR                      {if(fatalities==0){$$ = initNode("NULL","Void",lineCounter,(int)(columnCounter-strlen(yytext)));temp = initNode($2,"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling($$,temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling($$,temp2);};}
-                | Type ID LPAR RPAR                      {if(fatalities==0){$$ = $1;temp = initNode($2,"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling($$,temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling($$,temp2);};}
+MethodHeader:     Type ID LPAR FormalParams RPAR         {if(fatalities==0){$$ = $1;temp = initNode($2,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp2);addChild(temp2,$4);};}
+                | VOID ID LPAR FormalParams RPAR         {if(fatalities==0){$$ = initNode("NULL","Void",lineCounter,(int)(columnCounter-yyleng));temp = initNode($2,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp2);addChild(temp2,$4);};}
+                | VOID ID LPAR RPAR                      {if(fatalities==0){$$ = initNode("NULL","Void",lineCounter,(int)(columnCounter-yyleng));temp = initNode($2,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp2);};}
+                | Type ID LPAR RPAR                      {if(fatalities==0){$$ = $1;temp = initNode($2,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp2);};}
                 ;
 
-FormalParams:     Type ID ParametersAux                  {if(fatalities==0){$$ = initNode("NULL","ParamDecl",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);temp = initNode($2,"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,temp);addSibling($$,$3);};}
-                | STRING LSQ RSQ ID                      {if(fatalities==0){$$ = initNode("NULL","ParamDecl",lineCounter,(int)(columnCounter-strlen(yytext)));temp2 = initNode("NULL","StringArray",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,temp2);temp = initNode($4,"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,temp);};}
+FormalParams:     Type ID ParametersAux                  {if(fatalities==0){$$ = initNode("NULL","ParamDecl",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);temp = initNode($2,"Id",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp);addSibling($$,$3);};}
+                | STRING LSQ RSQ ID                      {if(fatalities==0){$$ = initNode("NULL","ParamDecl",lineCounter,(int)(columnCounter-yyleng));temp2 = initNode("NULL","StringArray",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp2);temp = initNode($4,"Id",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp);};}
                 ;
 
-ParametersAux:    COMMA Type ID ParametersAux            {if(fatalities==0){$$ = initNode("NULL","ParamDecl",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$2);temp = initNode($3,"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,temp);addSibling($$,$4);};}
-                | /*empty*/                              {$$ = NULL;}
-                ;
-
-
-MethodBody:       LBRACE MethodAux RBRACE                {if(fatalities==0){$$ = initNode("NULL","MethodBody",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$2);}}
-                ;
-
-MethodAux:        Statement MethodAux                    {if(fatalities==0){topNode = NULL;$$ = initNode("NULL","MethodAuxTop",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling($$,$1);addSibling($$,$2);};}
-                | VarDecl MethodAux                      {if(fatalities==0){topNode = NULL;$$ = initNode("NULL","VarDeclTop",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling($$,$1);addSibling($$,$2);};}
-                | /*empty*/                              {$$ = NULL;}
-                ;
-
-VarDecl:          Type ID CommaIDaux SEMICOLON           {if(fatalities==0){$$ = initNode("NULL","VarDecl",lineCounter,(int)(columnCounter-strlen(yytext)));temp = $1;addChild($$,temp);temp2 = initNode($2,"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling(temp,temp2);addSibling($$,$3);};}
-                ;
-
-CommaIDaux:       COMMA ID CommaIDaux                    {if(fatalities==0){$$ = initNode("NULL","VarDecl",lineCounter,(int)(columnCounter-strlen(yytext)));temp3=initNode("NULL",typeAssign,lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,temp3);temp4 = initNode($2,"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling(temp3,temp4);addSibling($$,$3);};}
+ParametersAux:    COMMA Type ID ParametersAux            {if(fatalities==0){$$ = initNode("NULL","ParamDecl",lineCounter,(int)(columnCounter-yyleng));addChild($$,$2);temp = initNode($3,"Id",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp);addSibling($$,$4);};}
                 | /*empty*/                              {$$ = NULL;}
                 ;
 
 
-Statement:        LBRACE StatementAux1 RBRACE            {if(fatalities==0){if($2 != NULL && $2->sibling != NULL){$$=initNode("NULL","Block",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$2);}else{$$=$2;}};}
-                | IF LPAR Expr RPAR Statement            {if(fatalities==0){$$=initNode("NULL","If",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$, $3);if($5 != NULL){addChild($$, $5);}else{temp2=initNode("NULL","Block",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,temp2);};temp = initNode("NULL", "Block",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$, temp);};}
-                | IF LPAR Expr RPAR Statement ELSE Statement      {if(fatalities==0){$$=initNode("NULL","If",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$, $3);if($5 != NULL){addChild($$, $5);}else{temp2=initNode("NULL","Block",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,temp2);};if($7 != NULL){addChild($$,$7);}else{temp3=initNode("NULL","Block",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,temp3);};};}
-                | WHILE LPAR Expr RPAR Statement         {if(fatalities==0){$$=initNode("NULL","While",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$3);if($5==NULL){temp=initNode("NULL","Block",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,temp);}else{addChild($$,$5);};};}
-                | RETURN StatementAux2 SEMICOLON         {if(fatalities==0){$$=initNode("NULL","Return",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$2);};}
+MethodBody:       LBRACE MethodAux RBRACE                {if(fatalities==0){$$ = initNode("NULL","MethodBody",lineCounter,(int)(columnCounter-yyleng));addChild($$,$2);}}
+                ;
+
+MethodAux:        Statement MethodAux                    {if(fatalities==0){topNode = NULL;$$ = initNode("NULL","MethodAuxTop",lineCounter,(int)(columnCounter-yyleng));addSibling($$,$1);addSibling($$,$2);};}
+                | VarDecl MethodAux                      {if(fatalities==0){topNode = NULL;$$ = initNode("NULL","VarDeclTop",lineCounter,(int)(columnCounter-yyleng));addSibling($$,$1);addSibling($$,$2);};}
+                | /*empty*/                              {$$ = NULL;}
+                ;
+
+VarDecl:          Type ID CommaIDaux SEMICOLON           {if(fatalities==0){$$ = initNode("NULL","VarDecl",lineCounter,(int)(columnCounter-yyleng));temp = $1;addChild($$,temp);temp2 = initNode($2,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling(temp,temp2);addSibling($$,$3);};}
+                ;
+
+CommaIDaux:       COMMA ID CommaIDaux                    {if(fatalities==0){$$ = initNode("NULL","VarDecl",lineCounter,(int)(columnCounter-yyleng));temp3=initNode("NULL",typeAssign,lineCounter,(int)(columnCounter-yyleng));addChild($$,temp3);temp4 = initNode($2,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling(temp3,temp4);addSibling($$,$3);};}
+                | /*empty*/                              {$$ = NULL;}
+                ;
+
+
+Statement:        LBRACE StatementAux1 RBRACE            {if(fatalities==0){if($2 != NULL && $2->sibling != NULL){$$=initNode("NULL","Block",lineCounter,(int)(columnCounter-yyleng));addChild($$,$2);}else{$$=$2;}};}
+                | IF LPAR Expr RPAR Statement            {if(fatalities==0){$$=initNode("NULL","If",lineCounter,(int)(columnCounter-yyleng));addChild($$, $3);if($5 != NULL){addChild($$, $5);}else{temp2=initNode("NULL","Block",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp2);};temp = initNode("NULL", "Block",lineCounter,(int)(columnCounter-yyleng));addChild($$, temp);};}
+                | IF LPAR Expr RPAR Statement ELSE Statement      {if(fatalities==0){$$=initNode("NULL","If",lineCounter,(int)(columnCounter-yyleng));addChild($$, $3);if($5 != NULL){addChild($$, $5);}else{temp2=initNode("NULL","Block",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp2);};if($7 != NULL){addChild($$,$7);}else{temp3=initNode("NULL","Block",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp3);};};}
+                | WHILE LPAR Expr RPAR Statement         {if(fatalities==0){$$=initNode("NULL","While",lineCounter,(int)(columnCounter-yyleng));addChild($$,$3);if($5==NULL){temp=initNode("NULL","Block",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp);}else{addChild($$,$5);};};}
+                | RETURN StatementAux2 SEMICOLON         {if(fatalities==0){$$=initNode("NULL","Return",lineCounter,(int)(columnCounter-yyleng));addChild($$,$2);};}
                 | StatementAux3 SEMICOLON                {if(fatalities==0){$$=$1;};}
-                | PRINT LPAR STRLIT RPAR SEMICOLON       {if(fatalities==0){$$=initNode("NULL","Print",lineCounter,(int)(columnCounter-strlen(yytext)));temp=initNode($3,"StrLit",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,temp);};}
-                | PRINT LPAR Expr RPAR SEMICOLON         {if(fatalities==0){$$=initNode("NULL","Print",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$3);};}
+                | PRINT LPAR STRLIT RPAR SEMICOLON       {if(fatalities==0){$$=initNode("NULL","Print",lineCounter,(int)(columnCounter-yyleng));temp=initNode($3,"StrLit",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp);};}
+                | PRINT LPAR Expr RPAR SEMICOLON         {if(fatalities==0){$$=initNode("NULL","Print",lineCounter,(int)(columnCounter-yyleng));addChild($$,$3);};}
                 | error SEMICOLON                        {$$ = NULL;}
                 ;
 
@@ -145,13 +145,13 @@ StatementAux2:    Expr                                   {if(fatalities==0){$$=$
                 | /*empty*/                              {$$=NULL;}
                 ;
 
-StatementAux3:    MethodInvocation                       {if(fatalities==0){$$=initNode("NULL","Call",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);$$->column=1;};}
-                | Assignment                             {if(fatalities==0){$$=initNode("NULL","Assign",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);};}
-                | ParseArgs                              {if(fatalities==0){$$=initNode("NULL","ParseArgs",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);};}
+StatementAux3:    MethodInvocation                       {if(fatalities==0){$$=initNode("NULL","Call",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);$$->column=1;};}
+                | Assignment                             {if(fatalities==0){$$=initNode("NULL","Assign",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);};}
+                | ParseArgs                              {if(fatalities==0){$$=initNode("NULL","ParseArgs",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);};}
                 | /*empty*/                              {$$=NULL;}
                 ;
 
-MethodInvocation: ID LPAR MethodInvocAux RPAR            {if(fatalities==0){$$ = initNode($1,"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling($$,$3);arrangeCol($$,$3);};}
+MethodInvocation: ID LPAR MethodInvocAux RPAR            {if(fatalities==0){$$ = initNode($1,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling($$,$3);};}
                 | ID LPAR error RPAR                     {$$ = NULL;}
                 ;
 
@@ -163,44 +163,44 @@ MethodInvocAux2:  COMMA Expr MethodInvocAux2             {if(fatalities==0){$$=$
                 | /*empty*/                              {$$ = NULL;}
                 ;
 
-Assignment:       ID ASSIGN Expr                         {if(fatalities==0){$$ = initNode($1,"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling($$,$3);};}
+Assignment:       ID ASSIGN Expr                         {if(fatalities==0){$$ = initNode($1,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling($$,$3);};}
                 ;
 
-ParseArgs:        PARSEINT LPAR ID LSQ Expr RSQ RPAR     {if(fatalities==0){$$ = initNode($3,"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling($$,$5);};}
+ParseArgs:        PARSEINT LPAR ID LSQ Expr RSQ RPAR     {if(fatalities==0){$$ = initNode($3,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling($$,$5);};}
                 | PARSEINT LPAR error RPAR               {$$ = NULL;}
                 ;
 
 Expr:             Expr1                                  {if(fatalities==0){$$=$1;};}
-                | Assignment                             {if(fatalities==0){$$=initNode("NULL","Assign",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);};}
+                | Assignment                             {if(fatalities==0){$$=initNode("NULL","Assign",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);};}
                 ;
 
-Expr1:            Expr1 AND Expr1                        {if(fatalities==0){$$=initNode("NULL","And",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);addChild($$,$3);};}
-                | Expr1 OR Expr1                         {if(fatalities==0){$$=initNode("NULL","Or",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);addChild($$,$3);};}
-                | Expr1 XOR Expr1                        {if(fatalities==0){$$=initNode("NULL","Xor",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);addChild($$,$3);};}
-                | Expr1 STAR  Expr1                      {if(fatalities==0){$$=initNode("NULL","Mul",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);addChild($$,$3);};}
-                | Expr1 DIV  Expr1                       {if(fatalities==0){$$=initNode("NULL","Div",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);addChild($$,$3);};}
-                | Expr1 MOD  Expr1                       {if(fatalities==0){$$=initNode("NULL","Mod",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);addChild($$,$3);};}
-                | Expr1 LSHIFT Expr1                     {if(fatalities==0){$$=initNode("NULL","Lshift",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);addChild($$,$3);};}
-                | Expr1 RSHIFT Expr1                     {if(fatalities==0){$$=initNode("NULL","Rshift",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);addChild($$,$3);};}
-                | Expr1 PLUS  Expr1                      {if(fatalities==0){$$=initNode("NULL","Add",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);addChild($$,$3);};}
-                | Expr1 MINUS  Expr1                     {if(fatalities==0){$$=initNode("NULL","Sub",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);addChild($$,$3);};}
-                | Expr1 EQ Expr1                         {if(fatalities==0){$$=initNode("NULL","Eq",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);addChild($$,$3);};}
-                | Expr1 NE Expr1                         {if(fatalities==0){$$=initNode("NULL","Ne",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);addChild($$,$3);};}
-                | Expr1 GE Expr1                         {if(fatalities==0){$$=initNode("NULL","Ge",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);addChild($$,$3);};}
-                | Expr1 GT Expr1                         {if(fatalities==0){$$=initNode("NULL","Gt",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);addChild($$,$3);};}
-                | Expr1 LE Expr1                         {if(fatalities==0){$$=initNode("NULL","Le",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);addChild($$,$3);};}
-                | Expr1 LT Expr1                         {if(fatalities==0){$$=initNode("NULL","Lt",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);addChild($$,$3);};}
-                | MINUS Expr1 %prec UNARY                {if(fatalities==0){$$=initNode("NULL", "Minus",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$2);};}
-                | NOT Expr1 %prec UNARY                  {if(fatalities==0){$$=initNode("NULL", "Not",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$2);};}
-                | PLUS Expr1 %prec UNARY                 {if(fatalities==0){$$=initNode("NULL", "Plus",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$2);};}
+Expr1:            Expr1 AND Expr1                        {if(fatalities==0){$$=initNode("NULL","And",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);addChild($$,$3);};}
+                | Expr1 OR Expr1                         {if(fatalities==0){$$=initNode("NULL","Or",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);addChild($$,$3);};}
+                | Expr1 XOR Expr1                        {if(fatalities==0){$$=initNode("NULL","Xor",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);addChild($$,$3);};}
+                | Expr1 STAR  Expr1                      {if(fatalities==0){$$=initNode("NULL","Mul",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);addChild($$,$3);};}
+                | Expr1 DIV  Expr1                       {if(fatalities==0){$$=initNode("NULL","Div",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);addChild($$,$3);};}
+                | Expr1 MOD  Expr1                       {if(fatalities==0){$$=initNode("NULL","Mod",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);addChild($$,$3);};}
+                | Expr1 LSHIFT Expr1                     {if(fatalities==0){$$=initNode("NULL","Lshift",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);addChild($$,$3);};}
+                | Expr1 RSHIFT Expr1                     {if(fatalities==0){$$=initNode("NULL","Rshift",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);addChild($$,$3);};}
+                | Expr1 PLUS  Expr1                      {if(fatalities==0){$$=initNode("NULL","Add",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);addChild($$,$3);};}
+                | Expr1 MINUS  Expr1                     {if(fatalities==0){$$=initNode("NULL","Sub",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);addChild($$,$3);};}
+                | Expr1 EQ Expr1                         {if(fatalities==0){$$=initNode("NULL","Eq",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);addChild($$,$3);};}
+                | Expr1 NE Expr1                         {if(fatalities==0){$$=initNode("NULL","Ne",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);addChild($$,$3);};}
+                | Expr1 GE Expr1                         {if(fatalities==0){$$=initNode("NULL","Ge",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);addChild($$,$3);};}
+                | Expr1 GT Expr1                         {if(fatalities==0){$$=initNode("NULL","Gt",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);addChild($$,$3);};}
+                | Expr1 LE Expr1                         {if(fatalities==0){$$=initNode("NULL","Le",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);addChild($$,$3);};}
+                | Expr1 LT Expr1                         {if(fatalities==0){$$=initNode("NULL","Lt",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);addChild($$,$3);};}
+                | MINUS Expr1 %prec UNARY                {if(fatalities==0){$$=initNode("NULL", "Minus",lineCounter,(int)(columnCounter-yyleng));addChild($$,$2);};}
+                | NOT Expr1 %prec UNARY                  {if(fatalities==0){$$=initNode("NULL", "Not",lineCounter,(int)(columnCounter-yyleng));addChild($$,$2);};}
+                | PLUS Expr1 %prec UNARY                 {if(fatalities==0){$$=initNode("NULL", "Plus",lineCounter,(int)(columnCounter-yyleng));addChild($$,$2);};}
                 | LPAR Expr RPAR                         {if(fatalities==0){$$=$2;};}
-                | MethodInvocation                       {if(fatalities==0){$$=initNode("NULL","Call",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);};}
-                | ParseArgs                              {if(fatalities==0){$$=initNode("NULL","ParseArgs",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,$1);};}
-                | ID DOTLENGTH                           {if(fatalities==0){$$=initNode("NULL","Length",lineCounter,(int)(columnCounter-strlen(yytext)));temp=initNode($1,"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addChild($$,temp);};}
-                | ID                                     {if(fatalities==0){$$=initNode($1,"Id",lineCounter,(int)(columnCounter-strlen(yytext)));};}
-                | INTLIT                                 {if(fatalities==0){$$=initNode($1,"DecLit",lineCounter,(int)(columnCounter-strlen(yytext)));};}
-                | REALLIT                                {if(fatalities==0){$$=initNode($1,"RealLit",lineCounter,(int)(columnCounter-strlen(yytext)));};}
-                | BOOLLIT                                {if(fatalities==0){$$=initNode($1,"BoolLit",lineCounter,(int)(columnCounter-strlen(yytext)));};}
+                | MethodInvocation                       {if(fatalities==0){$$=initNode("NULL","Call",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);};}
+                | ParseArgs                              {if(fatalities==0){$$=initNode("NULL","ParseArgs",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);};}
+                | ID DOTLENGTH                           {if(fatalities==0){$$=initNode("NULL","Length",lineCounter,(int)(columnCounter-yyleng));temp=initNode($1,"Id",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp);};}
+                | ID                                     {if(fatalities==0){$$=initNode($1,"Id",lineCounter,(int)(columnCounter-yyleng));};}
+                | INTLIT                                 {if(fatalities==0){$$=initNode($1,"DecLit",lineCounter,(int)(columnCounter-yyleng));};}
+                | REALLIT                                {if(fatalities==0){$$=initNode($1,"RealLit",lineCounter,(int)(columnCounter-yyleng));};}
+                | BOOLLIT                                {if(fatalities==0){$$=initNode($1,"BoolLit",lineCounter,(int)(columnCounter-yyleng));};}
                 | LPAR error RPAR                        {$$ = NULL;}
                 ;
 
