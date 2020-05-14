@@ -15,7 +15,7 @@
 
 
 
-Node* initNode(char *type, char* id){
+Node* initNode(char *type, char* id, int line, int col){
 
 	Node *node = (Node*)malloc(sizeof(Node));
 
@@ -23,6 +23,8 @@ Node* initNode(char *type, char* id){
 	node->type = (char*)malloc(1024 * sizeof(char));
 	node->id = strdup(id);
 	node->type = strdup(type);
+	node->column = col;
+	node->line = line;
 
 	node->sibling = NULL;
 	node->child = NULL;
@@ -65,18 +67,18 @@ void addSibling(Node *no, Node *sibling){
 }
 
 void printThemTrees(Node *root,int dottydots){
-	
+
 	int i = 0;
 	int j = 0;
-	
+
 	while(i < dottydots && strcmp(root->id,"VarDeclTop")!=0 && strcmp(root->id,"SEMICOLON")!=0 && strcmp(root->id,"FieldDeclTop")!=0 && strcmp(root->id,"MethodAuxTop")!=0 && strcmp(root->id,"NULL") != 0 ){
 		printf("..");
 		i++;
 	}
-	
+
 	if(strcmp(root->id,"Id")==0 || strcmp(root->id,"DecLit")==0 || strcmp(root->id,"StrLit")==0 || strcmp(root->id,"RealLit")==0 || strcmp(root->id,"BoolLit")==0){
 		printf("%s(%s)",root->id,root->type);
-		
+
 		if(root->id_type != NULL && root->card_p_t == 0){
 			printf(" - %s",root->id_type);
 		}else if(root->card_p_t != 0){
@@ -90,6 +92,7 @@ void printThemTrees(Node *root,int dottydots){
 			}
 			printf("%s",root->param_t[root->card_p_t-1]);
 		}
+		printf(" (l: %d | c: %d)",root->line,root->column);
 		printf("\n");
 	}else{
 		if(strcmp(root->id,"VarDeclTop")!=0 && strcmp(root->id,"SEMICOLON")!=0 && strcmp(root->id,"FieldDeclTop")!=0 && strcmp(root->id,"MethodAuxTop")!=0 && strcmp(root->id,"NULL") != 0){
@@ -97,19 +100,20 @@ void printThemTrees(Node *root,int dottydots){
 			if(root->id_type != NULL && strcmp(root->id_type,"")!=0){
 				printf(" - %s",root->id_type);
 			}
+			printf(" (l: %d | c: %d)",root->line,root->column);
 			printf("\n");
 		}
 	}
-	
-	
+
+
 	if(root->child!=NULL){
 		printThemTrees(root->child,dottydots+1);
 	}
-	
+
 	if(root->sibling!=NULL) {
 		printThemTrees(root->sibling,dottydots);
 	}
-	
+
 
 }
 
@@ -132,7 +136,7 @@ void destroyThemTrees(Node *root){
 }
 
 int checkBlock(Node *head){
-	
+
 	int i = 0;
 	int j = 0;
 	int p = 0;
@@ -152,7 +156,11 @@ int checkBlock(Node *head){
 		return 2;
 	}
 	return 0;
-	
+
 }
 
+void arrangeCol(Node *node, Node *n){
 
+	node->column-=strlen(n->type)+strlen(node->type)+1;
+
+}

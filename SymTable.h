@@ -33,6 +33,8 @@ char *childType(Node *n);
 void statementA(t_pointer top, t_pointer table_root, Node *t);
 char *navigate(t_pointer top, t_pointer table_root,Node *aux);
 char *correctType(char *node, Node *n);
+void repeated(t_pointer top);
+void repeatedin(t_pointer mdecl);
 char *getType(Node *node, t_pointer tabela);
 void specificTable(stack_p stack,Node *node,t_pointer table_root);
 void method(Node *root,Node *method, t_pointer table_root);

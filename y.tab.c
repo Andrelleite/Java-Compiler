@@ -88,7 +88,7 @@
     Node *temp3;
     Node *temp4;
     Node *topNode;
-    
+
     int assignError = 0;
     int blocks = 0;
     int canBlock = 0; /* 1 or 0 if used in a if else while statement*/
@@ -1498,25 +1498,25 @@ yyreduce:
     {
         case 2:
 #line 72 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode("NULL","Program");temp = initNode((yyvsp[-3].id),"Id");addChild((yyval.newNode),temp);addChild((yyval.newNode),(yyvsp[-1].newNode));root = (yyval.newNode);};}
+    {if(fatalities==0){(yyval.newNode) = initNode("NULL","Program",lineCounter,(int)(columnCounter-strlen(yytext)));temp = initNode((yyvsp[-3].id),"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),temp);addChild((yyval.newNode),(yyvsp[-1].newNode));root = (yyval.newNode);};}
 #line 1503 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
 #line 75 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode("NULL","MethodDecl");addChild((yyval.newNode),(yyvsp[-1].newNode));addSibling((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode) = initNode("NULL","MethodDecl",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-1].newNode));addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1509 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
 #line 76 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode("NULL","FieldDeclTop");addSibling((yyval.newNode),(yyvsp[-1].newNode));addSibling((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode) = initNode("NULL","FieldDeclTop",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling((yyval.newNode),(yyvsp[-1].newNode));addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1515 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
 #line 77 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode("NULL","SEMICOLON");addSibling((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode) = initNode("NULL","SEMICOLON",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1521 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1528,13 +1528,13 @@ yyreduce:
 
   case 7:
 #line 82 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode("NULL","MethodHeader");addChild((yyval.newNode),(yyvsp[-1].newNode));addSibling((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode) = initNode("NULL","MethodHeader",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-1].newNode));addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1533 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
 #line 85 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode("NULL","FieldDecl");temp = (yyvsp[-3].newNode);addChild((yyval.newNode),temp);temp2 = initNode((yyvsp[-2].id),"Id");addSibling(temp,temp2);addSibling((yyval.newNode),(yyvsp[-1].newNode));};}
+    {if(fatalities==0){(yyval.newNode) = initNode("NULL","FieldDecl",lineCounter,(int)(columnCounter-strlen(yytext)));temp = (yyvsp[-3].newNode);addChild((yyval.newNode),temp);temp2 = initNode((yyvsp[-2].id),"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling(temp,temp2);addSibling((yyval.newNode),(yyvsp[-1].newNode));};}
 #line 1539 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1546,7 +1546,7 @@ yyreduce:
 
   case 10:
 #line 89 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode("NULL","FieldDecl");temp3=initNode("NULL",typeAssign);addChild((yyval.newNode),temp3);temp4 = initNode((yyvsp[-1].id),"Id");addSibling(temp3,temp4);addSibling((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode) = initNode("NULL","FieldDecl",lineCounter,(int)(columnCounter-strlen(yytext)));temp3=initNode("NULL",typeAssign,lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),temp3);temp4 = initNode((yyvsp[-1].id),"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling(temp3,temp4);addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1551 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1558,61 +1558,61 @@ yyreduce:
 
   case 12:
 #line 93 "jucompiler.y" /* yacc.c:1646  */
-    {(yyval.newNode) = initNode("NULL","Bool");typeAssign=strdup("Bool");}
+    {(yyval.newNode) = initNode("NULL","Bool",lineCounter,(int)(columnCounter-strlen(yytext)));typeAssign=strdup("Bool");}
 #line 1563 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
 #line 94 "jucompiler.y" /* yacc.c:1646  */
-    {(yyval.newNode) = initNode("NULL","Int");typeAssign=strdup("Int");}
+    {(yyval.newNode) = initNode("NULL","Int",lineCounter,(int)(columnCounter-strlen(yytext)));typeAssign=strdup("Int");}
 #line 1569 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
 #line 95 "jucompiler.y" /* yacc.c:1646  */
-    {(yyval.newNode) = initNode("NULL","Double");typeAssign=strdup("Double");}
+    {(yyval.newNode) = initNode("NULL","Double",lineCounter,(int)(columnCounter-strlen(yytext)));typeAssign=strdup("Double");}
 #line 1575 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
 #line 98 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = (yyvsp[-4].newNode);temp = initNode((yyvsp[-3].id),"Id");addSibling((yyval.newNode),temp);temp2 = initNode("NULL","MethodParams");addSibling((yyval.newNode),temp2);addChild(temp2,(yyvsp[-1].newNode));};}
+    {if(fatalities==0){(yyval.newNode) = (yyvsp[-4].newNode);temp = initNode((yyvsp[-3].id),"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling((yyval.newNode),temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling((yyval.newNode),temp2);addChild(temp2,(yyvsp[-1].newNode));};}
 #line 1581 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
 #line 99 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode("NULL","Void");temp = initNode((yyvsp[-3].id),"Id");addSibling((yyval.newNode),temp);temp2 = initNode("NULL","MethodParams");addSibling((yyval.newNode),temp2);addChild(temp2,(yyvsp[-1].newNode));};}
+    {if(fatalities==0){(yyval.newNode) = initNode("NULL","Void",lineCounter,(int)(columnCounter-strlen(yytext)));temp = initNode((yyvsp[-3].id),"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling((yyval.newNode),temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling((yyval.newNode),temp2);addChild(temp2,(yyvsp[-1].newNode));};}
 #line 1587 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
 #line 100 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode("NULL","Void");temp = initNode((yyvsp[-2].id),"Id");addSibling((yyval.newNode),temp);temp2 = initNode("NULL","MethodParams");addSibling((yyval.newNode),temp2);};}
+    {if(fatalities==0){(yyval.newNode) = initNode("NULL","Void",lineCounter,(int)(columnCounter-strlen(yytext)));temp = initNode((yyvsp[-2].id),"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling((yyval.newNode),temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling((yyval.newNode),temp2);};}
 #line 1593 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
 #line 101 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = (yyvsp[-3].newNode);temp = initNode((yyvsp[-2].id),"Id");addSibling((yyval.newNode),temp);temp2 = initNode("NULL","MethodParams");addSibling((yyval.newNode),temp2);};}
+    {if(fatalities==0){(yyval.newNode) = (yyvsp[-3].newNode);temp = initNode((yyvsp[-2].id),"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling((yyval.newNode),temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling((yyval.newNode),temp2);};}
 #line 1599 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
 #line 104 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode("NULL","ParamDecl");addChild((yyval.newNode),(yyvsp[-2].newNode));temp = initNode((yyvsp[-1].id),"Id");addChild((yyval.newNode),temp);addSibling((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode) = initNode("NULL","ParamDecl",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));temp = initNode((yyvsp[-1].id),"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),temp);addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1605 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
 #line 105 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode("NULL","ParamDecl");temp2 = initNode("NULL","StringArray");addChild((yyval.newNode),temp2);temp = initNode((yyvsp[0].id),"Id");addChild((yyval.newNode),temp);};}
+    {if(fatalities==0){(yyval.newNode) = initNode("NULL","ParamDecl",lineCounter,(int)(columnCounter-strlen(yytext)));temp2 = initNode("NULL","StringArray",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),temp2);temp = initNode((yyvsp[0].id),"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),temp);};}
 #line 1611 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
 #line 108 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode("NULL","ParamDecl");addChild((yyval.newNode),(yyvsp[-2].newNode));temp = initNode((yyvsp[-1].id),"Id");addChild((yyval.newNode),temp);addSibling((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode) = initNode("NULL","ParamDecl",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));temp = initNode((yyvsp[-1].id),"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),temp);addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1617 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1624,19 +1624,19 @@ yyreduce:
 
   case 23:
 #line 113 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode("NULL","MethodBody");addChild((yyval.newNode),(yyvsp[-1].newNode));}}
+    {if(fatalities==0){(yyval.newNode) = initNode("NULL","MethodBody",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-1].newNode));}}
 #line 1629 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
 #line 116 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){topNode = NULL;(yyval.newNode) = initNode("NULL","MethodAuxTop");addSibling((yyval.newNode),(yyvsp[-1].newNode));addSibling((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){topNode = NULL;(yyval.newNode) = initNode("NULL","MethodAuxTop",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling((yyval.newNode),(yyvsp[-1].newNode));addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1635 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
 #line 117 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){topNode = NULL;(yyval.newNode) = initNode("NULL","VarDeclTop");addSibling((yyval.newNode),(yyvsp[-1].newNode));addSibling((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){topNode = NULL;(yyval.newNode) = initNode("NULL","VarDeclTop",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling((yyval.newNode),(yyvsp[-1].newNode));addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1641 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1648,13 +1648,13 @@ yyreduce:
 
   case 27:
 #line 121 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode("NULL","VarDecl");temp = (yyvsp[-3].newNode);addChild((yyval.newNode),temp);temp2 = initNode((yyvsp[-2].id),"Id");addSibling(temp,temp2);addSibling((yyval.newNode),(yyvsp[-1].newNode));};}
+    {if(fatalities==0){(yyval.newNode) = initNode("NULL","VarDecl",lineCounter,(int)(columnCounter-strlen(yytext)));temp = (yyvsp[-3].newNode);addChild((yyval.newNode),temp);temp2 = initNode((yyvsp[-2].id),"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling(temp,temp2);addSibling((yyval.newNode),(yyvsp[-1].newNode));};}
 #line 1653 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
 #line 124 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode("NULL","VarDecl");temp3=initNode("NULL",typeAssign);addChild((yyval.newNode),temp3);temp4 = initNode((yyvsp[-1].id),"Id");addSibling(temp3,temp4);addSibling((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode) = initNode("NULL","VarDecl",lineCounter,(int)(columnCounter-strlen(yytext)));temp3=initNode("NULL",typeAssign,lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),temp3);temp4 = initNode((yyvsp[-1].id),"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling(temp3,temp4);addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1659 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1666,31 +1666,31 @@ yyreduce:
 
   case 30:
 #line 129 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){if((yyvsp[-1].newNode) != NULL && (yyvsp[-1].newNode)->sibling != NULL){(yyval.newNode)=initNode("NULL","Block");addChild((yyval.newNode),(yyvsp[-1].newNode));}else{(yyval.newNode)=(yyvsp[-1].newNode);}};}
+    {if(fatalities==0){if((yyvsp[-1].newNode) != NULL && (yyvsp[-1].newNode)->sibling != NULL){(yyval.newNode)=initNode("NULL","Block",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-1].newNode));}else{(yyval.newNode)=(yyvsp[-1].newNode);}};}
 #line 1671 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
 #line 130 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","If");addChild((yyval.newNode), (yyvsp[-2].newNode));if((yyvsp[0].newNode) != NULL){addChild((yyval.newNode), (yyvsp[0].newNode));}else{temp2=initNode("NULL","Block");addChild((yyval.newNode),temp2);};temp = initNode("NULL", "Block");addChild((yyval.newNode), temp);};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","If",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode), (yyvsp[-2].newNode));if((yyvsp[0].newNode) != NULL){addChild((yyval.newNode), (yyvsp[0].newNode));}else{temp2=initNode("NULL","Block",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),temp2);};temp = initNode("NULL", "Block",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode), temp);};}
 #line 1677 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
 #line 131 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","If");addChild((yyval.newNode), (yyvsp[-4].newNode));if((yyvsp[-2].newNode) != NULL){addChild((yyval.newNode), (yyvsp[-2].newNode));}else{temp2=initNode("NULL","Block");addChild((yyval.newNode),temp2);};if((yyvsp[0].newNode) != NULL){addChild((yyval.newNode),(yyvsp[0].newNode));}else{temp3=initNode("NULL","Block");addChild((yyval.newNode),temp3);};};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","If",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode), (yyvsp[-4].newNode));if((yyvsp[-2].newNode) != NULL){addChild((yyval.newNode), (yyvsp[-2].newNode));}else{temp2=initNode("NULL","Block",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),temp2);};if((yyvsp[0].newNode) != NULL){addChild((yyval.newNode),(yyvsp[0].newNode));}else{temp3=initNode("NULL","Block",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),temp3);};};}
 #line 1683 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
 #line 132 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","While");addChild((yyval.newNode),(yyvsp[-2].newNode));if((yyvsp[0].newNode)==NULL){temp=initNode("NULL","Block");addChild((yyval.newNode),temp);}else{addChild((yyval.newNode),(yyvsp[0].newNode));};};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","While",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));if((yyvsp[0].newNode)==NULL){temp=initNode("NULL","Block",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),temp);}else{addChild((yyval.newNode),(yyvsp[0].newNode));};};}
 #line 1689 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
 #line 133 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Return");addChild((yyval.newNode),(yyvsp[-1].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Return",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-1].newNode));};}
 #line 1695 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1702,13 +1702,13 @@ yyreduce:
 
   case 36:
 #line 135 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Print");temp=initNode((yyvsp[-2].id),"StrLit");addChild((yyval.newNode),temp);};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Print",lineCounter,(int)(columnCounter-strlen(yytext)));temp=initNode((yyvsp[-2].id),"StrLit",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),temp);};}
 #line 1707 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
 #line 136 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Print");addChild((yyval.newNode),(yyvsp[-2].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Print",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));};}
 #line 1713 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1744,19 +1744,19 @@ yyreduce:
 
   case 43:
 #line 148 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Call");addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Call",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[0].newNode));(yyval.newNode)->column=1;};}
 #line 1749 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
 #line 149 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Assign");addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Assign",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1755 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
 #line 150 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","ParseArgs");addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","ParseArgs",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1761 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1768,7 +1768,7 @@ yyreduce:
 
   case 47:
 #line 154 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode((yyvsp[-3].id),"Id");addSibling((yyval.newNode),(yyvsp[-1].newNode));};}
+    {if(fatalities==0){(yyval.newNode) = initNode((yyvsp[-3].id),"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling((yyval.newNode),(yyvsp[-1].newNode));arrangeCol((yyval.newNode),(yyvsp[-1].newNode));};}
 #line 1773 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1804,13 +1804,13 @@ yyreduce:
 
   case 53:
 #line 166 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode((yyvsp[-2].id),"Id");addSibling((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode) = initNode((yyvsp[-2].id),"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1809 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
 #line 169 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode((yyvsp[-4].id),"Id");addSibling((yyval.newNode),(yyvsp[-2].newNode));};}
+    {if(fatalities==0){(yyval.newNode) = initNode((yyvsp[-4].id),"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addSibling((yyval.newNode),(yyvsp[-2].newNode));};}
 #line 1815 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1828,121 +1828,121 @@ yyreduce:
 
   case 57:
 #line 174 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Assign");addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Assign",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1833 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
 #line 177 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","And");addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","And",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1839 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
 #line 178 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Or");addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Or",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1845 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
 #line 179 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Xor");addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Xor",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1851 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
 #line 180 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Mul");addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Mul",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1857 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
 #line 181 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Div");addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Div",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1863 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
 #line 182 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Mod");addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Mod",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1869 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
 #line 183 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Lshift");addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Lshift",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1875 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
 #line 184 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Rshift");addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Rshift",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1881 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
 #line 185 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Add");addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Add",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1887 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
 #line 186 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Sub");addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Sub",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1893 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
 #line 187 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Eq");addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Eq",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1899 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
 #line 188 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Ne");addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Ne",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1905 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
 #line 189 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Ge");addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Ge",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1911 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
 #line 190 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Gt");addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Gt",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1917 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
 #line 191 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Le");addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Le",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1923 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
 #line 192 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Lt");addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Lt",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1929 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
 #line 193 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL", "Minus");addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL", "Minus",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1935 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 75:
 #line 194 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL", "Not");addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL", "Not",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1941 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
 #line 195 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL", "Plus");addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL", "Plus",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1947 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1954,43 +1954,43 @@ yyreduce:
 
   case 78:
 #line 197 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Call");addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Call",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1959 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 79:
 #line 198 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","ParseArgs");addChild((yyval.newNode),(yyvsp[0].newNode));};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","ParseArgs",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1965 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 80:
 #line 199 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Length");temp=initNode((yyvsp[-1].id),"Id");addChild((yyval.newNode),temp);};}
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Length",lineCounter,(int)(columnCounter-strlen(yytext)));temp=initNode((yyvsp[-1].id),"Id",lineCounter,(int)(columnCounter-strlen(yytext)));addChild((yyval.newNode),temp);};}
 #line 1971 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 81:
 #line 200 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode((yyvsp[0].id),"Id");};}
+    {if(fatalities==0){(yyval.newNode)=initNode((yyvsp[0].id),"Id",lineCounter,(int)(columnCounter-strlen(yytext)));};}
 #line 1977 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 82:
 #line 201 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode((yyvsp[0].id),"DecLit");};}
+    {if(fatalities==0){(yyval.newNode)=initNode((yyvsp[0].id),"DecLit",lineCounter,(int)(columnCounter-strlen(yytext)));};}
 #line 1983 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 83:
 #line 202 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode((yyvsp[0].id),"RealLit");};}
+    {if(fatalities==0){(yyval.newNode)=initNode((yyvsp[0].id),"RealLit",lineCounter,(int)(columnCounter-strlen(yytext)));};}
 #line 1989 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 84:
 #line 203 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode((yyvsp[0].id),"BoolLit");};}
+    {if(fatalities==0){(yyval.newNode)=initNode((yyvsp[0].id),"BoolLit",lineCounter,(int)(columnCounter-strlen(yytext)));};}
 #line 1995 "y.tab.c" /* yacc.c:1646  */
     break;
 

@@ -19,21 +19,27 @@ typedef struct stack{
 }Stack;
 
 typedef struct node{
+
+	int column;
+	int line;
+
 	char *type;
 	char *id;
-	
+
 	char *id_type;
 	char param_t[32][32];
 	int card_p_t;
-	
+
 	pointer sibling;
 	pointer child;
 	pointer ptr;
+
 }Node;
 
-Node* initNode(char* type, char* id);
+Node* initNode(char* type, char* id, int line, int col);
 void addChild(Node *node, Node *child);
 void addSibling(Node *node, Node *sibling);
+void arrangeCol(Node *node, Node *n);
 void printThemTrees(Node *root,int dottydots);
 void destroyThemTrees(Node *root);
 int checkBlock(Node *head);
