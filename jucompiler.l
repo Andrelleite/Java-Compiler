@@ -214,7 +214,7 @@ reserved                       "++"|"--"|default|do|double|else|enum|extends|fal
 {if}                           {if(l==1){printf("IF\n");};columnCounter+=yyleng;updateArray("if");if(l == -1){return IF;};}
 {int}                          {if(l==1){printf("INT\n");};columnCounter+=yyleng;updateArray("int");if(l == -1){return INT;};}
 {print}                        {if(l==1){printf("PRINT\n");};columnCounter+=yyleng;updateArray("print");if(l == -1){return PRINT;};}
-{parseint}                     {if(l==1){printf("PARSEINT\n");};columnCounter+=yyleng;updateArray("parseint");if(l == -1){return PARSEINT;};}
+{parseint}                     {if(l==1){printf("PARSEINT\n");};columnCounter+=yyleng;updateArray("parseint");if(l == -1){yylval.col = columnCounter-yyleng;return PARSEINT;};}
 {public}                       {if(l==1){printf("PUBLIC\n");};columnCounter+=yyleng;updateArray("public");if(l == -1){return PUBLIC;};}
 {return}                       {if(l==1){printf("RETURN\n");};columnCounter+=yyleng;updateArray("reserved");if(l == -1){return RETURN;};}
 {static}                       {if(l==1){printf("STATIC\n");};columnCounter+=yyleng;updateArray("static");if(l == -1){return STATIC;};}

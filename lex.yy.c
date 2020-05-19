@@ -1406,7 +1406,7 @@ YY_RULE_SETUP
 case 60:
 YY_RULE_SETUP
 #line 217 "jucompiler.l"
-{if(l==1){printf("PARSEINT\n");};columnCounter+=yyleng;updateArray("parseint");if(l == -1){return PARSEINT;};}
+{if(l==1){printf("PARSEINT\n");};columnCounter+=yyleng;updateArray("parseint");if(l == -1){yylval.col = columnCounter-yyleng;return PARSEINT;};}
 	YY_BREAK
 case 61:
 YY_RULE_SETUP

@@ -92,7 +92,7 @@ void printThemTrees(Node *root,int dottydots){
 			}
 			printf("%s",root->param_t[root->card_p_t-1]);
 		}
-		//printf(" (l: %d | c: %d)",root->line,root->column);
+		printf(" (l: %d | c: %d)",root->line,root->column);
 		printf("\n");
 	}else{
 		if(strcmp(root->id,"VarDeclTop")!=0 && strcmp(root->id,"SEMICOLON")!=0 && strcmp(root->id,"FieldDeclTop")!=0 && strcmp(root->id,"MethodAuxTop")!=0 && strcmp(root->id,"NULL") != 0){
@@ -100,7 +100,7 @@ void printThemTrees(Node *root,int dottydots){
 			if(root->id_type != NULL && strcmp(root->id_type,"")!=0){
 				printf(" - %s",root->id_type);
 			}
-			//printf(" (l: %d | c: %d)",root->line,root->column);
+			printf(" (l: %d | c: %d)",root->line,root->column);
 			printf("\n");
 		}
 	}

@@ -44,10 +44,10 @@
     struct node* newNode;
 }
 
-%token BOOL CLASS DOTLENGTH DOUBLE ELSE IF INT PRINT PARSEINT PUBLIC RETURN STATIC STRING VOID WHILE
+%token BOOL CLASS DOTLENGTH DOUBLE ELSE IF INT PRINT PUBLIC RETURN STATIC STRING VOID WHILE
 %token SEMICOLON BLANKID AND STAR ARROW COMMA DIV EQ GE GT LBRACE LE LPAR LSQ LT MINUS MOD NE NOT OR PLUS RBRACE RPAR RSQ XOR LSHIFT RSHIFT
 %token <loki> ID RESERVED INTLIT REALLIT STRLIT BOOLLIT UNARY
-%token <col> ASSIGN
+%token <col> ASSIGN PARSEINT
 
 %type  <newNode> Program Declarations FieldDecl Type MethodInvocation MethodDecl MethodHeader
 %type  <newNode> MethodAux MethodInvocAux2 MethodInvocAux MethodBody ParseArgs ParametersAux StatementAux1 StatementAux2 StatementAux3
@@ -168,7 +168,7 @@ MethodInvocAux2:  COMMA Expr MethodInvocAux2             {if(fatalities==0){$$=$
 Assignment:       ID ASSIGN Expr                         {if(fatalities==0){$$ = initNode($1->id,"Id",lineCounter,$1->column);$$->column = $2;addSibling($$,$3);};}
                 ;
 
-ParseArgs:        PARSEINT LPAR ID LSQ Expr RSQ RPAR     {if(fatalities==0){$$ = initNode($3->id,"Id",lineCounter,$3->column);addSibling($$,$5);};}
+ParseArgs:        PARSEINT LPAR ID LSQ Expr RSQ RPAR     {if(fatalities==0){$$ = initNode($3->id,"Id",lineCounter,$3->column);$$->column = $1;addSibling($$,$5);};}
                 | PARSEINT LPAR error RPAR               {$$ = NULL;}
                 ;
 

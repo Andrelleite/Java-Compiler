@@ -36,6 +36,7 @@ void printThemTables(Node *node, int flag){
 		if(strcmp(temp->id_type,"MethodDecl")==0){
 			t_temp = temp->node->sibling->child;
 			navigate(table_root,temp,t_temp);
+
 		}
 		temp = temp->lower;
 	}
@@ -171,17 +172,14 @@ void repeatedin(t_pointer mdecl){
 	t_pointer forward;
 	t_pointer back;
 	Node *t_temp;
-	Node *sib;
 	char *rep;
 	int got=0;
 	
 	if(mdecl->node != NULL){
 		t_temp = mdecl->node->sibling->child;
 		while(t_temp!=NULL){
-		
 			got = 0;
 			if(strcmp(t_temp->id,"VarDecl")==0){
-				
 				forward = mdecl->next;
 				while(forward != t_temp->tnt){
 					if(strcmp(forward->id,t_temp->tnt->id)==0){
@@ -191,7 +189,6 @@ void repeatedin(t_pointer mdecl){
 					back = forward;
 					forward = forward->next;
 				}
-				
 				if(strcmp(t_temp->tnt->id,"_")==0){
 					back->next = forward->next;
 					printf("Line %d, col %d: Symbol %s is reserved\n",t_temp->tnt->line,t_temp->tnt->col,t_temp->tnt->id);
@@ -199,25 +196,10 @@ void repeatedin(t_pointer mdecl){
 					back->next = forward->next;
 					printf("Line %d, col %d: Symbol %s already defined\n",t_temp->tnt->line,t_temp->tnt->col,rep);
 				}
-				
-			}else if(strcmp(t_temp->id,"Call")==0){
-				checkChildErr(t_temp->child,t_temp);
-			}else if(strcmp(t_temp->id,"Print")==0){
-				checkChildErr(t_temp->child,t_temp);
-				sib = t_temp->child;
-				while(sib!=NULL && got != 1){
-					if(strcmp(sib->id_type,"undef")==0){
-						if(strcmp(sib->id,"Call")==0){
-							printf("Line %d, col %d: Incompatible type %s in System.out.print statement\n",sib->child->line,sib->child->column,sib->id_type);
-						}else{
-							printf("Line %d, col %d: Incompatible type %s in System.out.print statement\n",sib->line,sib->column,sib->id_type);
-						}
-						got = 1;
-					}
-					sib = sib->sibling;
-				}
-				
+			}else{
+				checkChildErr(t_temp,t_temp);
 			}
+			
 			t_temp = t_temp->sibling;
 		}
 	}
@@ -227,34 +209,9 @@ void repeatedin(t_pointer mdecl){
 void checkChildErr(Node *t, Node *op){
 	
 	Node *temp = t;
-	Node *t_semp;
-	
-	if(temp->id!=NULL){
-		if(strcmp(temp->id,"Call")!=0 && strcmp(temp->id,"Add")!=0 && strcmp(temp->id,"Mul")!=0){
-			if(temp->id_type != NULL && op->id!=NULL){
-				if(strcmp(temp->id_type,"undef")==0 && strcmp(op->id,"Call")==0){
-					printf("Line %d, col %d: Cannot find symbol %s(",temp->line,temp->column,temp->type);
-					t_semp = temp->sibling;
-
-					while(t_semp != NULL){
-						printf("%s",t_semp->id_type);	
-						if(t_semp->sibling!=NULL){
-							printf(",");
-						}
-						t_semp = t_semp->sibling;
-					}	
-					
-					printf(")\n");
-				}else if(strcmp(temp->id_type,"undef")==0){
-					printf("Line %d, col %d: Cannot find symbol %s\n",temp->line,temp->column,temp->type);
-				}
-			}
-		}
-	}
-	
 
 	if(temp->sibling!=NULL){
-		checkChildErr(temp->sibling,temp);
+		checkChildErr(temp->sibling,op);
 	}
 	if(temp->child!=NULL){
 		checkChildErr(temp->child,temp);
@@ -348,7 +305,7 @@ void statementA(t_pointer top, t_pointer table_root, Node *t){
 char *navigate(t_pointer top, t_pointer table_root,Node *aux){
 	
 	Node *t = aux;
-
+	
 	while(t != NULL){
 
 		if(strcmp(t->id,"VarDecl")!=0 && strcmp(t->id,"Rshift")!=0 && strcmp(t->id,"Lshift")!=0){
@@ -436,7 +393,7 @@ char *getType(Node *node, t_pointer tabela){
 		}else{
 			while(temp != NULL){
 				if(node->type != NULL){
-					if(strcmp(node->type,temp->id)==0 && temp->cardptypes == 0){
+					if(strcmp(node->type,temp->id)==0 && temp->cardptypes == 0 && strcmp(temp->id_type,"Class")!=0){
 						node->id_type = strdup(correctType(temp->type,node));
 						return temp->type;
 	
