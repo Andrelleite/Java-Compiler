@@ -11,14 +11,9 @@
 #include <string.h>
 
 typedef struct node *pointer;
-typedef struct stack *stack_p;
-
-typedef struct stack{
-	pointer node;
-	stack_p next;
-}Stack;
-
 typedef struct node{
+
+	struct tabnode* tnt;
 
 	int column;
 	int line;
@@ -33,8 +28,15 @@ typedef struct node{
 	pointer sibling;
 	pointer child;
 	pointer ptr;
-
+	
 }Node;
+
+typedef struct uni{
+
+	int column;
+	char *id;
+
+}Uni;
 
 Node* initNode(char* type, char* id, int line, int col);
 void addChild(Node *node, Node *child);

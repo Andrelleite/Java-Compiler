@@ -30,11 +30,11 @@
   int initString = 0;
   int initline =0;
   int error = 0;
+  int semantics = 0;
 
   char *line[25];
   char strlit[250];
   char toend[250];
-
   int fatalities=0;
 
   extern Node *root;
@@ -75,6 +75,12 @@
           memset(strlit,0,sizeof(strlit));
           return 0;
       }
+  }
+  
+  void makepacket(int col, char *t){
+    yylval.loki = (Uni *)malloc(sizeof(Uni));
+    yylval.loki->id = strdup(t);
+    yylval.loki->column = col-strlen(t);
   }
 
 %}
@@ -155,7 +161,7 @@ reserved                       "++"|"--"|default|do|double|else|enum|extends|fal
 
 "\""                           {memset(strlit,0,sizeof(strlit));updateArray("abre-aspa");strcat(strlit,yytext);initString=columnCounter;columnCounter+=yyleng;error=0;BEGIN STR;}
 <STR>\\                        {strcat(strlit,yytext);BEGIN ESCAPE_STR;}
-<STR>\"                        {columnCounter+=yyleng;strcat(strlit,yytext);updateArray("fecha-aspas");if(error!=1){if(l==-1){yylval.id = strdup(strlit);yytext=strdup(yylval.id);error=0;BEGIN 0;return STRLIT;}else{printStrlit();};}else{memset(strlit,0,sizeof(strlit));};error=0;BEGIN 0;}
+<STR>\"                        {columnCounter+=yyleng;strcat(strlit,yytext);updateArray("fecha-aspas");yylval.loki = malloc(sizeof(Uni));if(error!=1){if(l==-1){yylval.loki->id = strdup(strlit);yytext=strdup(yylval.loki->id );error=0;BEGIN 0;yylval.loki->column =columnCounter-strlen(strlit);return STRLIT;}else{printStrlit();};}else{memset(strlit,0,sizeof(strlit));};error=0;BEGIN 0;}
 <STR>\n|\r|\r\n                {columnCounter+=yyleng;terminated=checkTerminated();if(terminated == 0 && e1 == 1){printf("Line %d, col %d: unterminated string literal\n",lineCounter,initString);};lineCounter++;columnCounter=1;lineOpCounter=0;BEGIN 0;}
 <STR><<EOF>>                   {columnCounter+=yyleng;terminated=checkTerminated();if(e1 == 1){printf("Line %d, col %d: unterminated string literal\n",lineCounter,initString);};lineCounter++;lineOpCounter=0;BEGIN 0;}
 <STR>.                         {columnCounter+=yyleng;strcat(strlit,yytext);}
@@ -169,12 +175,12 @@ reserved                       "++"|"--"|default|do|double|else|enum|extends|fal
 <ESCAPE_STR>\n|\r|\r\n         {if(e1 == 1){printf("Line %d, col %d: invalid escape sequence (\\%s)\n",lineCounter,columnCounter,"");};terminated=checkTerminated();if(terminated == 0 && e1 == 1 && l != -1){printf("Line %d, col %d: unterminated string literal\n",lineCounter,initString);};error=1;memset(strlit,0,sizeof(strlit));lineCounter++;columnCounter=1;lineOpCounter=0;BEGIN 0;}
 <ESCAPE_STR>.                  {strcat(strlit,yytext);if(e1 == 1){printf("Line %d, col %d: invalid escape sequence (\\%s)\n",lineCounter,columnCounter,yytext);};columnCounter+=yyleng+1;error=1;BEGIN STR;}
 
-{reallit}		   	               {if(l==1){printf("REALLIT(%s)\n", yytext);};columnCounter+=yyleng;updateArray("reallit");if(l == -1){yylval.id = strdup(yytext); return REALLIT;};}
-{intlit}		      		         {if(l==1){printf("INTLIT(%s)\n", yytext);};columnCounter+=yyleng;updateArray("intlit");if(l == -1){yylval.id = strdup(yytext); return INTLIT;};}
-{zero}                         {if(l==1){printf("INTLIT(%s)\n", yytext);};columnCounter+=yyleng;updateArray("intlit");if(l == -1){yylval.id = strdup(yytext); return INTLIT;};}
-{boollit}                      {if(l==1){printf("BOOLLIT(%s)\n",yytext);};columnCounter+=yyleng;updateArray("boollit");if(l == -1){yylval.id = strdup(yytext); return BOOLLIT;};}
+{reallit}		   	               {if(l==1){printf("REALLIT(%s)\n", yytext);};columnCounter+=yyleng;updateArray("reallit");if(l == -1){makepacket(columnCounter,yytext); return REALLIT;};}
+{intlit}		      		         {if(l==1){printf("INTLIT(%s)\n", yytext);};columnCounter+=yyleng;updateArray("intlit");if(l == -1){makepacket(columnCounter,yytext); return INTLIT;};}
+{zero}                         {if(l==1){printf("INTLIT(%s)\n", yytext);};columnCounter+=yyleng;updateArray("intlit");if(l == -1){makepacket(columnCounter,yytext); return INTLIT;};}
+{boollit}                      {if(l==1){printf("BOOLLIT(%s)\n",yytext);};columnCounter+=yyleng;updateArray("boollit");if(l == -1){makepacket(columnCounter,yytext); return BOOLLIT;};}
 {and}                          {if(l==1){printf("AND\n");};columnCounter+=yyleng;updateArray("and");if(l == -1){return AND;};}
-{assign}                       {if(l==1){printf("ASSIGN\n");};columnCounter+=yyleng;updateArray("assign");if(l == -1){return ASSIGN;};}
+{assign}                       {if(l==1){printf("ASSIGN\n");};columnCounter+=yyleng;updateArray("assign");if(l == -1){yylval.col = columnCounter-yyleng;return ASSIGN;};}
 {star}                         {if(l==1){printf("STAR\n");};columnCounter+=yyleng;updateArray("star");if(l == -1){return STAR;};}
 {comma}                        {if(l==1){printf("COMMA\n");};columnCounter+=yyleng;updateArray("comma");if(l == -1){return COMMA;};}
 {div}                          {if(l==1){printf("DIV\n");};columnCounter+=yyleng;updateArray("div");if(l == -1){return DIV;};}
@@ -215,8 +221,8 @@ reserved                       "++"|"--"|default|do|double|else|enum|extends|fal
 {string}                       {if(l==1){printf("STRING\n");};columnCounter+=yyleng;updateArray("string");if(l == -1){return STRING;};}
 {void}                         {if(l==1){printf("VOID\n");};columnCounter+=yyleng;updateArray("void");if(l == -1){return VOID;};}
 {while}                        {if(l==1){printf("WHILE\n");};columnCounter+=yyleng;updateArray("while");if(l == -1){return WHILE;};}
-{reserved}                     {if(l==1){printf("RESERVED(%s)\n",yytext);};columnCounter+=yyleng;updateArray("reserved");if(l == -1){yylval.id = strdup(yytext);return RESERVED;};}
-{id}                           {if(l==1){printf("ID(%s)\n", yytext);};columnCounter+=yyleng;updateArray("id");if(l == -1){yylval.id = strdup(yytext);return ID;};}
+{reserved}                     {if(l==1){printf("RESERVED(%s)\n",yytext);};columnCounter+=yyleng;updateArray("reserved");if(l == -1){makepacket(columnCounter,yytext); return RESERVED;};}
+{id}                           {if(l==1){printf("ID(%s)\n", yytext);};columnCounter+=yyleng;updateArray("id");if(l == -1){makepacket(columnCounter,yytext);return ID;};}
 " "|"\t"                       {columnCounter+=yyleng;}
 \n|\r|\r\n                     {lineCounter++;columnCounter=1;lineOpCounter=0;memset(strlit,0,sizeof(strlit));}
 {nullito}                      {columnCounter+=yyleng;}
@@ -227,8 +233,14 @@ reserved                       "++"|"--"|default|do|double|else|enum|extends|fal
 
 int main(int argc, char* argv[]){
   for(int i=0;i<argc;i++){
-
-      if(strcmp(argv[i],"-l")==0){
+  
+      if(argv[1] == NULL){    
+          l = -1;
+          e1 = 1;
+          e2 = 2;
+          s1 = 1;
+          semantics = 1;
+      }else if(strcmp(argv[i],"-l")==0){
           l = 1;
           e1 = 1;
       }else if(strcmp(argv[i],"-e1")==0){
@@ -245,7 +257,6 @@ int main(int argc, char* argv[]){
           e1 = 1;
           e2 = 2;
           s1 = 1;
-        /*Sementhics operation*/
       }
 
   }
@@ -258,8 +269,10 @@ int main(int argc, char* argv[]){
     {
       /*imprime tabela*/
       if(s1 == 1){
-        printThemTables(root);
-        printThemTrees(root,0);
+        printThemTables(root,semantics);
+        if(semantics==0){
+          printThemTrees(root,0);
+        }
       }else{
         /*imprime arvore*/
         printThemTrees(root,0);

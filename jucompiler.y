@@ -39,13 +39,15 @@
 %}
 
 %union{
-    char* id;
+    int col;
+    struct uni* loki;
     struct node* newNode;
 }
 
 %token BOOL CLASS DOTLENGTH DOUBLE ELSE IF INT PRINT PARSEINT PUBLIC RETURN STATIC STRING VOID WHILE
-%token SEMICOLON BLANKID AND ASSIGN STAR ARROW COMMA DIV EQ GE GT LBRACE LE LPAR LSQ LT MINUS MOD NE NOT OR PLUS RBRACE RPAR RSQ XOR LSHIFT RSHIFT
-%token <id> RESERVED INTLIT REALLIT STRLIT BOOLLIT ID UNARY
+%token SEMICOLON BLANKID AND STAR ARROW COMMA DIV EQ GE GT LBRACE LE LPAR LSQ LT MINUS MOD NE NOT OR PLUS RBRACE RPAR RSQ XOR LSHIFT RSHIFT
+%token <loki> ID RESERVED INTLIT REALLIT STRLIT BOOLLIT UNARY
+%token <col> ASSIGN
 
 %type  <newNode> Program Declarations FieldDecl Type MethodInvocation MethodDecl MethodHeader
 %type  <newNode> MethodAux MethodInvocAux2 MethodInvocAux MethodBody ParseArgs ParametersAux StatementAux1 StatementAux2 StatementAux3
@@ -69,7 +71,7 @@
 %%
 
 
-Program:          CLASS ID LBRACE Declarations RBRACE    {if(fatalities==0){$$ = initNode("NULL","Program",lineCounter,(int)(columnCounter-yyleng));temp = initNode($2,"Id",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp);addChild($$,$4);root = $$;};}
+Program:          CLASS ID LBRACE Declarations RBRACE    {if(fatalities==0){$$ = initNode("NULL","Program",lineCounter,(int)(columnCounter-yyleng));temp = initNode($2->id,"Id",lineCounter,$2->column);addChild($$,temp);addChild($$,$4);root = $$;};}
                 ;
 
 Declarations:     MethodDecl Declarations                {if(fatalities==0){$$ = initNode("NULL","MethodDecl",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);addSibling($$,$2);};}
@@ -82,11 +84,11 @@ Declarations:     MethodDecl Declarations                {if(fatalities==0){$$ =
 MethodDecl:       PUBLIC STATIC MethodHeader MethodBody  {if(fatalities==0){$$ = initNode("NULL","MethodHeader",lineCounter,(int)(columnCounter-yyleng));addChild($$,$3);addSibling($$,$4);};}
                 ;
 
-FieldDecl:        PUBLIC STATIC Type ID CommaIDaux2 SEMICOLON {if(fatalities==0){$$ = initNode("NULL","FieldDecl",lineCounter,(int)(columnCounter-yyleng));temp = $3;addChild($$,temp);temp2 = initNode($4,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling(temp,temp2);addSibling($$,$5);};}
+FieldDecl:        PUBLIC STATIC Type ID CommaIDaux2 SEMICOLON {if(fatalities==0){$$ = initNode("NULL","FieldDecl",lineCounter,(int)(columnCounter-yyleng));temp = $3;addChild($$,temp);temp2 = initNode($4->id,"Id",lineCounter,$4->column);addSibling(temp,temp2);addSibling($$,$5);};}
                 | error SEMICOLON                        {$$ = NULL;}
                 ;
 
-CommaIDaux2:       COMMA ID CommaIDaux2                  {if(fatalities==0){$$ = initNode("NULL","FieldDecl",lineCounter,(int)(columnCounter-yyleng));temp3=initNode("NULL",typeAssign,lineCounter,(int)(columnCounter-yyleng));addChild($$,temp3);temp4 = initNode($2,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling(temp3,temp4);addSibling($$,$3);};}
+CommaIDaux2:       COMMA ID CommaIDaux2                  {if(fatalities==0){$$ = initNode("NULL","FieldDecl",lineCounter,(int)(columnCounter-yyleng));temp3=initNode("NULL",typeAssign,lineCounter,(int)(columnCounter-yyleng));addChild($$,temp3);temp4 = initNode($2->id,"Id",lineCounter,$2->column);addSibling(temp3,temp4);addSibling($$,$3);};}
                 | /*empty*/                              {$$ = NULL;}
                 ;
 
@@ -95,17 +97,17 @@ Type:             BOOL                                   {$$ = initNode("NULL","
                 | DOUBLE                                 {$$ = initNode("NULL","Double",lineCounter,(int)(columnCounter-yyleng));typeAssign=strdup("Double");}
                 ;
 
-MethodHeader:     Type ID LPAR FormalParams RPAR         {if(fatalities==0){$$ = $1;temp = initNode($2,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp2);addChild(temp2,$4);};}
-                | VOID ID LPAR FormalParams RPAR         {if(fatalities==0){$$ = initNode("NULL","Void",lineCounter,(int)(columnCounter-yyleng));temp = initNode($2,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp2);addChild(temp2,$4);};}
-                | VOID ID LPAR RPAR                      {if(fatalities==0){$$ = initNode("NULL","Void",lineCounter,(int)(columnCounter-yyleng));temp = initNode($2,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp2);};}
-                | Type ID LPAR RPAR                      {if(fatalities==0){$$ = $1;temp = initNode($2,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp2);};}
+MethodHeader:     Type ID LPAR FormalParams RPAR         {if(fatalities==0){$$ = $1;temp = initNode($2->id,"Id",lineCounter,$2->column);addSibling($$,temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp2);addChild(temp2,$4);};}
+                | VOID ID LPAR FormalParams RPAR         {if(fatalities==0){$$ = initNode("NULL","Void",lineCounter,(int)(columnCounter-yyleng));temp = initNode($2->id,"Id",lineCounter,$2->column);addSibling($$,temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp2);addChild(temp2,$4);};}
+                | VOID ID LPAR RPAR                      {if(fatalities==0){$$ = initNode("NULL","Void",lineCounter,(int)(columnCounter-yyleng));temp = initNode($2->id,"Id",lineCounter,$2->column);addSibling($$,temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp2);};}
+                | Type ID LPAR RPAR                      {if(fatalities==0){$$ = $1;temp = initNode($2->id,"Id",lineCounter,$2->column);addSibling($$,temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-yyleng));addSibling($$,temp2);};}
                 ;
 
-FormalParams:     Type ID ParametersAux                  {if(fatalities==0){$$ = initNode("NULL","ParamDecl",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);temp = initNode($2,"Id",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp);addSibling($$,$3);};}
-                | STRING LSQ RSQ ID                      {if(fatalities==0){$$ = initNode("NULL","ParamDecl",lineCounter,(int)(columnCounter-yyleng));temp2 = initNode("NULL","StringArray",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp2);temp = initNode($4,"Id",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp);};}
+FormalParams:     Type ID ParametersAux                  {if(fatalities==0){$$ = initNode("NULL","ParamDecl",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);temp = initNode($2->id,"Id",lineCounter,$2->column);addChild($$,temp);addSibling($$,$3);};}
+                | STRING LSQ RSQ ID                      {if(fatalities==0){$$ = initNode("NULL","ParamDecl",lineCounter,(int)(columnCounter-yyleng));temp2 = initNode("NULL","StringArray",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp2);temp = initNode($4->id,"Id",lineCounter,$4->column);addChild($$,temp);};}
                 ;
 
-ParametersAux:    COMMA Type ID ParametersAux            {if(fatalities==0){$$ = initNode("NULL","ParamDecl",lineCounter,(int)(columnCounter-yyleng));addChild($$,$2);temp = initNode($3,"Id",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp);addSibling($$,$4);};}
+ParametersAux:    COMMA Type ID ParametersAux            {if(fatalities==0){$$ = initNode("NULL","ParamDecl",lineCounter,(int)(columnCounter-yyleng));addChild($$,$2);temp = initNode($3->id,"Id",lineCounter,$3->column);addChild($$,temp);addSibling($$,$4);};}
                 | /*empty*/                              {$$ = NULL;}
                 ;
 
@@ -118,10 +120,10 @@ MethodAux:        Statement MethodAux                    {if(fatalities==0){topN
                 | /*empty*/                              {$$ = NULL;}
                 ;
 
-VarDecl:          Type ID CommaIDaux SEMICOLON           {if(fatalities==0){$$ = initNode("NULL","VarDecl",lineCounter,(int)(columnCounter-yyleng));temp = $1;addChild($$,temp);temp2 = initNode($2,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling(temp,temp2);addSibling($$,$3);};}
+VarDecl:          Type ID CommaIDaux SEMICOLON           {if(fatalities==0){$$ = initNode("NULL","VarDecl",lineCounter,(int)(columnCounter-yyleng));temp = $1;addChild($$,temp);temp2 = initNode($2->id,"Id",lineCounter,$2->column);addSibling(temp,temp2);addSibling($$,$3);};}
                 ;
 
-CommaIDaux:       COMMA ID CommaIDaux                    {if(fatalities==0){$$ = initNode("NULL","VarDecl",lineCounter,(int)(columnCounter-yyleng));temp3=initNode("NULL",typeAssign,lineCounter,(int)(columnCounter-yyleng));addChild($$,temp3);temp4 = initNode($2,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling(temp3,temp4);addSibling($$,$3);};}
+CommaIDaux:       COMMA ID CommaIDaux                    {if(fatalities==0){$$ = initNode("NULL","VarDecl",lineCounter,(int)(columnCounter-yyleng));temp3=initNode("NULL",typeAssign,lineCounter,(int)(columnCounter-yyleng));addChild($$,temp3);temp4 = initNode($2->id,"Id",lineCounter,$2->column);addSibling(temp3,temp4);addSibling($$,$3);};}
                 | /*empty*/                              {$$ = NULL;}
                 ;
 
@@ -132,7 +134,7 @@ Statement:        LBRACE StatementAux1 RBRACE            {if(fatalities==0){if($
                 | WHILE LPAR Expr RPAR Statement         {if(fatalities==0){$$=initNode("NULL","While",lineCounter,(int)(columnCounter-yyleng));addChild($$,$3);if($5==NULL){temp=initNode("NULL","Block",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp);}else{addChild($$,$5);};};}
                 | RETURN StatementAux2 SEMICOLON         {if(fatalities==0){$$=initNode("NULL","Return",lineCounter,(int)(columnCounter-yyleng));addChild($$,$2);};}
                 | StatementAux3 SEMICOLON                {if(fatalities==0){$$=$1;};}
-                | PRINT LPAR STRLIT RPAR SEMICOLON       {if(fatalities==0){$$=initNode("NULL","Print",lineCounter,(int)(columnCounter-yyleng));temp=initNode($3,"StrLit",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp);};}
+                | PRINT LPAR STRLIT RPAR SEMICOLON       {if(fatalities==0){$$=initNode("NULL","Print",lineCounter,(int)(columnCounter-yyleng));temp=initNode($3->id,"StrLit",lineCounter,$3->column);addChild($$,temp);};}
                 | PRINT LPAR Expr RPAR SEMICOLON         {if(fatalities==0){$$=initNode("NULL","Print",lineCounter,(int)(columnCounter-yyleng));addChild($$,$3);};}
                 | error SEMICOLON                        {$$ = NULL;}
                 ;
@@ -151,7 +153,7 @@ StatementAux3:    MethodInvocation                       {if(fatalities==0){$$=i
                 | /*empty*/                              {$$=NULL;}
                 ;
 
-MethodInvocation: ID LPAR MethodInvocAux RPAR            {if(fatalities==0){$$ = initNode($1,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling($$,$3);};}
+MethodInvocation: ID LPAR MethodInvocAux RPAR            {if(fatalities==0){$$ = initNode($1->id,"Id",lineCounter,$1->column);addSibling($$,$3);};}
                 | ID LPAR error RPAR                     {$$ = NULL;}
                 ;
 
@@ -163,10 +165,10 @@ MethodInvocAux2:  COMMA Expr MethodInvocAux2             {if(fatalities==0){$$=$
                 | /*empty*/                              {$$ = NULL;}
                 ;
 
-Assignment:       ID ASSIGN Expr                         {if(fatalities==0){$$ = initNode($1,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling($$,$3);};}
+Assignment:       ID ASSIGN Expr                         {if(fatalities==0){$$ = initNode($1->id,"Id",lineCounter,$1->column);$$->column = $2;addSibling($$,$3);};}
                 ;
 
-ParseArgs:        PARSEINT LPAR ID LSQ Expr RSQ RPAR     {if(fatalities==0){$$ = initNode($3,"Id",lineCounter,(int)(columnCounter-yyleng));addSibling($$,$5);};}
+ParseArgs:        PARSEINT LPAR ID LSQ Expr RSQ RPAR     {if(fatalities==0){$$ = initNode($3->id,"Id",lineCounter,$3->column);addSibling($$,$5);};}
                 | PARSEINT LPAR error RPAR               {$$ = NULL;}
                 ;
 
@@ -196,11 +198,11 @@ Expr1:            Expr1 AND Expr1                        {if(fatalities==0){$$=i
                 | LPAR Expr RPAR                         {if(fatalities==0){$$=$2;};}
                 | MethodInvocation                       {if(fatalities==0){$$=initNode("NULL","Call",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);};}
                 | ParseArgs                              {if(fatalities==0){$$=initNode("NULL","ParseArgs",lineCounter,(int)(columnCounter-yyleng));addChild($$,$1);};}
-                | ID DOTLENGTH                           {if(fatalities==0){$$=initNode("NULL","Length",lineCounter,(int)(columnCounter-yyleng));temp=initNode($1,"Id",lineCounter,(int)(columnCounter-yyleng));addChild($$,temp);};}
-                | ID                                     {if(fatalities==0){$$=initNode($1,"Id",lineCounter,(int)(columnCounter-yyleng));};}
-                | INTLIT                                 {if(fatalities==0){$$=initNode($1,"DecLit",lineCounter,(int)(columnCounter-yyleng));};}
-                | REALLIT                                {if(fatalities==0){$$=initNode($1,"RealLit",lineCounter,(int)(columnCounter-yyleng));};}
-                | BOOLLIT                                {if(fatalities==0){$$=initNode($1,"BoolLit",lineCounter,(int)(columnCounter-yyleng));};}
+                | ID DOTLENGTH                           {if(fatalities==0){$$=initNode("NULL","Length",lineCounter,(int)(columnCounter-yyleng));temp=initNode($1->id,"Id",lineCounter,$1->column);addChild($$,temp);};}
+                | ID                                     {if(fatalities==0){$$=initNode($1->id,"Id",lineCounter,$1->column);};}
+                | INTLIT                                 {if(fatalities==0){$$=initNode($1->id,"DecLit",lineCounter,$1->column);};}
+                | REALLIT                                {if(fatalities==0){$$=initNode($1->id,"RealLit",lineCounter,$1->column);};}
+                | BOOLLIT                                {if(fatalities==0){$$=initNode($1->id,"BoolLit",lineCounter,$1->column);};}
                 | LPAR error RPAR                        {$$ = NULL;}
                 ;
 

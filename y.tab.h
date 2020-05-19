@@ -63,38 +63,38 @@ extern int yydebug;
     SEMICOLON = 273,
     BLANKID = 274,
     AND = 275,
-    ASSIGN = 276,
-    STAR = 277,
-    ARROW = 278,
-    COMMA = 279,
-    DIV = 280,
-    EQ = 281,
-    GE = 282,
-    GT = 283,
-    LBRACE = 284,
-    LE = 285,
-    LPAR = 286,
-    LSQ = 287,
-    LT = 288,
-    MINUS = 289,
-    MOD = 290,
-    NE = 291,
-    NOT = 292,
-    OR = 293,
-    PLUS = 294,
-    RBRACE = 295,
-    RPAR = 296,
-    RSQ = 297,
-    XOR = 298,
-    LSHIFT = 299,
-    RSHIFT = 300,
+    STAR = 276,
+    ARROW = 277,
+    COMMA = 278,
+    DIV = 279,
+    EQ = 280,
+    GE = 281,
+    GT = 282,
+    LBRACE = 283,
+    LE = 284,
+    LPAR = 285,
+    LSQ = 286,
+    LT = 287,
+    MINUS = 288,
+    MOD = 289,
+    NE = 290,
+    NOT = 291,
+    OR = 292,
+    PLUS = 293,
+    RBRACE = 294,
+    RPAR = 295,
+    RSQ = 296,
+    XOR = 297,
+    LSHIFT = 298,
+    RSHIFT = 299,
+    ID = 300,
     RESERVED = 301,
     INTLIT = 302,
     REALLIT = 303,
     STRLIT = 304,
     BOOLLIT = 305,
-    ID = 306,
-    UNARY = 307
+    UNARY = 306,
+    ASSIGN = 307
   };
 #endif
 /* Tokens.  */
@@ -116,38 +116,38 @@ extern int yydebug;
 #define SEMICOLON 273
 #define BLANKID 274
 #define AND 275
-#define ASSIGN 276
-#define STAR 277
-#define ARROW 278
-#define COMMA 279
-#define DIV 280
-#define EQ 281
-#define GE 282
-#define GT 283
-#define LBRACE 284
-#define LE 285
-#define LPAR 286
-#define LSQ 287
-#define LT 288
-#define MINUS 289
-#define MOD 290
-#define NE 291
-#define NOT 292
-#define OR 293
-#define PLUS 294
-#define RBRACE 295
-#define RPAR 296
-#define RSQ 297
-#define XOR 298
-#define LSHIFT 299
-#define RSHIFT 300
+#define STAR 276
+#define ARROW 277
+#define COMMA 278
+#define DIV 279
+#define EQ 280
+#define GE 281
+#define GT 282
+#define LBRACE 283
+#define LE 284
+#define LPAR 285
+#define LSQ 286
+#define LT 287
+#define MINUS 288
+#define MOD 289
+#define NE 290
+#define NOT 291
+#define OR 292
+#define PLUS 293
+#define RBRACE 294
+#define RPAR 295
+#define RSQ 296
+#define XOR 297
+#define LSHIFT 298
+#define RSHIFT 299
+#define ID 300
 #define RESERVED 301
 #define INTLIT 302
 #define REALLIT 303
 #define STRLIT 304
 #define BOOLLIT 305
-#define ID 306
-#define UNARY 307
+#define UNARY 306
+#define ASSIGN 307
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -156,10 +156,11 @@ union YYSTYPE
 {
 #line 41 "jucompiler.y" /* yacc.c:1909  */
 
-    char* id;
+    int col;
+    struct uni* loki;
     struct node* newNode;
 
-#line 163 "y.tab.h" /* yacc.c:1909  */
+#line 164 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
