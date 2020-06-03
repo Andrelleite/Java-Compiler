@@ -15,10 +15,10 @@
 
 
 void printThemTables(Node *node, int flag){
-	
+
 	t_pointer temp; Node *t_temp;
 	t_pointer table_root = (t_pointer)malloc(sizeof(Tabnode));
-	
+
 	if(strcmp(node->id,"Program")==0){
 		table_root->id_type = strdup("Class");
 		table_root->id = strdup(node->child->type);
@@ -30,7 +30,7 @@ void printThemTables(Node *node, int flag){
 	/*criar esqueleto da tabela*/
 	makeTableModel(table_root,node);
 
-	
+
 	temp = table_root->lower;
 	while(temp!=NULL){
 		if(strcmp(temp->id_type,"MethodDecl")==0){
@@ -47,22 +47,22 @@ void printThemTables(Node *node, int flag){
 	if(flag==0){
 		printFinal(table_root);
 	}
-	
+
 	/*libertar memoria da raiz*/
 	free(table_root);
-	
+
 }
 
 void repeated(t_pointer top){
-	
+
 	int i, counter;
 	char *rep;
 	t_pointer header;
 	t_pointer back;
 	t_pointer pivot = top->lower;
-	
+
 	while(pivot!=NULL){
-		
+
 		header = top->lower;
 		while(header!=pivot){
 			if(header->node != NULL && pivot->node != NULL){
@@ -89,11 +89,11 @@ void repeated(t_pointer top){
 						pivot->id = strdup("REP");
 					}
 				}
-			} 
+			}
 			back = header;
 			header = header->lower;
 		}
-		
+
 		if(strcmp(pivot->id,"_")==0){
 			back->lower = header->lower;
 			printf("Line %d, col %d: Symbol %s is reserved\n",pivot->line,pivot->col,pivot->id);
@@ -106,7 +106,7 @@ void repeated(t_pointer top){
 						printf(",");
 					}
 					printf("%s",correctType(pivot->paramtypes[i],NULL));
-					
+
 				}
 				printf(") already defined\n");
 				repeatedheader(pivot);
@@ -114,46 +114,46 @@ void repeated(t_pointer top){
 				printf("Line %d, col %d: Symbol %s already defined\n",pivot->line,pivot->col,rep);
 			}
 		}
-		
+
 		pivot = pivot->lower;
 	}
-	
+
 	pivot = top->lower;
 	while (pivot!=NULL) {
 		repeatedheader(pivot);
 		pivot = pivot->lower;
 	}
-	
+
 	pivot = top->lower;
 	while (pivot!=NULL) {
-		repeatedin(pivot);
+		repeatedin(pivot,top);
 		pivot = pivot->lower;
 	}
-	
-	
+
+
 }
 
 void repeatedheader(t_pointer mdecl){
-	
+
 	t_pointer temp = mdecl->next;
 	t_pointer forward;
 	t_pointer back;
 	char *rep;
-	
+
 	while(temp != NULL){
-		
+
 		forward = mdecl->next;
 		while(forward != temp){
 			if(strcmp(forward->id,temp->id)==0){
 				if(forward->param != NULL && temp->param != NULL){
 					rep = strdup(temp->id);
 					temp->id = strdup("REP");
-				}			
+				}
 			}
 			back = forward;
 			forward = forward->next;
 		}
-		
+
 		if(strcmp(temp->id,"_")==0 && temp->param != NULL){
 			back->next = forward->next;
 			printf("Line %d, col %d: Symbol %s is reserved\n",temp->line,temp->col,temp->id);
@@ -163,18 +163,18 @@ void repeatedheader(t_pointer mdecl){
 		}
 		temp = temp->next;
 	}
-	
+
 
 }
 
-void repeatedin(t_pointer mdecl){
-	
+void repeatedin(t_pointer mdecl,t_pointer top){
+
 	t_pointer forward;
 	t_pointer back;
 	Node *t_temp;
 	char *rep;
 	int got=0;
-	
+
 	if(mdecl->node != NULL){
 		t_temp = mdecl->node->sibling->child;
 		while(t_temp!=NULL){
@@ -184,7 +184,7 @@ void repeatedin(t_pointer mdecl){
 				while(forward != t_temp->tnt){
 					if(strcmp(forward->id,t_temp->tnt->id)==0){
 						rep = strdup(t_temp->tnt->id);
-						t_temp->tnt->id = strdup("REP");						
+						t_temp->tnt->id = strdup("REP");
 					}
 					back = forward;
 					forward = forward->next;
@@ -197,26 +197,397 @@ void repeatedin(t_pointer mdecl){
 					printf("Line %d, col %d: Symbol %s already defined\n",t_temp->tnt->line,t_temp->tnt->col,rep);
 				}
 			}else{
-				checkChildErr(t_temp,t_temp);
+				checkChildErr(t_temp->child,t_temp,mdecl,top);
 			}
-			
+
 			t_temp = t_temp->sibling;
 		}
 	}
 
 }
 
-void checkChildErr(Node *t, Node *op){
-	
-	Node *temp = t;
+void checkChildErr(Node *t, Node *op, t_pointer met, t_pointer top){
 
-	if(temp->sibling!=NULL){
-		checkChildErr(temp->sibling,op);
+	Node *temp = t;
+	Node *sib;
+	Node *chi;
+	t_pointer call;
+
+	if(temp != NULL){
+
+		if(temp->id_type != NULL){
+
+			if(temp->child!=NULL){
+				checkChildErr(temp->child,temp,met,top);
+			}
+			if(temp->sibling!=NULL){
+				checkChildErr(temp->sibling,op,met,top);
+			}
+
+			if(strcmp(temp->id_type,"undef")==0 && strcmp(op->id,"Call")==0 && strcmp(temp->type,"NULL")!=0 && temp == op->child){
+				printf("Line %d, col %d: Cannot find symbol %s(",temp->line,temp->column,temp->type);
+				sib = temp->sibling;
+				while(sib!=NULL){
+					printf("%s",sib->id_type);
+					if(sib->sibling!=NULL){
+						printf(",");
+					}
+					sib = sib->sibling;
+				}
+				printf(")\n");
+			}else if(strcmp(temp->id_type,"undef")==0 && temp->child == NULL){
+				printf("Line %d, col %d: Cannot find symbol %s\n",temp->line,temp->column,temp->type);
+			}
+		}
+
 	}
-	if(temp->child!=NULL){
-		checkChildErr(temp->child,temp);
+
+	if(strcmp(op->id,"Mul")==0 && op->child == temp){
+		if(strcmp(op->id_type,"double") && strcmp(op->id_type,"int")){
+			if(strcmp(temp->id_type,"")==0){
+				printf("Line %d, col %d: Operator * cannot be applied to types none, %s\n",op->line,op->column,temp->sibling->id_type);
+			}else if(strcmp(temp->sibling->id_type,"")==0){
+				printf("Line %d, col %d: Operator * cannot be applied to types %s, none\n",op->line,op->column,temp->id_type);
+			}else{
+				printf("Line %d, col %d: Operator * cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+			}
+		}else{
+			if(strcmp(temp->id_type,"double") && strcmp(temp->id_type,"int")){
+				if(strcmp(temp->id_type,"")==0){
+					printf("Line %d, col %d: Operator * cannot be applied to types none, %s\n",op->line,op->column,temp->sibling->id_type);
+				}else if(strcmp(temp->sibling->id_type,"")==0){
+					printf("Line %d, col %d: Operator * cannot be applied to types %s, none\n",op->line,op->column,temp->id_type);
+				}else{
+					printf("Line %d, col %d: Operator * cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+				}
+			}
+		}
+	}else if(strcmp(op->id,"Add")==0 && op->child == temp){
+		if(strcmp(op->id_type,"double") && strcmp(op->id_type,"int")){
+				if(strcmp(temp->id_type,"")==0){
+					printf("Line %d, col %d: Operator + cannot be applied to types none, %s\n",op->line,op->column,temp->sibling->id_type);
+				}else if(strcmp(temp->sibling->id_type,"")==0){
+					printf("Line %d, col %d: Operator + cannot be applied to types %s, none\n",op->line,op->column,temp->id_type);
+				}else{
+					printf("Line %d, col %d: Operator + cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+				}	
+		}else{
+			if(strcmp(temp->id_type,"double") && strcmp(temp->id_type,"int")){
+				if(strcmp(temp->id_type,"")==0){
+					printf("Line %d, col %d: Operator + cannot be applied to types none, %s\n",op->line,op->column,temp->sibling->id_type);
+				}else if(strcmp(temp->sibling->id_type,"")==0){
+					printf("Line %d, col %d: Operator + cannot be applied to types %s, none\n",op->line,op->column,temp->id_type);
+				}else{
+					printf("Line %d, col %d: Operator + cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+				}
+			}
+		}
+	}else if(strcmp(op->id,"Div")==0 && op->child == temp){
+		if(strcmp(op->id_type,"double") && strcmp(op->id_type,"int")){
+			if(strcmp(temp->id_type,"")==0){
+					printf("Line %d, col %d: Operator / cannot be applied to types none, %s\n",op->line,op->column,temp->sibling->id_type);
+				}else if(strcmp(temp->sibling->id_type,"")==0){
+					printf("Line %d, col %d: Operator / cannot be applied to types %s, none\n",op->line,op->column,temp->id_type);
+				}else{
+					printf("Line %d, col %d: Operator / cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+				}
+		}else{
+			if(strcmp(temp->id_type,"double") && strcmp(temp->id_type,"int")){
+				if(strcmp(temp->id_type,"")==0){
+					printf("Line %d, col %d: Operator / cannot be applied to types none, %s\n",op->line,op->column,temp->sibling->id_type);
+				}else if(strcmp(temp->sibling->id_type,"")==0){
+					printf("Line %d, col %d: Operator / cannot be applied to types %s, none\n",op->line,op->column,temp->id_type);
+				}else{
+					printf("Line %d, col %d: Operator / cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+				}
+			}
+		}
+	}else if(strcmp(op->id,"Sub")==0 && op->child == temp){
+		if(strcmp(op->id_type,"double") && strcmp(op->id_type,"int")){
+			if(strcmp(temp->id_type,"")==0){
+					printf("Line %d, col %d: Operator - cannot be applied to types none, %s\n",op->line,op->column,temp->sibling->id_type);
+				}else if(strcmp(temp->sibling->id_type,"")==0){
+					printf("Line %d, col %d: Operator - cannot be applied to types %s, none\n",op->line,op->column,temp->id_type);
+				}else{
+					printf("Line %d, col %d: Operator - cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+				}
+		}else{
+			if(strcmp(temp->id_type,"double") && strcmp(temp->id_type,"int")){
+				if(strcmp(temp->id_type,"")==0){
+					printf("Line %d, col %d: Operator - cannot be applied to types none, %s\n",op->line,op->column,temp->sibling->id_type);
+				}else if(strcmp(temp->sibling->id_type,"")==0){
+					printf("Line %d, col %d: Operator - cannot be applied to types %s, none\n",op->line,op->column,temp->id_type);
+				}else{
+					printf("Line %d, col %d: Operator - cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+				}
+			}
+		}
+	}else if(strcmp(op->id,"Mod")==0 && op->child == temp){
+		if(strcmp(op->id_type,"double") && strcmp(op->id_type,"int")){
+			if(strcmp(temp->id_type,"")==0){
+					printf("Line %d, col %d: Operator %% cannot be applied to types none, %s\n",op->line,op->column,temp->sibling->id_type);
+				}else if(strcmp(temp->sibling->id_type,"")==0){
+					printf("Line %d, col %d: Operator %% cannot be applied to types %s, none\n",op->line,op->column,temp->id_type);
+				}else{
+					printf("Line %d, col %d: Operator %% cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+				}
+		}else{
+			if(strcmp(temp->id_type,"double") && strcmp(temp->id_type,"int")){
+				if(strcmp(temp->id_type,"")==0){
+					printf("Line %d, col %d: Operator %% cannot be applied to types none, %s\n",op->line,op->column,temp->sibling->id_type);
+				}else if(strcmp(temp->sibling->id_type,"")==0){
+					printf("Line %d, col %d: Operator %% cannot be applied to types %s, none\n",op->line,op->column,temp->id_type);
+				}else{
+					printf("Line %d, col %d: Operator %% cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+				}
+			}
+		}
+	}else if(strcmp(op->id,"Plus")==0 && op->child == temp){
+		if(strcmp(op->id_type,"double") && strcmp(op->id_type,"int")){
+			printf("Line %d, col %d: Operator + cannot be applied to type %s\n",op->line,op->column,temp->id_type);
+		}
+	}else if(strcmp(op->id,"Minus")==0 && op->child == temp){
+		if(strcmp(op->id_type,"double") && strcmp(op->id_type,"int")){
+			printf("Line %d, col %d: Operator - cannot be applied to type %s\n",op->line,op->column,temp->id_type);
+		}
+	}else if(strcmp(op->id,"Not")==0 && op->child == temp){
+		if(strcmp(temp->id_type,"boolean")){
+			printf("Line %d, col %d: Operator ! cannot be applied to type %s\n",op->line,op->column,temp->id_type);
+		}
+	}else if(strcmp(op->id,"Assign")==0 && op->child == temp){
+		if(strcmp(temp->id_type,op->id_type)!=0 || strcmp(temp->sibling->id_type,op->id_type)!=0){
+			if(strcmp(temp->id_type,"double")==0 && strcmp(temp->sibling->id_type,"int")==0){
+			}else{
+				if(strcmp(temp->id_type,"")==0){
+					printf("Line %d, col %d: Operator = cannot be applied to types none, %s\n",op->line,op->column,temp->sibling->id_type);
+				}else if(strcmp(temp->sibling->id_type,"")==0){
+					printf("Line %d, col %d: Operator = cannot be applied to types %s, none\n",op->line,op->column,temp->id_type);
+				}else{
+					printf("Line %d, col %d: Operator = cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+				}
+			}
+		}else{
+			if(strcmp(temp->id_type,"")==0){
+				printf("Line %d, col %d: Operator = cannot be applied to types none, %s\n",op->line,op->column,temp->sibling->id_type);
+			}else if(strcmp(temp->sibling->id_type,"")==0){
+				printf("Line %d, col %d: Operator = cannot be applied to types %s, none\n",op->line,op->column,temp->id_type);
+			}else if(strcmp(temp->id_type,"String[]")==0 && strcmp(temp->sibling->id_type,"String[]")==0){
+				printf("Line %d, col %d: Operator = cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+			}else if(strcmp(temp->id_type,"undef")==0 && strcmp(temp->sibling->id_type,"undef")==0){
+				printf("Line %d, col %d: Operator = cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+			}
+		}
+	}else if(strcmp(op->id,"ParseArgs")==0 && op->child == temp){
+		if(strcmp(temp->id_type,"String[]")){
+			printf("Line %d, col %d: Operator Integer.parseInt cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+		}else if(strcmp(temp->sibling->id_type,"int")){
+			printf("Line %d, col %d: Operator Integer.parseInt cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+		}
+	}else if(strcmp(op->id,"Length")==0 && op->child == temp){
+		if(strcmp(temp->id_type,"String[]")){
+			printf("Line %d, col %d: Operator .length cannot be applied to type %s\n",op->line,op->column,temp->id_type);
+		}
+	}else if(strcmp(op->id,"If")==0 && op->child == temp){
+		if(strcmp(temp->id_type,"boolean")){
+			printf("Line %d, col %d: Incompatible type %s in if statement\n",temp->line,temp->column,temp->id_type);
+		}
+	}else if(strcmp(op->id,"While")==0 && op->child == temp){
+		if(strcmp(temp->id_type,"boolean")){
+			printf("Line %d, col %d: Incompatible type %s in while statement\n",temp->line,temp->column,temp->id_type);
+		}
+	}else if(strcmp(op->id,"Return")==0){
+		if(met != NULL){
+			if(strcmp(correctType(met->type,NULL),"void")==0){
+				if(op->child != NULL){
+					if(strcmp(temp->id,"ParseArgs") && strcmp(temp->id,"Mul")&& strcmp(temp->id,"Add")&& strcmp(temp->id,"Div")&& strcmp(temp->id,"Mod")&& strcmp(temp->id,"Sub")){
+						chi = temp;
+						while(chi->child!=NULL){
+							chi = chi->child;
+						}
+					}else{
+						chi = temp;
+					}
+					printf("Line %d, col %d: Incompatible type %s in return statement\n",chi->line,chi->column,op->child->id_type);
+				}
+			}else{
+				if(op->child == NULL){
+					printf("Line %d, col %d: Incompatible type void in return statement\n",op->line,op->column);
+				}else if(strcmp(correctType(met->type,NULL),temp->id_type)){
+					if(strcmp(correctType(met->type,NULL),"double")==0 && strcmp(temp->id_type,"int")==0){
+
+					}else{
+						if(strcmp(temp->id,"ParseArgs") && strcmp(temp->id,"Mul")&& strcmp(temp->id,"Add")&& strcmp(temp->id,"Div")&& strcmp(temp->id,"Mod")&& strcmp(temp->id,"Sub")){
+							chi = temp;
+							while(chi->child!=NULL){
+								chi = chi->child;
+							}
+						}else{
+							chi = temp;
+						}
+						printf("Line %d, col %d: Incompatible type %s in return statement\n",chi->line,chi->column,op->child->id_type);
+					}
+				}
+			}
+		}
+	}else if(strcmp(op->id,"Print")==0 && op->child != NULL){
+		if(op->child == temp){
+			if(strcmp(temp->id_type,"undef")==0 || strcmp(temp->id_type,"String[]")==0 || strcmp(temp->id_type,"void")==0){
+				chi = temp;
+				while(chi->child!=NULL){
+					chi = chi->child;
+				}
+				printf("Line %d, col %d: Incompatible type %s in System.out.print statement\n",chi->line,chi->column,temp->id_type);
+			}else if(strcmp(temp->id_type,"")==0){
+				chi = temp;
+				while(chi->child!=NULL){
+					chi = chi->child;
+				}
+				printf("Line %d, col %d: Incompatible type none in System.out.print statement\n",chi->line,chi->column);
+			}
+		}	
+	}else if(strcmp(op->id,"And")==0 && op->child == temp){
+		if(strcmp(temp->id_type,"boolean") || strcmp(temp->sibling->id_type,"boolean")){
+			printf("Line %d, col %d: Operator && cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+		}
+	}else if(strcmp(op->id,"Or")==0 && op->child == temp){
+		if(strcmp(temp->id_type,"boolean") || strcmp(temp->sibling->id_type,"boolean")){
+			printf("Line %d, col %d: Operator || cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+		}
+	}else if(strcmp(op->id,"Eq")==0 && op->child == temp){
+		if(strcmp(temp->id_type,temp->sibling->id_type)){
+			if(strcmp(temp->id_type,"double")==0 && strcmp(temp->sibling->id_type,"int")==0){
+
+			}else if(strcmp(temp->id_type,"int")==0 && strcmp(temp->sibling->id_type,"double")==0){
+
+			}else{
+				if(strcmp(temp->id_type,"")==0){
+					printf("Line %d, col %d: Operator == cannot be applied to types none, %s\n",op->line,op->column,temp->sibling->id_type);
+				}else if(strcmp(temp->sibling->id_type,"")==0){
+					printf("Line %d, col %d: Operator == cannot be applied to types %s, none\n",op->line,op->column,temp->id_type);
+				}else{
+					printf("Line %d, col %d: Operator == cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+				}
+			}
+		}else{
+			if(strcmp(temp->id_type,"undef")==0 && strcmp(temp->sibling->id_type,"undef")==0){
+				printf("Line %d, col %d: Operator == cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+			}
+		}
+	}else if(strcmp(op->id,"Ne")==0 && op->child == temp){
+		if(strcmp(temp->id_type,temp->sibling->id_type)){
+			if(strcmp(temp->id_type,"double")==0 && strcmp(temp->sibling->id_type,"int")==0){
+
+			}else if(strcmp(temp->id_type,"int")==0 && strcmp(temp->sibling->id_type,"double")==0){
+
+			}else{
+				if(strcmp(temp->id_type,"")==0){
+					printf("Line %d, col %d: Operator != cannot be applied to types none, %s\n",op->line,op->column,temp->sibling->id_type);
+				}else if(strcmp(temp->sibling->id_type,"")==0){
+					printf("Line %d, col %d: Operator != cannot be applied to types %s, none\n",op->line,op->column,temp->id_type);
+				}else{
+					printf("Line %d, col %d: Operator != cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+				}
+			}
+		}else{
+			if(strcmp(temp->id_type,"undef")==0 && strcmp(temp->sibling->id_type,"undef")==0){
+				printf("Line %d, col %d: Operator != cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+			}
+		}
+	}else if(strcmp(op->id,"Lt")==0 && op->child == temp){
+		if(strcmp(temp->id_type,temp->sibling->id_type)){
+			if(strcmp(temp->id_type,"double")==0 && strcmp(temp->sibling->id_type,"int")==0){
+
+			}else if(strcmp(temp->id_type,"int")==0 && strcmp(temp->sibling->id_type,"double")==0){
+
+			}else{
+				if(strcmp(temp->id_type,"")==0){
+					printf("Line %d, col %d: Operator < cannot be applied to types none, %s\n",op->line,op->column,temp->sibling->id_type);
+				}else if(strcmp(temp->sibling->id_type,"")==0){
+					printf("Line %d, col %d: Operator < cannot be applied to types %s, none\n",op->line,op->column,temp->id_type);
+				}else{
+					printf("Line %d, col %d: Operator < cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+				}
+			}
+		}else{
+			if(strcmp(temp->id_type,"undef")==0 && strcmp(temp->sibling->id_type,"undef")==0){
+				printf("Line %d, col %d: Operator < cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+			}
+		}
+	}else if(strcmp(op->id,"Gt")==0 && op->child == temp){
+		if(strcmp(temp->id_type,temp->sibling->id_type)){
+			if(strcmp(temp->id_type,"double")==0 && strcmp(temp->sibling->id_type,"int")==0){
+
+			}else if(strcmp(temp->id_type,"int")==0 && strcmp(temp->sibling->id_type,"double")==0){
+
+			}else{
+				if(strcmp(temp->id_type,"")==0){
+					printf("Line %d, col %d: Operator > cannot be applied to types none, %s\n",op->line,op->column,temp->sibling->id_type);
+				}else if(strcmp(temp->sibling->id_type,"")==0){
+					printf("Line %d, col %d: Operator > cannot be applied to types %s, none\n",op->line,op->column,temp->id_type);
+				}else{
+					printf("Line %d, col %d: Operator > cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+				}
+			}
+		}else{
+			if(strcmp(temp->id_type,"undef")==0 && strcmp(temp->sibling->id_type,"undef")==0){
+				printf("Line %d, col %d: Operator > cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+			}
+		}
+	}else if(strcmp(op->id,"Ge")==0 && op->child == temp){
+		if(strcmp(temp->id_type,temp->sibling->id_type)){
+			if(strcmp(temp->id_type,"double")==0 && strcmp(temp->sibling->id_type,"int")==0){
+
+			}else if(strcmp(temp->id_type,"int")==0 && strcmp(temp->sibling->id_type,"double")==0){
+
+			}else{
+				if(strcmp(temp->id_type,"")==0){
+					printf("Line %d, col %d: Operator >= cannot be applied to types none, %s\n",op->line,op->column,temp->sibling->id_type);
+				}else if(strcmp(temp->sibling->id_type,"")==0){
+					printf("Line %d, col %d: Operator >= cannot be applied to types %s, none\n",op->line,op->column,temp->id_type);
+				}else{
+					printf("Line %d, col %d: Operator >= cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+				}
+			}
+		}else{
+			if(strcmp(temp->id_type,"undef")==0 && strcmp(temp->sibling->id_type,"undef")==0){
+				printf("Line %d, col %d: Operator >= cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+			}
+		}
+	}else if(strcmp(op->id,"Le")==0 && op->child == temp){
+		if(strcmp(temp->id_type,temp->sibling->id_type)){
+			if(strcmp(temp->id_type,"double")==0 && strcmp(temp->sibling->id_type,"int")==0){
+
+			}else if(strcmp(temp->id_type,"int")==0 && strcmp(temp->sibling->id_type,"double")==0){
+
+			}else{
+				if(strcmp(temp->id_type,"")==0){
+					printf("Line %d, col %d: Operator <= cannot be applied to types none, %s\n",op->line,op->column,temp->sibling->id_type);
+				}else if(strcmp(temp->sibling->id_type,"")==0){
+					printf("Line %d, col %d: Operator <= cannot be applied to types %s, none\n",op->line,op->column,temp->id_type);
+				}else{
+					printf("Line %d, col %d: Operator <= cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+				}
+			}
+		}else{
+			if(strcmp(temp->id_type,"undef")==0 && strcmp(temp->sibling->id_type,"undef")==0){
+				printf("Line %d, col %d: Operator <= cannot be applied to types %s, %s\n",op->line,op->column,temp->id_type,temp->sibling->id_type);
+			}
+		}
+	}else if(strcmp(op->id,"Call")==0 && op->child == temp){
+		if(strcmp(temp->id_type,"undef")){
+			call = top->lower;
+			while(call != NULL){
+				if(strcmp(call->id_type,"MethodDecl")==0){
+					if(strcmp(call->id,temp->type)==0 && (call->cardptypes == temp->card_p_t-2)){
+						
+					}
+				}
+				call = call->lower;
+			}
+		}
 	}
-	
+
+
 }
 
 void statementA(t_pointer top, t_pointer table_root, Node *t){
@@ -228,21 +599,20 @@ void statementA(t_pointer top, t_pointer table_root, Node *t){
 	Node *aux = t;
 
 	flip = 0;
-			out = 0;
-			inner = aux->child->sibling;
+	out = 0;
+	inner = aux->child->sibling;
 
-			while(inner != NULL){
-				if(strcmp(inner->id,"Call")==0){
-					statementA(top,table_root,inner);
-				}
-				inner = inner->sibling;
-			}
+	while(inner != NULL){
+		if(strcmp(inner->id,"Call")==0){
+			statementA(top,table_root,inner);
+		}
+		inner = inner->sibling;
+	}
 
-			getCallType(aux);
-			temp = top->lower;
+	getCallType(aux);
+	temp = top->lower;
 			while(temp != NULL && out != 1){
-				if(strcmp(aux->child->type,temp->id)==0){
-
+				if(strcmp(aux->child->type,temp->id)==0 && strcmp(temp->id_type,"MethodDecl")==0){
 					mirror = aux->child->card_p_t-2;
 					if(temp->cardptypes == mirror){
 						for(j = 0; j < temp->cardptypes; j++){
@@ -263,7 +633,7 @@ void statementA(t_pointer top, t_pointer table_root, Node *t){
 			if(out != 1){
 				temp = top->lower;
 				while(temp != NULL && out != 1){
-					if(strcmp(aux->child->type,temp->id)==0){
+					if(strcmp(aux->child->type,temp->id)==0 && strcmp(temp->id_type,"MethodDecl")==0){
 						mirror = aux->child->card_p_t-2;
 						if(temp->cardptypes == mirror){
 							for(j = 0; j < temp->cardptypes; j++){
@@ -303,9 +673,9 @@ void statementA(t_pointer top, t_pointer table_root, Node *t){
 }
 
 char *navigate(t_pointer top, t_pointer table_root,Node *aux){
-	
+
 	Node *t = aux;
-	
+
 	while(t != NULL){
 
 		if(strcmp(t->id,"VarDecl")!=0 && strcmp(t->id,"Rshift")!=0 && strcmp(t->id,"Lshift")!=0){
@@ -333,38 +703,37 @@ char *navigate(t_pointer top, t_pointer table_root,Node *aux){
 }
 
 void getCallType(Node *node){
-	
+
 	Node *temp = node->child->sibling;
 	node->child->card_p_t = 0;
 	strcpy(node->child->param_t[node->child->card_p_t],"(");
 	node->child->card_p_t++;
-	
+
 	while(temp != NULL){
 		strcpy(node->child->param_t[node->child->card_p_t],temp->id_type);
 		node->child->card_p_t++;
 		temp = temp->sibling;
 	}
-	
+
 	strcpy(node->child->param_t[node->child->card_p_t],")");
 	node->child->card_p_t++;
-	
+
 }
 
 char *getType(Node *node, t_pointer tabela){
-	
+
 	t_pointer temp = tabela;
-	
+
 	if(node->id_type == NULL){
+
 		char *get = correctType(node->id,node);
 		if(strcmp(get,"undef")!=0){
-			
+
 			node->id_type = strdup(get);
 			return get;
-			
+
 		}else{
-			
 			while(temp != NULL){
-				
 				if(node->type != NULL){
 					if(strcmp(node->type,temp->id)==0 && temp->cardptypes == 0){
 						if(node->line >= temp->line){
@@ -373,15 +742,15 @@ char *getType(Node *node, t_pointer tabela){
 						}
 					}
 				}
-			
+
 				if(strcmp(tabela->id_type,"Class")==0){
 					temp = temp->lower;
 				}else{
 					temp = temp->next;
 				}
-				
+
 			}
-			
+
 		}
 		node->id_type = strdup(correctType("undef",node));
 		return "undef";
@@ -394,9 +763,11 @@ char *getType(Node *node, t_pointer tabela){
 			while(temp != NULL){
 				if(node->type != NULL){
 					if(strcmp(node->type,temp->id)==0 && temp->cardptypes == 0 && strcmp(temp->id_type,"Class")!=0){
-						node->id_type = strdup(correctType(temp->type,node));
-						return temp->type;
-	
+						if(strcmp(temp->id_type,"MethodDecl")){
+							node->id_type = strdup(correctType(temp->type,node));
+							return temp->type;
+						}
+						
 					}
 				}
 				if(strcmp(tabela->id_type,"Class")==0){
@@ -411,11 +782,11 @@ char *getType(Node *node, t_pointer tabela){
 	}else{
 		return node->id_type;
 	}
-	
+
 }
 
 char *correctType(char *node, Node *n){
-	
+
 	if(strcmp(node,"DecLit")==0 || strcmp(node,"Int")==0){
 		return "int";
 	}else if(strcmp(node,"RealLit")==0 || strcmp(node,"Double")==0){
@@ -430,15 +801,39 @@ char *correctType(char *node, Node *n){
 		return "void";
 	}else if(strcmp(node,"Eq")==0 || strcmp(node,"Ne")==0 || strcmp(node,"And")==0 || strcmp(node,"Or")==0){
 		return "boolean";
-	}else if(strcmp(node,"Ge")==0 || strcmp(node,"Gt")==0 || strcmp(node,"Le")==0 || strcmp(node,"Lt")==0){
+	}else if(strcmp(node,"Ge")==0 || strcmp(node,"Gt")==0 || strcmp(node,"Le")==0 || strcmp(node,"Lt")==0 || strcmp(node,"Not")==0 ){
 		return "boolean";
 	}else if(strcmp(node,"ParseArgs")==0 || strcmp(node,"Length")==0){
 		return "int";
 	}else if(strcmp(node,"Return")==0 || strcmp(node,"Block")==0 || strcmp(node,"If")==0 || strcmp(node,"Print")==0 || strcmp(node,"While")==0){
 		return "";
-	}else if(strcmp(node,"Mul")==0 || strcmp(node,"Sub")==0 || strcmp(node,"Call")==0 || strcmp(node,"Add")==0 || strcmp(node,"Not")==0){
-		return childType(n);
-	}else if(strcmp(node,"Minus")==0 || strcmp(node,"Xor")==0 || strcmp(node,"Div")==0 || strcmp(node,"Mod")==0 || strcmp(node,"Plus")==0 ){
+	}else if(strcmp(node,"Mul")==0 || strcmp(node,"Sub")==0 || strcmp(node,"Div")==0 || strcmp(node,"Mul")==0 || strcmp(node,"Add")==0 || strcmp(node,"Mod")==0){
+		if(strcmp(n->child->sibling->id_type,"undef")==0){
+			return "undef";
+		}else if(strcmp(n->child->sibling->id_type,"boolean")==0){
+			return "undef";
+		}else if(strcmp(n->child->sibling->id_type,"String[]")==0){
+			return "undef";
+		}else if(strcmp(n->child->id_type,"boolean")==0){
+			return "undef";
+		}else if(strcmp(n->child->id_type,"undef")==0){
+			return "undef";
+		}else if(strcmp(n->child->id_type,"String[]")==0){
+			return "undef";
+		}else{
+			return childType(n);
+		}
+	}else if(strcmp(node,"Minus")==0 || strcmp(node,"Plus")==0){
+		if(strcmp(n->child->id_type,"boolean")==0){
+			return "undef";
+		}else if(strcmp(n->child->id_type,"undef")==0){
+			return "undef";
+		}else if(strcmp(n->child->id_type,"String[]")==0){
+			return "undef";
+		}else{
+			return childType(n);
+		}
+	}else if(strcmp(node,"Xor")==0 || strcmp(node,"Call")==0 ){
 		return childType(n);
 	}else if(strcmp(node,"Rshift")==0 || strcmp(node,"Lshift")==0){
 		return childType(n);
@@ -447,11 +842,11 @@ char *correctType(char *node, Node *n){
 	}else{
 		return "undef";
 	}
-	
+
 }
 
 char *childType(Node *n){
-	
+
 	Node *t = n->child;
 	char *sucesso = strdup(n->child->id_type);
 	while(t != NULL){
@@ -467,19 +862,19 @@ char *childType(Node *n){
 	if(strcmp(sucesso,"")==0){
 		sucesso = "undef";
 	}
-	
+
 	return sucesso;
-	
+
 }
 
 void printFinal(t_pointer table){
-	
+
 	int i;
 	t_pointer auxf, t_temp;
 	t_temp = table;
 	auxf = table->lower;
 	if(strcmp(t_temp->id_type,"Class")==0){
-		printf("===== Class %s Symbol Table =====\n",t_temp->id);		
+		printf("===== Class %s Symbol Table =====\n",t_temp->id);
 		t_temp = t_temp->lower;
 		while(t_temp!=NULL){
 			printf("%s",t_temp->id);
@@ -494,7 +889,7 @@ void printFinal(t_pointer table){
 			}else{
 				printf("\t\t");
 			}
-			
+
 			controlPrint(t_temp->type);
 			if(t_temp->param != NULL){
 				printf("\tparam");
@@ -535,24 +930,24 @@ void printFinal(t_pointer table){
 		}
 		printf("\n");
 	}
-	
-	
-	
+
+
+
 	while(auxf != NULL){
 		printFinal(auxf);
 		auxf = auxf->next;
 	}
-	
-	
+
+
 }
 
 void makeTableModel(t_pointer table, Node *node){
-	
-	t_pointer t_temp; 
+
+	t_pointer t_temp;
 
 	t_temp = table->lower;
 	while(t_temp!=NULL){
-		if(strcmp(t_temp->id_type,"MethodDecl")==0){		
+		if(strcmp(t_temp->id_type,"MethodDecl")==0){
 			method(node,t_temp->node,t_temp);
 		}
 		t_temp = t_temp->lower;
@@ -560,13 +955,13 @@ void makeTableModel(t_pointer table, Node *node){
 }
 
 void method(Node *root,Node *method, t_pointer table_root){
-	
+
 	Node *aux;
 	t_pointer t_temp = table_root;
 	t_pointer new_table_node;
 
 	new_table_node = (t_pointer)malloc(sizeof(Tabnode));
-	
+
 	if(method->child->sibling->sibling->child != NULL){
 		aux = method->child->sibling->sibling->child;
 		aux = aux->sibling;
@@ -582,7 +977,7 @@ void method(Node *root,Node *method, t_pointer table_root){
 	t_temp->next = new_table_node;
 	t_temp = t_temp->next;
 	aux = method->child->sibling->sibling->child;
-	
+
 
 	while(aux != NULL){
 		new_table_node = (t_pointer)malloc(sizeof(Tabnode));
@@ -597,12 +992,12 @@ void method(Node *root,Node *method, t_pointer table_root){
 		t_temp = t_temp->next;
 		aux->tnt = new_table_node;
 
-		
+
 		aux = aux->sibling;
 	}
 
 	aux = method->sibling->child;
-	
+
 	while(aux != NULL){
 
 		if(strcmp(aux->id,"VarDecl")==0){
@@ -618,16 +1013,16 @@ void method(Node *root,Node *method, t_pointer table_root){
 			t_temp->next = new_table_node;
 			t_temp = t_temp->next;
 			aux->tnt = new_table_node;
-			
+
 		}
 		aux = aux->sibling;
 	}
-				
-	
+
+
 }
 
 void specificTable(Node *node,t_pointer table_root){
-	
+
 	int i;
 	Node *temp = node->sibling;
 	Node *upper;
@@ -636,7 +1031,7 @@ void specificTable(Node *node,t_pointer table_root){
 	t_pointer new_table_node;
 	char *tp = (char *) malloc(sizeof(char)*32);
 
-	
+
 	while(temp != NULL){
 
 		if(strcmp(temp->id,"FieldDecl")==0){
@@ -657,7 +1052,7 @@ void specificTable(Node *node,t_pointer table_root){
 			new_table_node->param = NULL;
 			t_temp->lower = new_table_node;
 			t_temp = t_temp->lower;
-			
+
 		}else if(strcmp(temp->id,"MethodDecl")==0){
 
 			i = 0;
@@ -690,7 +1085,7 @@ void specificTable(Node *node,t_pointer table_root){
 					i++;
 				}
 			}
-			
+
 			new_table_node->param = NULL;
 			t_temp->lower = new_table_node;
 			t_temp = t_temp->lower;
@@ -702,7 +1097,7 @@ void specificTable(Node *node,t_pointer table_root){
 }
 
 void controlPrint(char *token){
-	
+
 	if(strcmp(token,"Int")==0){
 		printf("int");
 	}else if(strcmp(token,"StringArray")==0){
@@ -716,5 +1111,5 @@ void controlPrint(char *token){
 	}else if(strcmp(token,"Bool")==0){
 		printf("boolean");
 	}
-	
+
 }

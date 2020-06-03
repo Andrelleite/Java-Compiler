@@ -795,7 +795,7 @@ char *yytext;
           return 0;
       }
   }
-  
+
   void makepacket(int col, char *t){
     yylval.loki = (Uni *)malloc(sizeof(Uni));
     yylval.loki->id = strdup(t);
@@ -1231,7 +1231,7 @@ YY_RULE_SETUP
 case 25:
 YY_RULE_SETUP
 #line 182 "jucompiler.l"
-{if(l==1){printf("AND\n");};columnCounter+=yyleng;updateArray("and");if(l == -1){return AND;};}
+{if(l==1){printf("AND\n");};columnCounter+=yyleng;updateArray("and");if(l == -1){yylval.col = columnCounter-yyleng;return AND;};}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
@@ -1241,7 +1241,7 @@ YY_RULE_SETUP
 case 27:
 YY_RULE_SETUP
 #line 184 "jucompiler.l"
-{if(l==1){printf("STAR\n");};columnCounter+=yyleng;updateArray("star");if(l == -1){return STAR;};}
+{if(l==1){printf("STAR\n");};columnCounter+=yyleng;updateArray("star");if(l == -1){yylval.col = columnCounter-yyleng;return STAR;};}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
@@ -1251,22 +1251,22 @@ YY_RULE_SETUP
 case 29:
 YY_RULE_SETUP
 #line 186 "jucompiler.l"
-{if(l==1){printf("DIV\n");};columnCounter+=yyleng;updateArray("div");if(l == -1){return DIV;};}
+{if(l==1){printf("DIV\n");};columnCounter+=yyleng;updateArray("div");if(l == -1){yylval.col = columnCounter-yyleng;return DIV;};}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 187 "jucompiler.l"
-{if(l==1){printf("EQ\n");};columnCounter+=yyleng;updateArray("eq");if(l == -1){return EQ;};}
+{if(l==1){printf("EQ\n");};columnCounter+=yyleng;updateArray("eq");if(l == -1){yylval.col = columnCounter-yyleng;return EQ;};}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 188 "jucompiler.l"
-{if(l==1){printf("GE\n");};columnCounter+=yyleng;updateArray("ge");if(l == -1){return GE;};}
+{if(l==1){printf("GE\n");};columnCounter+=yyleng;updateArray("ge");if(l == -1){yylval.col = columnCounter-yyleng;return GE;};}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
 #line 189 "jucompiler.l"
-{if(l==1){printf("GT\n");};columnCounter+=yyleng;updateArray("gt");if(l == -1){return GT;};}
+{if(l==1){printf("GT\n");};columnCounter+=yyleng;updateArray("gt");if(l == -1){yylval.col = columnCounter-yyleng;return GT;};}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
@@ -1276,7 +1276,7 @@ YY_RULE_SETUP
 case 34:
 YY_RULE_SETUP
 #line 191 "jucompiler.l"
-{if(l==1){printf("LE\n");};columnCounter+=yyleng;updateArray("le");if(l == -1){return LE;};}
+{if(l==1){printf("LE\n");};columnCounter+=yyleng;updateArray("le");if(l == -1){yylval.col = columnCounter-yyleng;return LE;};}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
@@ -1291,37 +1291,37 @@ YY_RULE_SETUP
 case 37:
 YY_RULE_SETUP
 #line 194 "jucompiler.l"
-{if(l==1){printf("LT\n");};columnCounter+=yyleng;updateArray("less");if(l == -1){return LT;};}
+{if(l==1){printf("LT\n");};columnCounter+=yyleng;updateArray("less");if(l == -1){yylval.col = columnCounter-yyleng;return LT;};}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 195 "jucompiler.l"
-{if(l==1){printf("MINUS\n");};columnCounter+=yyleng;updateArray("minus");if(l == -1){return MINUS;};}
+{if(l==1){printf("MINUS\n");};columnCounter+=yyleng;updateArray("minus");if(l == -1){yylval.col = columnCounter-yyleng;return MINUS;};}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
 #line 196 "jucompiler.l"
-{if(l==1){printf("MOD\n");};columnCounter+=yyleng;updateArray("mod");if(l == -1){return MOD;};}
+{if(l==1){printf("MOD\n");};columnCounter+=yyleng;updateArray("mod");if(l == -1){yylval.col = columnCounter-yyleng;return MOD;};}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
 #line 197 "jucompiler.l"
-{if(l==1){printf("NE\n");};columnCounter+=yyleng;updateArray("ne");if(l == -1){return NE;};}
+{if(l==1){printf("NE\n");};columnCounter+=yyleng;updateArray("ne");if(l == -1){yylval.col = columnCounter-yyleng;return NE;};}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
 #line 198 "jucompiler.l"
-{if(l==1){printf("NOT\n");};columnCounter+=yyleng;updateArray("not");if(l == -1){return NOT;};}
+{if(l==1){printf("NOT\n");};columnCounter+=yyleng;updateArray("not");if(l == -1){yylval.col = columnCounter-yyleng;return NOT;};}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
 #line 199 "jucompiler.l"
-{if(l==1){printf("OR\n");};columnCounter+=yyleng;updateArray("or");if(l == -1){return OR;};}
+{if(l==1){printf("OR\n");};columnCounter+=yyleng;updateArray("or");if(l == -1){yylval.col = columnCounter-yyleng;return OR;};}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
 #line 200 "jucompiler.l"
-{if(l==1){printf("PLUS\n");};columnCounter+=yyleng;updateArray("plus");if(l == -1){return PLUS;};}
+{if(l==1){printf("PLUS\n");};columnCounter+=yyleng;updateArray("plus");if(l == -1){yylval.col = columnCounter-yyleng;return PLUS;};}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
@@ -1346,7 +1346,7 @@ YY_RULE_SETUP
 case 48:
 YY_RULE_SETUP
 #line 205 "jucompiler.l"
-{if(l==1){printf("ARROW\n");};columnCounter+=yyleng;updateArray("arrow");if(l == -1){return ARROW;};}
+{if(l==1){printf("ARROW\n");};columnCounter+=yyleng;updateArray("arrow");if(l == -1){yylval.col = columnCounter-yyleng;return ARROW;};}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
@@ -1376,7 +1376,7 @@ YY_RULE_SETUP
 case 54:
 YY_RULE_SETUP
 #line 211 "jucompiler.l"
-{if(l==1){printf("DOTLENGTH\n");};columnCounter+=yyleng;updateArray("dotlength");if(l == -1){return DOTLENGTH;};}
+{if(l==1){printf("DOTLENGTH\n");};columnCounter+=yyleng;updateArray("dotlength");if(l == -1){yylval.col = columnCounter-yyleng;return DOTLENGTH;};}
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
@@ -1386,12 +1386,12 @@ YY_RULE_SETUP
 case 56:
 YY_RULE_SETUP
 #line 213 "jucompiler.l"
-{if(l==1){printf("ELSE\n");};columnCounter+=yyleng;updateArray("else");if(l == -1){return ELSE;};}
+{if(l==1){printf("ELSE\n");};columnCounter+=yyleng;updateArray("else");if(l == -1){yylval.col = columnCounter-yyleng;return ELSE;};}
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
 #line 214 "jucompiler.l"
-{if(l==1){printf("IF\n");};columnCounter+=yyleng;updateArray("if");if(l == -1){return IF;};}
+{if(l==1){printf("IF\n");};columnCounter+=yyleng;updateArray("if");if(l == -1){yylval.col = columnCounter-yyleng;return IF;};}
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
@@ -1401,7 +1401,7 @@ YY_RULE_SETUP
 case 59:
 YY_RULE_SETUP
 #line 216 "jucompiler.l"
-{if(l==1){printf("PRINT\n");};columnCounter+=yyleng;updateArray("print");if(l == -1){return PRINT;};}
+{if(l==1){printf("PRINT\n");};columnCounter+=yyleng;updateArray("print");if(l == -1){yylval.col = columnCounter-yyleng;return PRINT;};}
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
@@ -1416,7 +1416,7 @@ YY_RULE_SETUP
 case 62:
 YY_RULE_SETUP
 #line 219 "jucompiler.l"
-{if(l==1){printf("RETURN\n");};columnCounter+=yyleng;updateArray("reserved");if(l == -1){return RETURN;};}
+{if(l==1){printf("RETURN\n");};columnCounter+=yyleng;updateArray("reserved");if(l == -1){yylval.col = columnCounter-yyleng;return RETURN;};}
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
@@ -1436,7 +1436,7 @@ YY_RULE_SETUP
 case 66:
 YY_RULE_SETUP
 #line 223 "jucompiler.l"
-{if(l==1){printf("WHILE\n");};columnCounter+=yyleng;updateArray("while");if(l == -1){return WHILE;};}
+{if(l==1){printf("WHILE\n");};columnCounter+=yyleng;updateArray("while");if(l == -1){yylval.col = columnCounter-yyleng;return WHILE;};}
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
@@ -2501,8 +2501,8 @@ void yyfree (void * ptr )
 
 int main(int argc, char* argv[]){
   for(int i=0;i<argc;i++){
-  
-      if(argv[1] == NULL){    
+
+      if(argv[1] == NULL){
           l = -1;
           e1 = 1;
           e2 = 2;

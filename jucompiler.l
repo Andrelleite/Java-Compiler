@@ -76,7 +76,7 @@
           return 0;
       }
   }
-  
+
   void makepacket(int col, char *t){
     yylval.loki = (Uni *)malloc(sizeof(Uni));
     yylval.loki->id = strdup(t);
@@ -179,48 +179,48 @@ reserved                       "++"|"--"|default|do|double|else|enum|extends|fal
 {intlit}		      		         {if(l==1){printf("INTLIT(%s)\n", yytext);};columnCounter+=yyleng;updateArray("intlit");if(l == -1){makepacket(columnCounter,yytext); return INTLIT;};}
 {zero}                         {if(l==1){printf("INTLIT(%s)\n", yytext);};columnCounter+=yyleng;updateArray("intlit");if(l == -1){makepacket(columnCounter,yytext); return INTLIT;};}
 {boollit}                      {if(l==1){printf("BOOLLIT(%s)\n",yytext);};columnCounter+=yyleng;updateArray("boollit");if(l == -1){makepacket(columnCounter,yytext); return BOOLLIT;};}
-{and}                          {if(l==1){printf("AND\n");};columnCounter+=yyleng;updateArray("and");if(l == -1){return AND;};}
+{and}                          {if(l==1){printf("AND\n");};columnCounter+=yyleng;updateArray("and");if(l == -1){yylval.col = columnCounter-yyleng;return AND;};}
 {assign}                       {if(l==1){printf("ASSIGN\n");};columnCounter+=yyleng;updateArray("assign");if(l == -1){yylval.col = columnCounter-yyleng;return ASSIGN;};}
-{star}                         {if(l==1){printf("STAR\n");};columnCounter+=yyleng;updateArray("star");if(l == -1){return STAR;};}
+{star}                         {if(l==1){printf("STAR\n");};columnCounter+=yyleng;updateArray("star");if(l == -1){yylval.col = columnCounter-yyleng;return STAR;};}
 {comma}                        {if(l==1){printf("COMMA\n");};columnCounter+=yyleng;updateArray("comma");if(l == -1){return COMMA;};}
-{div}                          {if(l==1){printf("DIV\n");};columnCounter+=yyleng;updateArray("div");if(l == -1){return DIV;};}
-{assign}{assign}               {if(l==1){printf("EQ\n");};columnCounter+=yyleng;updateArray("eq");if(l == -1){return EQ;};}
-{great}{assign}                {if(l==1){printf("GE\n");};columnCounter+=yyleng;updateArray("ge");if(l == -1){return GE;};}
-{great}                        {if(l==1){printf("GT\n");};columnCounter+=yyleng;updateArray("gt");if(l == -1){return GT;};}
+{div}                          {if(l==1){printf("DIV\n");};columnCounter+=yyleng;updateArray("div");if(l == -1){yylval.col = columnCounter-yyleng;return DIV;};}
+{assign}{assign}               {if(l==1){printf("EQ\n");};columnCounter+=yyleng;updateArray("eq");if(l == -1){yylval.col = columnCounter-yyleng;return EQ;};}
+{great}{assign}                {if(l==1){printf("GE\n");};columnCounter+=yyleng;updateArray("ge");if(l == -1){yylval.col = columnCounter-yyleng;return GE;};}
+{great}                        {if(l==1){printf("GT\n");};columnCounter+=yyleng;updateArray("gt");if(l == -1){yylval.col = columnCounter-yyleng;return GT;};}
 {lbrace}                       {if(l==1){printf("LBRACE\n");};columnCounter+=yyleng;updateArray("lbrace");if(l == -1){return LBRACE;};}
-{less}{assign}                 {if(l==1){printf("LE\n");};columnCounter+=yyleng;updateArray("le");if(l == -1){return LE;};}
+{less}{assign}                 {if(l==1){printf("LE\n");};columnCounter+=yyleng;updateArray("le");if(l == -1){yylval.col = columnCounter-yyleng;return LE;};}
 {lpar}                         {if(l==1){printf("LPAR\n");};columnCounter+=yyleng;updateArray("lpar");if(l == -1){return LPAR;};}
 {lsq}                          {if(l==1){printf("LSQ\n");};columnCounter+=yyleng;updateArray("lsq");if(l == -1){return LSQ;};}
-{less}                         {if(l==1){printf("LT\n");};columnCounter+=yyleng;updateArray("less");if(l == -1){return LT;};}
-{minus}                        {if(l==1){printf("MINUS\n");};columnCounter+=yyleng;updateArray("minus");if(l == -1){return MINUS;};}
-{mod}                          {if(l==1){printf("MOD\n");};columnCounter+=yyleng;updateArray("mod");if(l == -1){return MOD;};}
-{not}{assign}                  {if(l==1){printf("NE\n");};columnCounter+=yyleng;updateArray("ne");if(l == -1){return NE;};}
-{not}                          {if(l==1){printf("NOT\n");};columnCounter+=yyleng;updateArray("not");if(l == -1){return NOT;};}
-{or}                           {if(l==1){printf("OR\n");};columnCounter+=yyleng;updateArray("or");if(l == -1){return OR;};}
-{plus}                         {if(l==1){printf("PLUS\n");};columnCounter+=yyleng;updateArray("plus");if(l == -1){return PLUS;};}
+{less}                         {if(l==1){printf("LT\n");};columnCounter+=yyleng;updateArray("less");if(l == -1){yylval.col = columnCounter-yyleng;return LT;};}
+{minus}                        {if(l==1){printf("MINUS\n");};columnCounter+=yyleng;updateArray("minus");if(l == -1){yylval.col = columnCounter-yyleng;return MINUS;};}
+{mod}                          {if(l==1){printf("MOD\n");};columnCounter+=yyleng;updateArray("mod");if(l == -1){yylval.col = columnCounter-yyleng;return MOD;};}
+{not}{assign}                  {if(l==1){printf("NE\n");};columnCounter+=yyleng;updateArray("ne");if(l == -1){yylval.col = columnCounter-yyleng;return NE;};}
+{not}                          {if(l==1){printf("NOT\n");};columnCounter+=yyleng;updateArray("not");if(l == -1){yylval.col = columnCounter-yyleng;return NOT;};}
+{or}                           {if(l==1){printf("OR\n");};columnCounter+=yyleng;updateArray("or");if(l == -1){yylval.col = columnCounter-yyleng;return OR;};}
+{plus}                         {if(l==1){printf("PLUS\n");};columnCounter+=yyleng;updateArray("plus");if(l == -1){yylval.col = columnCounter-yyleng;return PLUS;};}
 {rbrace}                       {if(l==1){printf("RBRACE\n");};columnCounter+=yyleng;updateArray("rbrace");if(l == -1){return RBRACE;};}
 {rpar}                         {if(l==1){printf("RPAR\n");};columnCounter+=yyleng;updateArray("rpar");if(l == -1){return RPAR;};}
 {rsq}                          {if(l==1){printf("RSQ\n");};columnCounter+=yyleng;updateArray("rsq");if(l == -1){return RSQ;};}
 {semicolon}					           {if(l==1){printf("SEMICOLON\n");};columnCounter+=yyleng;updateArray("semicolon");memset(strlit,0,sizeof(strlit));if(l == -1){return SEMICOLON;};}
-{minus}{great}                 {if(l==1){printf("ARROW\n");};columnCounter+=yyleng;updateArray("arrow");if(l == -1){return ARROW;};}
+{minus}{great}                 {if(l==1){printf("ARROW\n");};columnCounter+=yyleng;updateArray("arrow");if(l == -1){yylval.col = columnCounter-yyleng;return ARROW;};}
 {less}{less}                   {if(l==1){printf("LSHIFT\n");};columnCounter+=yyleng;updateArray("lshift");if(l == -1){return LSHIFT;};}
 {great}{great}                 {if(l==1){printf("RSHIFT\n");};columnCounter+=yyleng;updateArray("rshift");if(l == -1){return RSHIFT;};}
 {xor}                          {if(l==1){printf("XOR\n");};columnCounter+=yyleng;updateArray("xor");if(l == -1){return XOR;};}
 {bool}                         {if(l==1){printf("BOOL\n");};columnCounter+=yyleng;updateArray("bool");if(l == -1){return BOOL;};}
 {class}                        {if(l==1){printf("CLASS\n");};columnCounter+=yyleng;updateArray("class");if(l == -1){return CLASS;};}
-{dotlength}                    {if(l==1){printf("DOTLENGTH\n");};columnCounter+=yyleng;updateArray("dotlength");if(l == -1){return DOTLENGTH;};}
+{dotlength}                    {if(l==1){printf("DOTLENGTH\n");};columnCounter+=yyleng;updateArray("dotlength");if(l == -1){yylval.col = columnCounter-yyleng;return DOTLENGTH;};}
 {double}                       {if(l==1){printf("DOUBLE\n");};columnCounter+=yyleng;updateArray("double");if(l == -1){return DOUBLE;};}
-{else}                         {if(l==1){printf("ELSE\n");};columnCounter+=yyleng;updateArray("else");if(l == -1){return ELSE;};}
-{if}                           {if(l==1){printf("IF\n");};columnCounter+=yyleng;updateArray("if");if(l == -1){return IF;};}
+{else}                         {if(l==1){printf("ELSE\n");};columnCounter+=yyleng;updateArray("else");if(l == -1){yylval.col = columnCounter-yyleng;return ELSE;};}
+{if}                           {if(l==1){printf("IF\n");};columnCounter+=yyleng;updateArray("if");if(l == -1){yylval.col = columnCounter-yyleng;return IF;};}
 {int}                          {if(l==1){printf("INT\n");};columnCounter+=yyleng;updateArray("int");if(l == -1){return INT;};}
-{print}                        {if(l==1){printf("PRINT\n");};columnCounter+=yyleng;updateArray("print");if(l == -1){return PRINT;};}
+{print}                        {if(l==1){printf("PRINT\n");};columnCounter+=yyleng;updateArray("print");if(l == -1){yylval.col = columnCounter-yyleng;return PRINT;};}
 {parseint}                     {if(l==1){printf("PARSEINT\n");};columnCounter+=yyleng;updateArray("parseint");if(l == -1){yylval.col = columnCounter-yyleng;return PARSEINT;};}
 {public}                       {if(l==1){printf("PUBLIC\n");};columnCounter+=yyleng;updateArray("public");if(l == -1){return PUBLIC;};}
-{return}                       {if(l==1){printf("RETURN\n");};columnCounter+=yyleng;updateArray("reserved");if(l == -1){return RETURN;};}
+{return}                       {if(l==1){printf("RETURN\n");};columnCounter+=yyleng;updateArray("reserved");if(l == -1){yylval.col = columnCounter-yyleng;return RETURN;};}
 {static}                       {if(l==1){printf("STATIC\n");};columnCounter+=yyleng;updateArray("static");if(l == -1){return STATIC;};}
 {string}                       {if(l==1){printf("STRING\n");};columnCounter+=yyleng;updateArray("string");if(l == -1){return STRING;};}
 {void}                         {if(l==1){printf("VOID\n");};columnCounter+=yyleng;updateArray("void");if(l == -1){return VOID;};}
-{while}                        {if(l==1){printf("WHILE\n");};columnCounter+=yyleng;updateArray("while");if(l == -1){return WHILE;};}
+{while}                        {if(l==1){printf("WHILE\n");};columnCounter+=yyleng;updateArray("while");if(l == -1){yylval.col = columnCounter-yyleng;return WHILE;};}
 {reserved}                     {if(l==1){printf("RESERVED(%s)\n",yytext);};columnCounter+=yyleng;updateArray("reserved");if(l == -1){makepacket(columnCounter,yytext); return RESERVED;};}
 {id}                           {if(l==1){printf("ID(%s)\n", yytext);};columnCounter+=yyleng;updateArray("id");if(l == -1){makepacket(columnCounter,yytext);return ID;};}
 " "|"\t"                       {columnCounter+=yyleng;}
@@ -233,8 +233,8 @@ reserved                       "++"|"--"|default|do|double|else|enum|extends|fal
 
 int main(int argc, char* argv[]){
   for(int i=0;i<argc;i++){
-  
-      if(argv[1] == NULL){    
+
+      if(argv[1] == NULL){
           l = -1;
           e1 = 1;
           e2 = 2;

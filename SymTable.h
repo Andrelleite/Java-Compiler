@@ -11,7 +11,7 @@
 #include <string.h>
 #include <ctype.h>
 
-typedef struct tabnode* t_pointer; 
+typedef struct tabnode* t_pointer;
 
 typedef struct tabnode{
   pointer node;
@@ -37,8 +37,8 @@ char *navigate(t_pointer top, t_pointer table_root,Node *aux);
 char *correctType(char *node, Node *n);
 void repeated(t_pointer top);
 void repeatedheader(t_pointer mdecl);
-void checkChildErr(Node *t, Node *op);
-void repeatedin(t_pointer mdecl);
+void checkChildErr(Node *t, Node *op, t_pointer met,t_pointer top);
+void repeatedin(t_pointer mdecl,t_pointer top);
 char *getType(Node *node, t_pointer tabela);
 void specificTable(Node *node,t_pointer table_root);
 void method(Node *root,Node *method, t_pointer table_root);

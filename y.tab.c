@@ -94,8 +94,10 @@
     int canBlock = 0; /* 1 or 0 if used in a if else while statement*/
     char *typeAssign;
     char *blockassign;
+    int temp_c = 0;
 
-#line 99 "y.tab.c" /* yacc.c:339  */
+
+#line 101 "y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -132,120 +134,120 @@ extern int yydebug;
   {
     BOOL = 258,
     CLASS = 259,
-    DOTLENGTH = 260,
-    DOUBLE = 261,
-    ELSE = 262,
-    IF = 263,
-    INT = 264,
-    PRINT = 265,
-    PUBLIC = 266,
-    RETURN = 267,
-    STATIC = 268,
-    STRING = 269,
-    VOID = 270,
-    WHILE = 271,
-    SEMICOLON = 272,
-    BLANKID = 273,
-    AND = 274,
-    STAR = 275,
-    ARROW = 276,
-    COMMA = 277,
-    DIV = 278,
-    EQ = 279,
-    GE = 280,
-    GT = 281,
-    LBRACE = 282,
-    LE = 283,
-    LPAR = 284,
-    LSQ = 285,
-    LT = 286,
-    MINUS = 287,
-    MOD = 288,
-    NE = 289,
-    NOT = 290,
-    OR = 291,
-    PLUS = 292,
-    RBRACE = 293,
-    RPAR = 294,
-    RSQ = 295,
-    XOR = 296,
-    LSHIFT = 297,
-    RSHIFT = 298,
-    ID = 299,
-    RESERVED = 300,
-    INTLIT = 301,
-    REALLIT = 302,
-    STRLIT = 303,
-    BOOLLIT = 304,
-    UNARY = 305,
-    ASSIGN = 306,
-    PARSEINT = 307
+    DOUBLE = 260,
+    INT = 261,
+    PUBLIC = 262,
+    STATIC = 263,
+    STRING = 264,
+    VOID = 265,
+    SEMICOLON = 266,
+    BLANKID = 267,
+    COMMA = 268,
+    LBRACE = 269,
+    LPAR = 270,
+    LSQ = 271,
+    RBRACE = 272,
+    RPAR = 273,
+    RSQ = 274,
+    LSHIFT = 275,
+    RSHIFT = 276,
+    ID = 277,
+    RESERVED = 278,
+    INTLIT = 279,
+    REALLIT = 280,
+    STRLIT = 281,
+    BOOLLIT = 282,
+    UNARY = 283,
+    ASSIGN = 284,
+    PARSEINT = 285,
+    LE = 286,
+    EQ = 287,
+    LT = 288,
+    GE = 289,
+    GT = 290,
+    NE = 291,
+    OR = 292,
+    AND = 293,
+    MINUS = 294,
+    MOD = 295,
+    DIV = 296,
+    STAR = 297,
+    PLUS = 298,
+    XOR = 299,
+    PRINT = 300,
+    RETURN = 301,
+    DOTLENGTH = 302,
+    ARROW = 303,
+    WHILE = 304,
+    NOT = 305,
+    IF = 306,
+    ELSE = 307
   };
 #endif
 /* Tokens.  */
 #define BOOL 258
 #define CLASS 259
-#define DOTLENGTH 260
-#define DOUBLE 261
-#define ELSE 262
-#define IF 263
-#define INT 264
-#define PRINT 265
-#define PUBLIC 266
-#define RETURN 267
-#define STATIC 268
-#define STRING 269
-#define VOID 270
-#define WHILE 271
-#define SEMICOLON 272
-#define BLANKID 273
-#define AND 274
-#define STAR 275
-#define ARROW 276
-#define COMMA 277
-#define DIV 278
-#define EQ 279
-#define GE 280
-#define GT 281
-#define LBRACE 282
-#define LE 283
-#define LPAR 284
-#define LSQ 285
-#define LT 286
-#define MINUS 287
-#define MOD 288
-#define NE 289
-#define NOT 290
-#define OR 291
-#define PLUS 292
-#define RBRACE 293
-#define RPAR 294
-#define RSQ 295
-#define XOR 296
-#define LSHIFT 297
-#define RSHIFT 298
-#define ID 299
-#define RESERVED 300
-#define INTLIT 301
-#define REALLIT 302
-#define STRLIT 303
-#define BOOLLIT 304
-#define UNARY 305
-#define ASSIGN 306
-#define PARSEINT 307
+#define DOUBLE 260
+#define INT 261
+#define PUBLIC 262
+#define STATIC 263
+#define STRING 264
+#define VOID 265
+#define SEMICOLON 266
+#define BLANKID 267
+#define COMMA 268
+#define LBRACE 269
+#define LPAR 270
+#define LSQ 271
+#define RBRACE 272
+#define RPAR 273
+#define RSQ 274
+#define LSHIFT 275
+#define RSHIFT 276
+#define ID 277
+#define RESERVED 278
+#define INTLIT 279
+#define REALLIT 280
+#define STRLIT 281
+#define BOOLLIT 282
+#define UNARY 283
+#define ASSIGN 284
+#define PARSEINT 285
+#define LE 286
+#define EQ 287
+#define LT 288
+#define GE 289
+#define GT 290
+#define NE 291
+#define OR 292
+#define AND 293
+#define MINUS 294
+#define MOD 295
+#define DIV 296
+#define STAR 297
+#define PLUS 298
+#define XOR 299
+#define PRINT 300
+#define RETURN 301
+#define DOTLENGTH 302
+#define ARROW 303
+#define WHILE 304
+#define NOT 305
+#define IF 306
+#define ELSE 307
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 
 union YYSTYPE
 {
-#line 41 "jucompiler.y" /* yacc.c:355  */
+#line 43 "jucompiler.y" /* yacc.c:355  */
 
     int col;
     struct uni* loki;
     struct node* newNode;
 
-#line 249 "y.tab.c" /* yacc.c:355  */
+#line 251 "y.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -262,7 +264,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 266 "y.tab.c" /* yacc.c:358  */
+#line 268 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -504,7 +506,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   387
+#define YYLAST   376
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  53
@@ -564,15 +566,15 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    74,    74,    77,    78,    79,    80,    84,    87,    88,
-      91,    92,    95,    96,    97,   100,   101,   102,   103,   106,
-     107,   110,   111,   115,   118,   119,   120,   123,   126,   127,
-     131,   132,   133,   134,   135,   136,   137,   138,   139,   142,
-     143,   146,   147,   150,   151,   152,   153,   156,   157,   160,
-     161,   164,   165,   168,   171,   172,   175,   176,   179,   180,
-     181,   182,   183,   184,   185,   186,   187,   188,   189,   190,
-     191,   192,   193,   194,   195,   196,   197,   198,   199,   200,
-     201,   202,   203,   204,   205,   206
+       0,    76,    76,    79,    80,    81,    82,    86,    89,    90,
+      93,    94,    97,    98,    99,   102,   103,   104,   105,   108,
+     109,   112,   113,   117,   120,   121,   122,   125,   128,   129,
+     133,   134,   135,   136,   137,   138,   139,   140,   141,   144,
+     145,   148,   149,   152,   153,   154,   155,   158,   159,   162,
+     163,   166,   167,   170,   173,   174,   177,   178,   181,   182,
+     183,   184,   185,   186,   187,   188,   189,   190,   191,   192,
+     193,   194,   195,   196,   197,   198,   199,   200,   201,   202,
+     203,   204,   205,   206,   207,   208
 };
 #endif
 
@@ -581,13 +583,13 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "BOOL", "CLASS", "DOTLENGTH", "DOUBLE",
-  "ELSE", "IF", "INT", "PRINT", "PUBLIC", "RETURN", "STATIC", "STRING",
-  "VOID", "WHILE", "SEMICOLON", "BLANKID", "AND", "STAR", "ARROW", "COMMA",
-  "DIV", "EQ", "GE", "GT", "LBRACE", "LE", "LPAR", "LSQ", "LT", "MINUS",
-  "MOD", "NE", "NOT", "OR", "PLUS", "RBRACE", "RPAR", "RSQ", "XOR",
-  "LSHIFT", "RSHIFT", "ID", "RESERVED", "INTLIT", "REALLIT", "STRLIT",
-  "BOOLLIT", "UNARY", "ASSIGN", "PARSEINT", "$accept", "Program",
+  "$end", "error", "$undefined", "BOOL", "CLASS", "DOUBLE", "INT",
+  "PUBLIC", "STATIC", "STRING", "VOID", "SEMICOLON", "BLANKID", "COMMA",
+  "LBRACE", "LPAR", "LSQ", "RBRACE", "RPAR", "RSQ", "LSHIFT", "RSHIFT",
+  "ID", "RESERVED", "INTLIT", "REALLIT", "STRLIT", "BOOLLIT", "UNARY",
+  "ASSIGN", "PARSEINT", "LE", "EQ", "LT", "GE", "GT", "NE", "OR", "AND",
+  "MINUS", "MOD", "DIV", "STAR", "PLUS", "XOR", "PRINT", "RETURN",
+  "DOTLENGTH", "ARROW", "WHILE", "NOT", "IF", "ELSE", "$accept", "Program",
   "Declarations", "MethodDecl", "FieldDecl", "CommaIDaux2", "Type",
   "MethodHeader", "FormalParams", "ParametersAux", "MethodBody",
   "MethodAux", "VarDecl", "CommaIDaux", "Statement", "StatementAux1",
@@ -610,10 +612,10 @@ static const yytype_uint16 yytoknum[] =
 };
 # endif
 
-#define YYPACT_NINF -37
+#define YYPACT_NINF -47
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-37)))
+  (!!((Yystate) == (-47)))
 
 #define YYTABLE_NINF -51
 
@@ -624,24 +626,24 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-      10,    -9,    43,    30,   -37,    22,    45,    56,    22,    25,
-      22,    22,   -37,   127,   -37,   -37,   -37,   -37,   -37,   -37,
-     -37,    42,    44,    60,    61,   -19,   144,   -37,    50,    48,
-      52,    76,    78,    67,    68,   313,    71,    97,    -4,    72,
-      59,    80,   144,   144,    93,   -37,   -37,   -37,    87,   -37,
-      75,    81,    99,   -37,    89,   -37,   -37,   313,   179,   158,
-     326,   326,   326,     0,   -37,   -37,   -37,   114,   -37,   -37,
-     -37,   -37,   210,   313,    97,    94,   137,   313,     5,   115,
-     -37,   -37,   -37,   -37,   100,   117,   -37,   -37,   -37,   104,
-     112,   116,   118,   119,     7,   -37,   -37,   -37,   -37,   -37,
-     326,   326,   326,   326,   326,   326,   326,   326,   326,   326,
-     326,   326,   326,   326,   326,   326,   123,   -37,   -37,   124,
-     125,   143,   -37,   128,   138,   126,   156,   131,    31,   -37,
-     205,   160,   161,   -37,   -37,   259,   -37,   -37,   304,   344,
-     344,   344,   344,    21,   -37,   304,   235,    21,   283,    79,
-      79,   205,   -37,   -37,   313,   -37,   -37,   313,   115,   -37,
-     -37,   135,   173,   -37,   -37,   -37,   143,   145,   -37,   117,
-     205,   -37,   152,   -37,   -37,   -37
+      28,   -19,    34,    29,   -47,    40,    39,    37,    40,    35,
+      40,    40,   -47,    43,   -47,   -47,   -47,   -47,   -47,   -47,
+     -47,    55,    57,    67,    89,    -5,    77,   -47,    97,    70,
+     160,    94,   100,   138,    15,    93,    98,   132,   101,   103,
+      95,   112,    77,    77,   108,   -47,   -47,   -47,   104,   -47,
+     114,   119,   125,   -47,   135,   -47,   -47,   138,   141,   185,
+     132,     4,    71,   207,    13,   -47,   -47,   -47,   229,   229,
+     229,   156,   -47,   -47,   -47,   -47,   249,   132,   132,   157,
+     -47,   -47,   -47,   -47,   154,   161,   -47,   -47,   -47,   -47,
+     -47,   158,   159,   166,   -47,   163,   169,   170,   172,   173,
+     174,   -47,    -9,   -47,   -47,   -47,   -47,   229,   229,   229,
+     229,   229,   229,   229,   229,   229,   229,   229,   229,   229,
+     229,   229,   229,   175,   176,   180,   193,   183,    53,   -47,
+     -47,   -47,   132,   -47,   -47,   132,   195,   200,   -47,   -47,
+     102,   102,   177,   333,   177,   177,   177,   333,   274,   299,
+     -27,   -47,   -47,   -47,   -27,   316,   150,   150,   157,   -47,
+     -47,   191,   166,   202,   -47,   -47,   -47,   162,   -47,   161,
+     -47,   205,   150,   -47,   -47,   -47
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -652,37 +654,37 @@ static const yytype_uint8 yydefact[] =
        0,     0,     0,     0,     1,     0,     0,     0,     0,     0,
        0,     0,     9,     0,     5,     2,     3,     4,    12,    14,
       13,     0,     0,     0,     0,    11,     0,     7,     0,     0,
-       0,     0,     0,     0,     0,    42,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,    42,     0,     0,
        0,     0,     0,     0,     0,    43,    44,    45,     0,    17,
        0,     0,    11,    18,     0,     8,    38,     0,     0,     0,
-       0,     0,     0,    81,    82,    83,    84,     0,    78,    57,
-      79,    41,    56,     0,     0,     0,     0,     0,     0,    29,
-      23,    25,    24,    35,     0,    22,    16,    10,    15,     0,
-       0,     0,     0,     0,    81,    74,    75,    76,    80,    34,
+       0,     0,     0,     0,    81,    82,    83,    84,     0,     0,
+       0,     0,    78,    57,    79,    41,    56,     0,     0,    29,
+      23,    25,    24,    35,     0,    22,    16,    10,    15,    39,
+      30,     0,     0,    52,    53,     0,     0,     0,     0,     0,
+       0,    80,    81,    74,    76,    75,    34,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,    39,    30,     0,
-       0,    52,    53,     0,     0,     0,     0,     0,     0,    19,
-       0,     0,     0,    85,    77,    58,    61,    62,    68,    70,
-      71,    72,    73,    67,    63,    69,    59,    66,    60,    64,
-      65,     0,    48,    47,     0,    49,    55,     0,    29,    27,
-      20,     0,    31,    36,    37,    33,    52,     0,    28,    22,
-       0,    51,     0,    21,    32,    54
+       0,     0,     0,     0,     0,     0,     0,     0,     0,    19,
+      48,    47,     0,    49,    55,     0,     0,     0,    85,    77,
+      64,    65,    72,    68,    73,    70,    71,    69,    59,    58,
+      67,    63,    62,    61,    66,    60,     0,     0,    29,    27,
+      20,     0,    52,     0,    36,    37,    33,    31,    28,    22,
+      51,     0,     0,    21,    54,    32
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int16 yypgoto[] =
 {
-     -37,   -37,    57,   -37,   -37,   140,    -6,   -37,   164,    28,
-     -37,   -34,   -37,    40,   -36,   129,   -37,   -37,   -26,   -37,
-      33,   -24,   -22,   -31,   -30
+     -47,   -47,    79,   -47,   -47,   178,    -1,   -47,   196,    56,
+     -47,    42,   -47,    69,   -32,   179,   -47,   -47,   -26,   -47,
+      76,   -24,   -22,   -23,   -46
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int16 yydefgoto[] =
 {
       -1,     2,     9,    10,    11,    31,    40,    23,    51,   129,
-      27,    41,    42,   126,    43,    75,    67,    44,    68,   120,
-     155,    69,    70,    71,    72
+      27,    41,    42,   126,    43,    58,    71,    44,    72,    92,
+     133,    73,    74,    75,    76
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -690,112 +692,110 @@ static const yytype_int16 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int16 yytable[] =
 {
-      45,    74,    46,    29,    47,    98,   123,    22,    81,    82,
-      30,    45,    98,    46,     1,    47,    45,    45,    46,    46,
-      47,    47,    50,     6,    50,    76,    89,    91,    93,    76,
-      95,    96,    97,     7,    18,     3,    76,    19,    74,     8,
-      20,   101,   116,     4,   102,   121,   122,    77,    45,   124,
-      46,    77,    47,    18,   109,    18,    19,     5,    19,    20,
-      -6,    20,    12,    15,    48,    14,    48,    16,    17,    13,
-     135,   136,   137,   138,   139,   140,   141,   142,   143,   144,
-     145,   146,   147,   148,   149,   150,    24,    26,    25,    49,
-      28,    53,    52,    55,   162,    56,    57,    58,    32,   101,
-      73,    78,   102,    79,    45,    33,    46,    34,    47,    35,
-      83,   108,   109,    36,   -46,   165,   112,    84,    80,    85,
-      86,    29,   161,   166,    37,    45,   167,    46,    88,    47,
-      18,    99,   118,    19,   174,   -40,    20,   125,   119,   128,
-     127,    38,    21,   130,    45,    32,    46,    18,    47,    39,
-      19,   131,    33,    20,    34,   132,    35,   133,   134,    92,
-      36,   -46,   151,   152,   153,   154,    59,   156,   157,    60,
-     158,    37,    61,   159,    62,   160,   -50,   163,   164,   169,
-     170,    63,   -26,    64,    65,   172,    66,    59,    38,    39,
-      60,   175,    87,    61,    54,    62,    39,   173,   168,   171,
-       0,     0,    63,   117,    64,    65,    32,    66,    59,     0,
-      39,    60,     0,    33,    61,    34,    62,    35,     0,     0,
-       0,    36,   -46,    63,     0,    64,    65,    90,    66,   100,
-     101,    39,    37,   102,   103,   104,   105,     0,   106,     0,
-       0,   107,   108,   109,   110,     0,   111,   112,     0,    38,
-       0,   113,   114,   115,   100,   101,     0,    39,   102,   103,
-     104,   105,     0,   106,     0,     0,   107,   108,   109,   110,
-       0,     0,   112,     0,     0,     0,   113,   114,   115,   101,
-       0,     0,   102,   103,   104,   105,     0,   106,     0,     0,
-     107,   108,   109,   110,     0,     0,   112,     0,     0,     0,
-     113,   114,   115,   101,     0,     0,   102,   103,   104,   105,
-       0,   106,     0,     0,   107,   108,   109,   110,     0,     0,
-     112,     0,     0,     0,   101,   114,   115,   102,     0,   104,
-     105,     0,   106,     0,     0,   107,   108,   109,     0,     0,
-       0,   112,    59,     0,     0,    60,   114,   115,    61,     0,
-      62,     0,     0,     0,     0,    59,     0,    63,    60,    64,
-      65,    61,    66,    62,   101,    39,     0,   102,     0,     0,
-      94,     0,    64,    65,     0,    66,   108,   109,    39,     0,
-       0,   112,     0,     0,     0,     0,   114,   115
+      45,    57,    46,     3,    47,    95,    59,    45,    29,    46,
+      30,    47,    22,   118,   119,   120,    45,    45,    46,    46,
+      47,    47,   103,   104,   105,    57,    96,    50,    59,    50,
+      59,    45,     1,    46,     4,    47,    93,    94,   101,    98,
+     100,     6,    60,     5,    60,    13,    18,     7,    19,    20,
+      12,     8,    15,    21,   123,   124,    18,    -6,    19,    20,
+     101,   140,   141,   142,   143,   144,   145,   146,   147,   148,
+     149,   150,   151,   152,   153,   154,   155,    24,    32,    25,
+      18,    26,    19,    20,    81,    82,    63,    14,   -46,    16,
+      17,    33,    52,    64,   -26,    65,    66,    97,    67,    34,
+      18,    35,    19,    20,    28,    55,    48,    35,    61,   162,
+      68,    56,   163,    62,    69,    49,    77,    79,    78,    83,
+      84,    70,    36,    37,   166,   167,    38,   161,    39,    80,
+      45,    45,    46,    46,    47,    47,    85,    86,    29,    32,
+     175,   117,   118,   119,   120,   121,    45,    63,    46,   -46,
+      47,    32,    33,    88,    64,   -40,    65,    66,    90,    67,
+      34,   -46,    35,    18,    33,    19,    20,   106,    35,    48,
+     125,    68,    34,   127,   128,    69,   130,   131,    53,   132,
+      35,   134,    70,    36,    37,   135,    91,    38,   136,    39,
+     137,   138,   139,   156,   157,    36,    37,   107,   108,    38,
+      63,    39,   158,   -50,   159,   160,   164,    64,    99,    65,
+      66,   165,    67,   169,   172,    35,   117,   118,   119,   120,
+     121,   171,    63,   174,    68,   173,    54,   168,    69,    64,
+      87,    65,    66,     0,    67,    70,    89,    35,   170,     0,
+       0,     0,     0,     0,    63,     0,    68,     0,     0,     0,
+      69,   102,     0,    65,    66,     0,    67,    70,     0,    35,
+       0,     0,     0,     0,     0,     0,     0,     0,    68,   107,
+     108,     0,    69,     0,     0,     0,     0,     0,     0,    70,
+     109,   110,   111,   112,   113,   114,   115,   116,   117,   118,
+     119,   120,   121,   122,   107,   108,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,   109,   110,   111,   112,   113,
+     114,     0,   116,   117,   118,   119,   120,   121,   122,   107,
+     108,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+     109,   110,   111,   112,   113,   114,   107,   108,   117,   118,
+     119,   120,   121,   122,     0,     0,     0,   109,   110,   111,
+     112,   113,   114,   107,   108,   117,   118,   119,   120,   121,
+       0,     0,     0,     0,   109,     0,   111,   112,   113,     0,
+       0,     0,   117,   118,   119,   120,   121
 };
 
 static const yytype_int16 yycheck[] =
 {
-      26,    37,    26,    22,    26,     5,     1,    13,    42,    43,
-      29,    37,     5,    37,     4,    37,    42,    43,    42,    43,
-      42,    43,    28,     1,    30,    29,    57,    58,    59,    29,
-      60,    61,    62,    11,     3,    44,    29,     6,    74,    17,
-       9,    20,    73,     0,    23,    76,    77,    51,    74,    44,
-      74,    51,    74,     3,    33,     3,     6,    27,     6,     9,
-      38,     9,    17,    38,    14,     8,    14,    10,    11,    13,
-     100,   101,   102,   103,   104,   105,   106,   107,   108,   109,
-     110,   111,   112,   113,   114,   115,    44,    27,    44,    39,
-      29,    39,    44,    17,   130,    17,    29,    29,     1,    20,
-      29,    29,    23,    44,   130,     8,   130,    10,   130,    12,
-      17,    32,    33,    16,    17,   151,    37,    30,    38,    44,
-      39,    22,   128,   154,    27,   151,   157,   151,    39,   151,
-       3,    17,    38,     6,   170,    38,     9,    22,     1,    22,
-      40,    44,    15,    39,   170,     1,   170,     3,   170,    52,
-       6,    39,     8,     9,    10,    39,    12,    39,    39,     1,
-      16,    17,    39,    39,    39,    22,    29,    39,    30,    32,
-      44,    27,    35,    17,    37,    44,    39,    17,    17,    44,
-       7,    44,    38,    46,    47,    40,    49,    29,    44,    52,
-      32,    39,    52,    35,    30,    37,    52,   169,   158,   166,
-      -1,    -1,    44,    74,    46,    47,     1,    49,    29,    -1,
-      52,    32,    -1,     8,    35,    10,    37,    12,    -1,    -1,
-      -1,    16,    17,    44,    -1,    46,    47,    48,    49,    19,
-      20,    52,    27,    23,    24,    25,    26,    -1,    28,    -1,
-      -1,    31,    32,    33,    34,    -1,    36,    37,    -1,    44,
-      -1,    41,    42,    43,    19,    20,    -1,    52,    23,    24,
-      25,    26,    -1,    28,    -1,    -1,    31,    32,    33,    34,
-      -1,    -1,    37,    -1,    -1,    -1,    41,    42,    43,    20,
-      -1,    -1,    23,    24,    25,    26,    -1,    28,    -1,    -1,
-      31,    32,    33,    34,    -1,    -1,    37,    -1,    -1,    -1,
-      41,    42,    43,    20,    -1,    -1,    23,    24,    25,    26,
-      -1,    28,    -1,    -1,    31,    32,    33,    34,    -1,    -1,
-      37,    -1,    -1,    -1,    20,    42,    43,    23,    -1,    25,
-      26,    -1,    28,    -1,    -1,    31,    32,    33,    -1,    -1,
-      -1,    37,    29,    -1,    -1,    32,    42,    43,    35,    -1,
-      37,    -1,    -1,    -1,    -1,    29,    -1,    44,    32,    46,
-      47,    35,    49,    37,    20,    52,    -1,    23,    -1,    -1,
-      44,    -1,    46,    47,    -1,    49,    32,    33,    52,    -1,
-      -1,    37,    -1,    -1,    -1,    -1,    42,    43
+      26,    33,    26,    22,    26,     1,    15,    33,    13,    33,
+      15,    33,    13,    40,    41,    42,    42,    43,    42,    43,
+      42,    43,    68,    69,    70,    57,    22,    28,    15,    30,
+      15,    57,     4,    57,     0,    57,    59,    60,    47,    62,
+      63,     1,    29,    14,    29,     8,     3,     7,     5,     6,
+      11,    11,    17,    10,    77,    78,     3,    17,     5,     6,
+      47,   107,   108,   109,   110,   111,   112,   113,   114,   115,
+     116,   117,   118,   119,   120,   121,   122,    22,     1,    22,
+       3,    14,     5,     6,    42,    43,    15,     8,    11,    10,
+      11,    14,    22,    22,    17,    24,    25,    26,    27,    22,
+       3,    30,     5,     6,    15,    11,     9,    30,    15,   132,
+      39,    11,   135,    15,    43,    18,    15,    22,    15,    11,
+      16,    50,    45,    46,   156,   157,    49,   128,    51,    17,
+     156,   157,   156,   157,   156,   157,    22,    18,    13,     1,
+     172,    39,    40,    41,    42,    43,   172,    15,   172,    11,
+     172,     1,    14,    18,    22,    17,    24,    25,    17,    27,
+      22,    11,    30,     3,    14,     5,     6,    11,    30,     9,
+      13,    39,    22,    19,    13,    43,    18,    18,    18,    13,
+      30,    18,    50,    45,    46,    16,     1,    49,    18,    51,
+      18,    18,    18,    18,    18,    45,    46,    20,    21,    49,
+      15,    51,    22,    18,    11,    22,    11,    22,     1,    24,
+      25,    11,    27,    22,    52,    30,    39,    40,    41,    42,
+      43,    19,    15,    18,    39,   169,    30,   158,    43,    22,
+      52,    24,    25,    -1,    27,    50,    57,    30,   162,    -1,
+      -1,    -1,    -1,    -1,    15,    -1,    39,    -1,    -1,    -1,
+      43,    22,    -1,    24,    25,    -1,    27,    50,    -1,    30,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    39,    20,
+      21,    -1,    43,    -1,    -1,    -1,    -1,    -1,    -1,    50,
+      31,    32,    33,    34,    35,    36,    37,    38,    39,    40,
+      41,    42,    43,    44,    20,    21,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    31,    32,    33,    34,    35,
+      36,    -1,    38,    39,    40,    41,    42,    43,    44,    20,
+      21,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      31,    32,    33,    34,    35,    36,    20,    21,    39,    40,
+      41,    42,    43,    44,    -1,    -1,    -1,    31,    32,    33,
+      34,    35,    36,    20,    21,    39,    40,    41,    42,    43,
+      -1,    -1,    -1,    -1,    31,    -1,    33,    34,    35,    -1,
+      -1,    -1,    39,    40,    41,    42,    43
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     4,    54,    44,     0,    27,     1,    11,    17,    55,
-      56,    57,    17,    13,    55,    38,    55,    55,     3,     6,
-       9,    15,    59,    60,    44,    44,    27,    63,    29,    22,
-      29,    58,     1,     8,    10,    12,    16,    27,    44,    52,
-      59,    64,    65,    67,    70,    71,    74,    75,    14,    39,
-      59,    61,    44,    39,    61,    17,    17,    29,    29,    29,
-      32,    35,    37,    44,    46,    47,    49,    69,    71,    74,
-      75,    76,    77,    29,    67,    68,    29,    51,    29,    44,
-      38,    64,    64,    17,    30,    44,    39,    58,    39,    76,
-      48,    76,     1,    76,    44,    77,    77,    77,     5,    17,
-      19,    20,    23,    24,    25,    26,    28,    31,    32,    33,
-      34,    36,    37,    41,    42,    43,    76,    68,    38,     1,
-      72,    76,    76,     1,    44,    22,    66,    40,    22,    62,
-      39,    39,    39,    39,    39,    77,    77,    77,    77,    77,
+       0,     4,    54,    22,     0,    14,     1,     7,    11,    55,
+      56,    57,    11,     8,    55,    17,    55,    55,     3,     5,
+       6,    10,    59,    60,    22,    22,    14,    63,    15,    13,
+      15,    58,     1,    14,    22,    30,    45,    46,    49,    51,
+      59,    64,    65,    67,    70,    71,    74,    75,     9,    18,
+      59,    61,    22,    18,    61,    11,    11,    67,    68,    15,
+      29,    15,    15,    15,    22,    24,    25,    27,    39,    43,
+      50,    69,    71,    74,    75,    76,    77,    15,    15,    22,
+      17,    64,    64,    11,    16,    22,    18,    58,    18,    68,
+      17,     1,    72,    76,    76,     1,    22,    26,    76,     1,
+      76,    47,    22,    77,    77,    77,    11,    20,    21,    31,
+      32,    33,    34,    35,    36,    37,    38,    39,    40,    41,
+      42,    43,    44,    76,    76,    13,    66,    19,    13,    62,
+      18,    18,    13,    73,    18,    16,    18,    18,    18,    18,
       77,    77,    77,    77,    77,    77,    77,    77,    77,    77,
-      77,    39,    39,    39,    22,    73,    39,    30,    44,    17,
-      44,    59,    67,    17,    17,    67,    76,    76,    66,    44,
-       7,    73,    40,    62,    67,    39
+      77,    77,    77,    77,    77,    77,    18,    18,    22,    11,
+      22,    59,    76,    76,    11,    11,    67,    67,    66,    22,
+      73,    19,    52,    62,    18,    67
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
@@ -1500,505 +1500,505 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 74 "jucompiler.y" /* yacc.c:1646  */
+#line 76 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode) = initNode("NULL","Program",lineCounter,(int)(columnCounter-yyleng));temp = initNode((yyvsp[-3].loki)->id,"Id",lineCounter,(yyvsp[-3].loki)->column);addChild((yyval.newNode),temp);addChild((yyval.newNode),(yyvsp[-1].newNode));root = (yyval.newNode);};}
 #line 1506 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 77 "jucompiler.y" /* yacc.c:1646  */
+#line 79 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode) = initNode("NULL","MethodDecl",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-1].newNode));addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1512 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 78 "jucompiler.y" /* yacc.c:1646  */
+#line 80 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode) = initNode("NULL","FieldDeclTop",lineCounter,(int)(columnCounter-yyleng));addSibling((yyval.newNode),(yyvsp[-1].newNode));addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1518 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 79 "jucompiler.y" /* yacc.c:1646  */
+#line 81 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode) = initNode("NULL","SEMICOLON",lineCounter,(int)(columnCounter-yyleng));addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1524 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 80 "jucompiler.y" /* yacc.c:1646  */
+#line 82 "jucompiler.y" /* yacc.c:1646  */
     {(yyval.newNode) = NULL;}
 #line 1530 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 84 "jucompiler.y" /* yacc.c:1646  */
+#line 86 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode) = initNode("NULL","MethodHeader",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-1].newNode));addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1536 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 87 "jucompiler.y" /* yacc.c:1646  */
+#line 89 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode) = initNode("NULL","FieldDecl",lineCounter,(int)(columnCounter-yyleng));temp = (yyvsp[-3].newNode);addChild((yyval.newNode),temp);temp2 = initNode((yyvsp[-2].loki)->id,"Id",lineCounter,(yyvsp[-2].loki)->column);addSibling(temp,temp2);addSibling((yyval.newNode),(yyvsp[-1].newNode));};}
 #line 1542 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 88 "jucompiler.y" /* yacc.c:1646  */
+#line 90 "jucompiler.y" /* yacc.c:1646  */
     {(yyval.newNode) = NULL;}
 #line 1548 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 91 "jucompiler.y" /* yacc.c:1646  */
+#line 93 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode) = initNode("NULL","FieldDecl",lineCounter,(int)(columnCounter-yyleng));temp3=initNode("NULL",typeAssign,lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),temp3);temp4 = initNode((yyvsp[-1].loki)->id,"Id",lineCounter,(yyvsp[-1].loki)->column);addSibling(temp3,temp4);addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1554 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 92 "jucompiler.y" /* yacc.c:1646  */
+#line 94 "jucompiler.y" /* yacc.c:1646  */
     {(yyval.newNode) = NULL;}
 #line 1560 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 95 "jucompiler.y" /* yacc.c:1646  */
+#line 97 "jucompiler.y" /* yacc.c:1646  */
     {(yyval.newNode) = initNode("NULL","Bool",lineCounter,(int)(columnCounter-yyleng));typeAssign=strdup("Bool");}
 #line 1566 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 96 "jucompiler.y" /* yacc.c:1646  */
+#line 98 "jucompiler.y" /* yacc.c:1646  */
     {(yyval.newNode) = initNode("NULL","Int",lineCounter,(int)(columnCounter-yyleng));typeAssign=strdup("Int");}
 #line 1572 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 97 "jucompiler.y" /* yacc.c:1646  */
+#line 99 "jucompiler.y" /* yacc.c:1646  */
     {(yyval.newNode) = initNode("NULL","Double",lineCounter,(int)(columnCounter-yyleng));typeAssign=strdup("Double");}
 #line 1578 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 100 "jucompiler.y" /* yacc.c:1646  */
+#line 102 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode) = (yyvsp[-4].newNode);temp = initNode((yyvsp[-3].loki)->id,"Id",lineCounter,(yyvsp[-3].loki)->column);addSibling((yyval.newNode),temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-yyleng));addSibling((yyval.newNode),temp2);addChild(temp2,(yyvsp[-1].newNode));};}
 #line 1584 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 101 "jucompiler.y" /* yacc.c:1646  */
+#line 103 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode) = initNode("NULL","Void",lineCounter,(int)(columnCounter-yyleng));temp = initNode((yyvsp[-3].loki)->id,"Id",lineCounter,(yyvsp[-3].loki)->column);addSibling((yyval.newNode),temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-yyleng));addSibling((yyval.newNode),temp2);addChild(temp2,(yyvsp[-1].newNode));};}
 #line 1590 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 102 "jucompiler.y" /* yacc.c:1646  */
+#line 104 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode) = initNode("NULL","Void",lineCounter,(int)(columnCounter-yyleng));temp = initNode((yyvsp[-2].loki)->id,"Id",lineCounter,(yyvsp[-2].loki)->column);addSibling((yyval.newNode),temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-yyleng));addSibling((yyval.newNode),temp2);};}
 #line 1596 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 103 "jucompiler.y" /* yacc.c:1646  */
+#line 105 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode) = (yyvsp[-3].newNode);temp = initNode((yyvsp[-2].loki)->id,"Id",lineCounter,(yyvsp[-2].loki)->column);addSibling((yyval.newNode),temp);temp2 = initNode("NULL","MethodParams",lineCounter,(int)(columnCounter-yyleng));addSibling((yyval.newNode),temp2);};}
 #line 1602 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 106 "jucompiler.y" /* yacc.c:1646  */
+#line 108 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode) = initNode("NULL","ParamDecl",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));temp = initNode((yyvsp[-1].loki)->id,"Id",lineCounter,(yyvsp[-1].loki)->column);addChild((yyval.newNode),temp);addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1608 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 107 "jucompiler.y" /* yacc.c:1646  */
+#line 109 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode) = initNode("NULL","ParamDecl",lineCounter,(int)(columnCounter-yyleng));temp2 = initNode("NULL","StringArray",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),temp2);temp = initNode((yyvsp[0].loki)->id,"Id",lineCounter,(yyvsp[0].loki)->column);addChild((yyval.newNode),temp);};}
 #line 1614 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 110 "jucompiler.y" /* yacc.c:1646  */
+#line 112 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode) = initNode("NULL","ParamDecl",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));temp = initNode((yyvsp[-1].loki)->id,"Id",lineCounter,(yyvsp[-1].loki)->column);addChild((yyval.newNode),temp);addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1620 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 111 "jucompiler.y" /* yacc.c:1646  */
+#line 113 "jucompiler.y" /* yacc.c:1646  */
     {(yyval.newNode) = NULL;}
 #line 1626 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 115 "jucompiler.y" /* yacc.c:1646  */
+#line 117 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode) = initNode("NULL","MethodBody",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-1].newNode));}}
 #line 1632 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 118 "jucompiler.y" /* yacc.c:1646  */
+#line 120 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){topNode = NULL;(yyval.newNode) = initNode("NULL","MethodAuxTop",lineCounter,(int)(columnCounter-yyleng));addSibling((yyval.newNode),(yyvsp[-1].newNode));addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1638 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 119 "jucompiler.y" /* yacc.c:1646  */
+#line 121 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){topNode = NULL;(yyval.newNode) = initNode("NULL","VarDeclTop",lineCounter,(int)(columnCounter-yyleng));addSibling((yyval.newNode),(yyvsp[-1].newNode));addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1644 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 120 "jucompiler.y" /* yacc.c:1646  */
+#line 122 "jucompiler.y" /* yacc.c:1646  */
     {(yyval.newNode) = NULL;}
 #line 1650 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 123 "jucompiler.y" /* yacc.c:1646  */
+#line 125 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode) = initNode("NULL","VarDecl",lineCounter,(int)(columnCounter-yyleng));temp = (yyvsp[-3].newNode);addChild((yyval.newNode),temp);temp2 = initNode((yyvsp[-2].loki)->id,"Id",lineCounter,(yyvsp[-2].loki)->column);addSibling(temp,temp2);addSibling((yyval.newNode),(yyvsp[-1].newNode));};}
 #line 1656 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 126 "jucompiler.y" /* yacc.c:1646  */
+#line 128 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode) = initNode("NULL","VarDecl",lineCounter,(int)(columnCounter-yyleng));temp3=initNode("NULL",typeAssign,lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),temp3);temp4 = initNode((yyvsp[-1].loki)->id,"Id",lineCounter,(yyvsp[-1].loki)->column);addSibling(temp3,temp4);addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1662 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 127 "jucompiler.y" /* yacc.c:1646  */
+#line 129 "jucompiler.y" /* yacc.c:1646  */
     {(yyval.newNode) = NULL;}
 #line 1668 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 131 "jucompiler.y" /* yacc.c:1646  */
+#line 133 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){if((yyvsp[-1].newNode) != NULL && (yyvsp[-1].newNode)->sibling != NULL){(yyval.newNode)=initNode("NULL","Block",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-1].newNode));}else{(yyval.newNode)=(yyvsp[-1].newNode);}};}
 #line 1674 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 132 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","If",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode), (yyvsp[-2].newNode));if((yyvsp[0].newNode) != NULL){addChild((yyval.newNode), (yyvsp[0].newNode));}else{temp2=initNode("NULL","Block",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),temp2);};temp = initNode("NULL", "Block",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode), temp);};}
+#line 134 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","If",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode), (yyvsp[-2].newNode));(yyval.newNode)->line=(yyvsp[-2].newNode)->line;if((yyvsp[0].newNode) != NULL){addChild((yyval.newNode), (yyvsp[0].newNode));}else{temp2=initNode("NULL","Block",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),temp2);};temp = initNode("NULL", "Block",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode), temp);};}
 #line 1680 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 133 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","If",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode), (yyvsp[-4].newNode));if((yyvsp[-2].newNode) != NULL){addChild((yyval.newNode), (yyvsp[-2].newNode));}else{temp2=initNode("NULL","Block",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),temp2);};if((yyvsp[0].newNode) != NULL){addChild((yyval.newNode),(yyvsp[0].newNode));}else{temp3=initNode("NULL","Block",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),temp3);};};}
+#line 135 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","If",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode), (yyvsp[-4].newNode));(yyval.newNode)->line=(yyvsp[-4].newNode)->line;if((yyvsp[-2].newNode) != NULL){addChild((yyval.newNode), (yyvsp[-2].newNode));}else{temp2=initNode("NULL","Block",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),temp2);};if((yyvsp[0].newNode) != NULL){addChild((yyval.newNode),(yyvsp[0].newNode));}else{temp3=initNode("NULL","Block",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),temp3);};};}
 #line 1686 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 134 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","While",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));if((yyvsp[0].newNode)==NULL){temp=initNode("NULL","Block",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),temp);}else{addChild((yyval.newNode),(yyvsp[0].newNode));};};}
+#line 136 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","While",lineCounter,(int)(columnCounter-yyleng));(yyval.newNode)->column = (yyvsp[-4].col);addChild((yyval.newNode),(yyvsp[-2].newNode));if((yyvsp[0].newNode)==NULL){temp=initNode("NULL","Block",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),temp);}else{addChild((yyval.newNode),(yyvsp[0].newNode));};};}
 #line 1692 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 135 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Return",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-1].newNode));};}
+#line 137 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Return",lineCounter,(int)(columnCounter-yyleng));(yyval.newNode)->column = (yyvsp[-2].col);addChild((yyval.newNode),(yyvsp[-1].newNode));};}
 #line 1698 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 136 "jucompiler.y" /* yacc.c:1646  */
+#line 138 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode)=(yyvsp[-1].newNode);};}
 #line 1704 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 137 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Print",lineCounter,(int)(columnCounter-yyleng));temp=initNode((yyvsp[-2].loki)->id,"StrLit",lineCounter,(yyvsp[-2].loki)->column);addChild((yyval.newNode),temp);};}
+#line 139 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Print",lineCounter,(int)(columnCounter-yyleng));(yyval.newNode)->column = (yyvsp[-4].col);temp=initNode((yyvsp[-2].loki)->id,"StrLit",lineCounter,(yyvsp[-2].loki)->column);addChild((yyval.newNode),temp);};}
 #line 1710 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 138 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Print",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));};}
+#line 140 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Print",lineCounter,(int)(columnCounter-yyleng));(yyval.newNode)->column = (yyvsp[-4].col);addChild((yyval.newNode),(yyvsp[-2].newNode));(yyval.newNode)->column = (yyvsp[-4].col);};}
 #line 1716 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 139 "jucompiler.y" /* yacc.c:1646  */
+#line 141 "jucompiler.y" /* yacc.c:1646  */
     {(yyval.newNode) = NULL;}
 #line 1722 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 142 "jucompiler.y" /* yacc.c:1646  */
+#line 144 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){if((yyvsp[-1].newNode) != NULL && (yyvsp[0].newNode) != NULL){(yyval.newNode) = (yyvsp[-1].newNode);addSibling((yyval.newNode), (yyvsp[0].newNode));}else if((yyvsp[-1].newNode) == NULL){(yyval.newNode) = (yyvsp[0].newNode);}else if((yyvsp[0].newNode) == NULL){(yyval.newNode) = (yyvsp[-1].newNode);};};}
 #line 1728 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 143 "jucompiler.y" /* yacc.c:1646  */
+#line 145 "jucompiler.y" /* yacc.c:1646  */
     {(yyval.newNode)=NULL;}
 #line 1734 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 146 "jucompiler.y" /* yacc.c:1646  */
+#line 148 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode)=(yyvsp[0].newNode);};}
 #line 1740 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 147 "jucompiler.y" /* yacc.c:1646  */
+#line 149 "jucompiler.y" /* yacc.c:1646  */
     {(yyval.newNode)=NULL;}
 #line 1746 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 150 "jucompiler.y" /* yacc.c:1646  */
+#line 152 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode)=initNode("NULL","Call",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[0].newNode));(yyval.newNode)->column=1;};}
 #line 1752 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 151 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Assign",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 153 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Assign",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[0].newNode));(yyval.newNode)->column = temp_c;};}
 #line 1758 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 152 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","ParseArgs",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 154 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","ParseArgs",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[0].newNode));(yyval.newNode)->column = temp_c;};}
 #line 1764 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 153 "jucompiler.y" /* yacc.c:1646  */
+#line 155 "jucompiler.y" /* yacc.c:1646  */
     {(yyval.newNode)=NULL;}
 #line 1770 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 156 "jucompiler.y" /* yacc.c:1646  */
+#line 158 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode) = initNode((yyvsp[-3].loki)->id,"Id",lineCounter,(yyvsp[-3].loki)->column);addSibling((yyval.newNode),(yyvsp[-1].newNode));};}
 #line 1776 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 157 "jucompiler.y" /* yacc.c:1646  */
+#line 159 "jucompiler.y" /* yacc.c:1646  */
     {(yyval.newNode) = NULL;}
 #line 1782 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 160 "jucompiler.y" /* yacc.c:1646  */
+#line 162 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode)=(yyvsp[-1].newNode);addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1788 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 161 "jucompiler.y" /* yacc.c:1646  */
+#line 163 "jucompiler.y" /* yacc.c:1646  */
     {(yyval.newNode) = NULL;}
 #line 1794 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 164 "jucompiler.y" /* yacc.c:1646  */
+#line 166 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode)=(yyvsp[-1].newNode);addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1800 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 165 "jucompiler.y" /* yacc.c:1646  */
+#line 167 "jucompiler.y" /* yacc.c:1646  */
     {(yyval.newNode) = NULL;}
 #line 1806 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 168 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode((yyvsp[-2].loki)->id,"Id",lineCounter,(yyvsp[-2].loki)->column);(yyval.newNode)->column = (yyvsp[-1].col);addSibling((yyval.newNode),(yyvsp[0].newNode));};}
+#line 170 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode) = initNode((yyvsp[-2].loki)->id,"Id",lineCounter,(yyvsp[-2].loki)->column);temp_c=(yyvsp[-1].col);addSibling((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1812 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 171 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode) = initNode((yyvsp[-4].loki)->id,"Id",lineCounter,(yyvsp[-4].loki)->column);(yyval.newNode)->column = (yyvsp[-6].col);addSibling((yyval.newNode),(yyvsp[-2].newNode));};}
+#line 173 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode) = initNode((yyvsp[-4].loki)->id,"Id",lineCounter,(yyvsp[-4].loki)->column);temp_c=(yyvsp[-6].col);addSibling((yyval.newNode),(yyvsp[-2].newNode));};}
 #line 1818 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 172 "jucompiler.y" /* yacc.c:1646  */
+#line 174 "jucompiler.y" /* yacc.c:1646  */
     {(yyval.newNode) = NULL;}
 #line 1824 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 175 "jucompiler.y" /* yacc.c:1646  */
+#line 177 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode)=(yyvsp[0].newNode);};}
 #line 1830 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 176 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Assign",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 178 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Assign",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[0].newNode));(yyval.newNode)->column = temp_c;};}
 #line 1836 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 179 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","And",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 181 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","And",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));(yyval.newNode)->column = (yyvsp[-1].col);addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1842 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 180 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Or",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 182 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Or",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));(yyval.newNode)->column = (yyvsp[-1].col);addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1848 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 181 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Xor",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 183 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Xor",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));(yyval.newNode)->column = (yyvsp[-1].col);addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1854 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 182 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Mul",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 184 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Mul",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));(yyval.newNode)->column = (yyvsp[-1].col);addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1860 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 183 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Div",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 185 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Div",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));(yyval.newNode)->column = (yyvsp[-1].col);addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1866 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 184 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Mod",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 186 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Mod",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));(yyval.newNode)->column = (yyvsp[-1].col);addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1872 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 185 "jucompiler.y" /* yacc.c:1646  */
+#line 187 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode)=initNode("NULL","Lshift",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1878 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 186 "jucompiler.y" /* yacc.c:1646  */
+#line 188 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode)=initNode("NULL","Rshift",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1884 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 187 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Add",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 189 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Add",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));(yyval.newNode)->column = (yyvsp[-1].col);addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1890 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 188 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Sub",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 190 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Sub",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));(yyval.newNode)->column = (yyvsp[-1].col);addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1896 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 189 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Eq",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 191 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Eq",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));(yyval.newNode)->column = (yyvsp[-1].col);addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1902 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 190 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Ne",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 192 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Ne",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));(yyval.newNode)->column = (yyvsp[-1].col);addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1908 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 191 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Ge",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 193 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Ge",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));(yyval.newNode)->column = (yyvsp[-1].col);addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1914 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 192 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Gt",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 194 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Gt",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));(yyval.newNode)->column = (yyvsp[-1].col);addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1920 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 193 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Le",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 195 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Le",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));(yyval.newNode)->column = (yyvsp[-1].col);addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1926 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 194 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Lt",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 196 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Lt",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[-2].newNode));(yyval.newNode)->column = (yyvsp[-1].col);addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1932 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 195 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL", "Minus",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 197 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL", "Minus",lineCounter,(int)(columnCounter-yyleng));(yyval.newNode)->column=(yyvsp[-1].col);addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1938 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 196 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL", "Not",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 198 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL", "Not",lineCounter,(int)(columnCounter-yyleng));(yyval.newNode)->column=(yyvsp[-1].col);addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1944 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 197 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL", "Plus",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 199 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL", "Plus",lineCounter,(int)(columnCounter-yyleng));(yyval.newNode)->column=(yyvsp[-1].col);addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1950 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 198 "jucompiler.y" /* yacc.c:1646  */
+#line 200 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode)=(yyvsp[-1].newNode);};}
 #line 1956 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 199 "jucompiler.y" /* yacc.c:1646  */
+#line 201 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode)=initNode("NULL","Call",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[0].newNode));};}
 #line 1962 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 200 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","ParseArgs",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[0].newNode));};}
+#line 202 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","ParseArgs",lineCounter,(int)(columnCounter-yyleng));addChild((yyval.newNode),(yyvsp[0].newNode));(yyval.newNode)->column = temp_c;};}
 #line 1968 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 201 "jucompiler.y" /* yacc.c:1646  */
-    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Length",lineCounter,(int)(columnCounter-yyleng));temp=initNode((yyvsp[-1].loki)->id,"Id",lineCounter,(yyvsp[-1].loki)->column);addChild((yyval.newNode),temp);};}
+#line 203 "jucompiler.y" /* yacc.c:1646  */
+    {if(fatalities==0){(yyval.newNode)=initNode("NULL","Length",lineCounter,(int)(columnCounter-yyleng));(yyval.newNode)->column = (yyvsp[0].col);temp=initNode((yyvsp[-1].loki)->id,"Id",lineCounter,(yyvsp[-1].loki)->column);addChild((yyval.newNode),temp);};}
 #line 1974 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 81:
-#line 202 "jucompiler.y" /* yacc.c:1646  */
+#line 204 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode)=initNode((yyvsp[0].loki)->id,"Id",lineCounter,(yyvsp[0].loki)->column);};}
 #line 1980 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 82:
-#line 203 "jucompiler.y" /* yacc.c:1646  */
+#line 205 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode)=initNode((yyvsp[0].loki)->id,"DecLit",lineCounter,(yyvsp[0].loki)->column);};}
 #line 1986 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 83:
-#line 204 "jucompiler.y" /* yacc.c:1646  */
+#line 206 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode)=initNode((yyvsp[0].loki)->id,"RealLit",lineCounter,(yyvsp[0].loki)->column);};}
 #line 1992 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 84:
-#line 205 "jucompiler.y" /* yacc.c:1646  */
+#line 207 "jucompiler.y" /* yacc.c:1646  */
     {if(fatalities==0){(yyval.newNode)=initNode((yyvsp[0].loki)->id,"BoolLit",lineCounter,(yyvsp[0].loki)->column);};}
 #line 1998 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 85:
-#line 206 "jucompiler.y" /* yacc.c:1646  */
+#line 208 "jucompiler.y" /* yacc.c:1646  */
     {(yyval.newNode) = NULL;}
 #line 2004 "y.tab.c" /* yacc.c:1646  */
     break;
@@ -2232,7 +2232,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 209 "jucompiler.y" /* yacc.c:1906  */
+#line 211 "jucompiler.y" /* yacc.c:1906  */
 
 
 void yyerror(char *s)

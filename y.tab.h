@@ -47,114 +47,114 @@ extern int yydebug;
   {
     BOOL = 258,
     CLASS = 259,
-    DOTLENGTH = 260,
-    DOUBLE = 261,
-    ELSE = 262,
-    IF = 263,
-    INT = 264,
-    PRINT = 265,
-    PUBLIC = 266,
-    RETURN = 267,
-    STATIC = 268,
-    STRING = 269,
-    VOID = 270,
-    WHILE = 271,
-    SEMICOLON = 272,
-    BLANKID = 273,
-    AND = 274,
-    STAR = 275,
-    ARROW = 276,
-    COMMA = 277,
-    DIV = 278,
-    EQ = 279,
-    GE = 280,
-    GT = 281,
-    LBRACE = 282,
-    LE = 283,
-    LPAR = 284,
-    LSQ = 285,
-    LT = 286,
-    MINUS = 287,
-    MOD = 288,
-    NE = 289,
-    NOT = 290,
-    OR = 291,
-    PLUS = 292,
-    RBRACE = 293,
-    RPAR = 294,
-    RSQ = 295,
-    XOR = 296,
-    LSHIFT = 297,
-    RSHIFT = 298,
-    ID = 299,
-    RESERVED = 300,
-    INTLIT = 301,
-    REALLIT = 302,
-    STRLIT = 303,
-    BOOLLIT = 304,
-    UNARY = 305,
-    ASSIGN = 306,
-    PARSEINT = 307
+    DOUBLE = 260,
+    INT = 261,
+    PUBLIC = 262,
+    STATIC = 263,
+    STRING = 264,
+    VOID = 265,
+    SEMICOLON = 266,
+    BLANKID = 267,
+    COMMA = 268,
+    LBRACE = 269,
+    LPAR = 270,
+    LSQ = 271,
+    RBRACE = 272,
+    RPAR = 273,
+    RSQ = 274,
+    LSHIFT = 275,
+    RSHIFT = 276,
+    ID = 277,
+    RESERVED = 278,
+    INTLIT = 279,
+    REALLIT = 280,
+    STRLIT = 281,
+    BOOLLIT = 282,
+    UNARY = 283,
+    ASSIGN = 284,
+    PARSEINT = 285,
+    LE = 286,
+    EQ = 287,
+    LT = 288,
+    GE = 289,
+    GT = 290,
+    NE = 291,
+    OR = 292,
+    AND = 293,
+    MINUS = 294,
+    MOD = 295,
+    DIV = 296,
+    STAR = 297,
+    PLUS = 298,
+    XOR = 299,
+    PRINT = 300,
+    RETURN = 301,
+    DOTLENGTH = 302,
+    ARROW = 303,
+    WHILE = 304,
+    NOT = 305,
+    IF = 306,
+    ELSE = 307
   };
 #endif
 /* Tokens.  */
 #define BOOL 258
 #define CLASS 259
-#define DOTLENGTH 260
-#define DOUBLE 261
-#define ELSE 262
-#define IF 263
-#define INT 264
-#define PRINT 265
-#define PUBLIC 266
-#define RETURN 267
-#define STATIC 268
-#define STRING 269
-#define VOID 270
-#define WHILE 271
-#define SEMICOLON 272
-#define BLANKID 273
-#define AND 274
-#define STAR 275
-#define ARROW 276
-#define COMMA 277
-#define DIV 278
-#define EQ 279
-#define GE 280
-#define GT 281
-#define LBRACE 282
-#define LE 283
-#define LPAR 284
-#define LSQ 285
-#define LT 286
-#define MINUS 287
-#define MOD 288
-#define NE 289
-#define NOT 290
-#define OR 291
-#define PLUS 292
-#define RBRACE 293
-#define RPAR 294
-#define RSQ 295
-#define XOR 296
-#define LSHIFT 297
-#define RSHIFT 298
-#define ID 299
-#define RESERVED 300
-#define INTLIT 301
-#define REALLIT 302
-#define STRLIT 303
-#define BOOLLIT 304
-#define UNARY 305
-#define ASSIGN 306
-#define PARSEINT 307
+#define DOUBLE 260
+#define INT 261
+#define PUBLIC 262
+#define STATIC 263
+#define STRING 264
+#define VOID 265
+#define SEMICOLON 266
+#define BLANKID 267
+#define COMMA 268
+#define LBRACE 269
+#define LPAR 270
+#define LSQ 271
+#define RBRACE 272
+#define RPAR 273
+#define RSQ 274
+#define LSHIFT 275
+#define RSHIFT 276
+#define ID 277
+#define RESERVED 278
+#define INTLIT 279
+#define REALLIT 280
+#define STRLIT 281
+#define BOOLLIT 282
+#define UNARY 283
+#define ASSIGN 284
+#define PARSEINT 285
+#define LE 286
+#define EQ 287
+#define LT 288
+#define GE 289
+#define GT 290
+#define NE 291
+#define OR 292
+#define AND 293
+#define MINUS 294
+#define MOD 295
+#define DIV 296
+#define STAR 297
+#define PLUS 298
+#define XOR 299
+#define PRINT 300
+#define RETURN 301
+#define DOTLENGTH 302
+#define ARROW 303
+#define WHILE 304
+#define NOT 305
+#define IF 306
+#define ELSE 307
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 
 union YYSTYPE
 {
-#line 41 "jucompiler.y" /* yacc.c:1909  */
+#line 43 "jucompiler.y" /* yacc.c:1909  */
 
     int col;
     struct uni* loki;
